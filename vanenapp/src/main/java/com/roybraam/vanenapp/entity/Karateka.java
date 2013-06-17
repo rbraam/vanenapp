@@ -6,18 +6,27 @@ package com.roybraam.vanenapp.entity;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Roy Braam
  */
+@Entity
 public class Karateka {    
+    @Id
     private Integer id;
     private String name;
     private String surname;
     private String insert;
+    @Enumerated(EnumType.STRING)
     private Kyu belt;
-    private String gender;
+    private String gender;    
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdata;
     private double weight;
     

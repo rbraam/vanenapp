@@ -42,6 +42,16 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.6.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.6.8.Final</version>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -51,6 +61,7 @@
             <url>file://${project.basedir}/../repo</url>
         </repository>
     </repositories>
+    
     <build>
         <plugins>
             <plugin>
@@ -97,6 +108,36 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>hibernate3-maven-plugin</artifactId>
+                <version>3.0</version>              
+                <executions>
+                    <execution>
+                        <id>schema-export</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <hibernatetool destdir="target">
+                                <classpath>
+                                    <path location="target"/>                                    
+                                </classpath>
+                                
+                                <hbm2ddl
+                                    export="false"
+                                    drop="false"
+                                    create="true"
+                                    outputfilename="vanenapp_schema.sql"
+                                    format="true">
+                                    <jpaconfiguration persistenceUnit="vanenappPU"/>
+                                </hbm2ddl>                                                                    
+                            </hibernatetool>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions> 
             </plugin>
         </plugins>
     </build>

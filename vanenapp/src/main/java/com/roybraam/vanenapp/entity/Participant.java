@@ -4,16 +4,29 @@
  */
 package com.roybraam.vanenapp.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Roy Braam
  */
+@Entity
 public class Participant {
+    @Id
     private Long id;
+    @ManyToOne
     private Karateka karateka;
+    @ManyToOne
     private Vanencompetition vanencompetition;
+    @ManyToOne
     private Poule poule;
     private Integer points;
+    @Enumerated(EnumType.STRING)
+    private CompetitionType type;
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Long getId() {
@@ -55,5 +68,12 @@ public class Participant {
     public void setPoints(Integer points) {
         this.points = points;
     }
-    //</editor-fold>
+    public CompetitionType getType() {
+        return type;
+    }
+
+    public void setType(CompetitionType type) {
+        this.type = type;
+    }
 }
+    //</editor-fold>

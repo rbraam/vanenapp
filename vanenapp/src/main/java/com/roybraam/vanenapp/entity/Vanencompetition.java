@@ -7,15 +7,24 @@ package com.roybraam.vanenapp.entity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Roy Braam
  */
+@Entity
 public class Vanencompetition {
+    @Id
     private long id;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date subscriptionEnd;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
+    @ManyToOne
     private Organisation organisation;
     private String location;
     

@@ -6,23 +6,35 @@
 package com.roybraam.vanenapp.entity;
 
 import java.security.Principal;
-import java.util.Iterator;
 import java.util.Set;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Roy
  */
+@Entity
 public class User implements Principal{
+    @Id
     private Integer id;
     private String naam;
     private String gebruikersnaam;
     private String wachtwoord;    
+    @ManyToOne
     private Organisation organisation;
-
+    
+    @ElementCollection
+    @JoinTable(name="user_role")
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    /** Creates a new instance of Beheerder */
+    
     public User() {
     }
 

@@ -4,12 +4,16 @@
  */
 package com.roybraam.vanenapp.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Roy Braam
  */
+@Entity
 public class Organisation {
-
+    @Id
     private Long id;
     private String naam;
 
