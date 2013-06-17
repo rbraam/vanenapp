@@ -14,12 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.roybraam.vanenapp.entity;
+package com.roybraam.vanenapp.init;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  *
  * @author Roy Braam
  */
-public enum Role {
-    ADMIN,SUPERADMIN;
+@Configuration
+@ComponentScan("com.roybraam.vanenapp.controller")
+@EnableWebMvc
+public class WebappConfig {
+ 
+  @Bean
+  public InternalResourceViewResolver setupViewResolver() {
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    resolver.setPrefix("/WEB-INF/views/");
+    resolver.setSuffix(".jsp");
+ 
+    return resolver;
+  }
+ 
 }

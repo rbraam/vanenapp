@@ -14,12 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.roybraam.vanenapp.entity;
+package com.roybraam.vanenapp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author Roy Braam
  */
-public enum Role {
-    ADMIN,SUPERADMIN;
+@Controller
+public class IndexController {
+    @RequestMapping("/index")
+    public String helloWorld(Model model){
+        return "index";
+    }
 }
