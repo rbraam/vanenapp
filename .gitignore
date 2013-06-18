@@ -4,3 +4,4 @@
 *.war
 *.ear
 /vanenapp/target/
+/vanenapp/nb-configuration.xml
