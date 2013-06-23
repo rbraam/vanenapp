@@ -15,11 +15,16 @@
     </properties>
 
     <dependencies>
-        <!--Spring-->
+        <!-- Stripes -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>3.1.1.RELEASE</version>
+            <groupId>net.sourceforge.stripes</groupId>
+            <artifactId>stripes</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.stripesstuff</groupId>
+            <artifactId>stripersist</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
         <!-- Required for xml-less configuration of Spring-->
@@ -56,7 +61,20 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>3.6.8.Final</version>
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+        </dependency>
     </dependencies>
+    
+     <repositories>
+        <repository>
+            <id>org.flamingo-mc</id>
+            <name>Flamingo-MC Maven Repository</name>
+            <url>file://${project.basedir}/../repo</url>
+        </repository>
+     </repositories>
     
     <build>
         <plugins>
