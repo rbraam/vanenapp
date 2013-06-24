@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.roybraam.vanenapp.stripes;
 
 import net.sourceforge.stripes.action.ActionBean;
@@ -17,10 +13,10 @@ import net.sourceforge.stripes.action.UrlBinding;
  * @author Roy Braam
  */
 @StrictBinding
-@UrlBinding("/index/{$event}")
+@UrlBinding("/action/index/{$event}")
 public class IndexActionBean implements ActionBean{
     private ActionBeanContext context;
-    private static final String JSP = "/WEB-INF/views/index.jsp";
+    private static final String JSP = "/WEB-INF/jsp/index.jsp";
     
 
     @DefaultHandler

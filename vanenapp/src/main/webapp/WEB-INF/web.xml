@@ -90,7 +90,7 @@
 
     <welcome-file-list>
         <welcome-file> 
-            index.action
+            action/index/
         </welcome-file>
     </welcome-file-list>
  

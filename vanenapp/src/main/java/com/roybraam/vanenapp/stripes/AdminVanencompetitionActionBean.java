@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.roybraam.vanenapp.stripes;
 
 import net.sourceforge.stripes.action.ActionBean;
@@ -17,10 +13,10 @@ import net.sourceforge.stripes.action.UrlBinding;
  * @author Roy Braam
  */
 @StrictBinding
-@UrlBinding("/admin/vanencompetition/{$event}")
+@UrlBinding("/action/admin/vanencompetition/{$event}")
 public class AdminVanencompetitionActionBean implements ActionBean{
     private ActionBeanContext context;
-    private static final String JSP = "/WEB-INF/views/admin/vanencompetition.jsp";
+    private static final String JSP = "/WEB-INF/jsp/admin/vanencompetition.jsp";
 
     @DefaultHandler
     public Resolution view() {
