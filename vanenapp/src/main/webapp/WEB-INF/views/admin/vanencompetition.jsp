@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,9 +13,5 @@
     </head>
     <body>
         <h1>Vanencompetitie</h1>
-        <form:form method="post" commandName="vanencompetition" action="vanencompetition">
-            Locatie: <form:input path="location"/>
-            <input type="submit" value="Opslaan"/>
-        </form:form>
     </body>
 </html>

@@ -23,26 +23,33 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Roy
  */
 @Entity
+@Table(name ="user_")
 public class User implements Principal{
     @Id
     private Integer id;
-    private String naam;
-    private String gebruikersnaam;
-    private String wachtwoord;    
+    private String name;
+    private String username;
+    private String password;    
     @ManyToOne
     private Organisation organisation;
-    
-    @ElementCollection
-    @JoinTable(name="user_role")
+    /*
+     * 
+    @JoinTable(name="user_groups", joinColumns=@JoinColumn(name="username"), inverseJoinColumns=@JoinColumn(name="group_"))
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name="user_role", joinColumns = @JoinColumn(name="user_"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
@@ -50,38 +57,39 @@ public class User implements Principal{
     public User() {
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getNaam() {
-        return naam;
+    
+    public String getName() {
+        return name;
     }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
+    
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public String getGebruikersnaam() {
-        return gebruikersnaam;
+    
+    public String getUsername() {
+        return username;
     }
-
-    public void setGebruikersnaam(String gebruikersnaam) {
-        this.gebruikersnaam = gebruikersnaam;
+    
+    public void setUsername(String username) {
+        this.username = username;
     }
-
-    public String getWachtwoord() {
-        return wachtwoord;
+    
+    public String getPassword() {
+        return password;
     }
-
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
-
+    
     public boolean checkRole(String role) {
         if(roles == null) {
             return false;
@@ -93,29 +101,27 @@ public class User implements Principal{
         }
         return false;
     }
-    public String getName() {
-        return naam;
-    }
-
+    
     public Set getRoles() {
         return roles;
     }
-
+    
     public void setRoles(Set roles) {
         this.roles = roles;
     }
-
-    public String toString(){
-        return getNaam();
-
-    }
-
+    
     public Organisation getOrganisation() {
         return organisation;
     }
-
+    
     public void setOrganisation(Organisation organisation) {
         this.organisation = organisation;
     }
-
+    
+    @Override
+    public String toString(){
+        return getName();
+        
+    }
+    //</editor-fold>
 }

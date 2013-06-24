@@ -14,5 +14,46 @@
  
        
     <!-- For PostgreSQL the IDENTITY strategy will use (big)serial columns -->
-   
+    <entity class="com.roybraam.vanenapp.entity.Karateka">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
+    <entity class="com.roybraam.vanenapp.entity.Organisation">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
+    <entity class="com.roybraam.vanenapp.entity.Participant">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
+    <entity class="com.roybraam.vanenapp.entity.Poule">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
+    <entity class="com.roybraam.vanenapp.entity.User">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
+    <entity class="com.roybraam.vanenapp.entity.Vanencompetition">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
 </entity-mappings>

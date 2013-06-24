@@ -12,6 +12,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>
@@ -44,6 +45,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
             <scope>provided</scope>
+        </dependency> 
+        <dependency>
+            <groupId>securityfilter</groupId>
+            <artifactId>securityfilter</artifactId>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>jstl</groupId>
@@ -68,13 +74,13 @@
         </dependency>
     </dependencies>
     
-     <repositories>
+    <repositories>
         <repository>
             <id>org.flamingo-mc</id>
             <name>Flamingo-MC Maven Repository</name>
             <url>file://${project.basedir}/../repo</url>
         </repository>
-     </repositories>
+    </repositories>
     
     <build>
         <plugins>
@@ -136,7 +142,6 @@
                                 <classpath>
                                     <path location="target"/>                                    
                                 </classpath>
-                                
                                 <hbm2ddl
                                     export="false"
                                     drop="false"

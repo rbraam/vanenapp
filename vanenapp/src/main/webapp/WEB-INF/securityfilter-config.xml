@@ -18,12 +18,12 @@
             <web-resource-name>
                 vanenapplic
             </web-resource-name>
-            <url-pattern>/beheer/*</url-pattern>
+            <url-pattern>/admin/*</url-pattern>
             <http-method>POST</http-method>
             <http-method>GET</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>beheerder</role-name>
+            <role-name>SUPERADMIN</role-name>
         </auth-constraint>
         <!--
         <user-data-constraint>
