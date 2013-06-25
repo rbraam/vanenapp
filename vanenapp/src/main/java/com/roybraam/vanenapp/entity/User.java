@@ -50,12 +50,11 @@ public class User implements Principal{
      */
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name="user_role", joinColumns = @JoinColumn(name="user_"))
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Set<Role> roles;
 
     
-    public User() {
-    }
+    
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public Integer getId() {

@@ -14,7 +14,7 @@ import net.sourceforge.stripes.action.UrlBinding;
  */
 @StrictBinding
 @UrlBinding("/action/admin/vanencompetition/{$event}")
-public class AdminVanencompetitionActionBean implements ActionBean{
+public class VanencompetitionActionBean implements ActionBean{
     private ActionBeanContext context;
     private static final String JSP = "/WEB-INF/jsp/admin/vanencompetition.jsp";
 
