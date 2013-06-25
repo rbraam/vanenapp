@@ -1,0 +1,43 @@
+/* 
+    Document   : main
+    Created on : Jun 24, 2013, 8:29:54 PM
+    Author     : Roy Braam
+    Description:
+        Main css file
+*/
+body{
+    padding: 0px;
+    margin: 0px;
+    font-size: 8pt; 
+    color: #000000; 
+    background-color: #D6EAF2;
+    font-family: arial, sans-serif;
+    overflow: auto;
+}
+
+#header{
+    position: static;
+    float: left;
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    background-color: #003333;
+}
+#menu{
+    position: static;
+    float: left;
+    width: 200px;
+    height: 1100px;
+    color: white;
+    background-color: #186198; 
+}
+#content{
+    position: static;
+    float: none;
+    width: 997px;
+    height: 100%;
+    margin-left: auto; 
+    margin-right: auto;
+    background-color: #FFF;
+    
+}
