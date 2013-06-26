@@ -32,7 +32,7 @@
                 </tr>
                 <c:forEach items="${actionBean.users}" var="u">
                     <tr>
-                        <td><c:out value="${u.name}"/></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="edit"/>?user=${u.id}'><c:out value="${u.name}"/></a></td>
                         <td><c:out value="${u.username}"/></td>
                         <td><c:out value="${u.roles}"/></td>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="delete"/>?user=${u.id}'>Verwijder</a></td>
@@ -56,7 +56,7 @@
                             </tr>                    
                             <tr>
                                 <td>Wachtwoord</td>
-                                <td><stripes:password name="user.password"/></td>
+                                <td><stripes:password name="password"/></td>
                             </tr>
                             <tr>
                                 <td>Organisatie</td>

@@ -40,12 +40,13 @@ public class UserActionBean implements ActionBean {
     @Validate(on = {"save"})
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
-        @Validate(on = {"save"}, field = "username", required = true, maxlength = 255, label = "Gebruikersnaam"),
-        @Validate(on = {"save"}, field = "password", required = true, maxlength = 255, label = "Wachtwoord")
+        @Validate(on = {"save"}, field = "username", required = true, maxlength = 255, label = "Gebruikersnaam")
     })
     private User user;
     @Validate
     private Set<String> roles;
+    @Validate
+    private String password;
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
@@ -67,6 +68,9 @@ public class UserActionBean implements ActionBean {
         }else{
             user.setRoles(null);
         }
+        if (this.password!=null && !"".equals(this.password.trim())){
+            user.setPassword(password);
+        }
         Stripersist.getEntityManager().persist(user);
         Stripersist.getEntityManager().getTransaction().commit();
         this.load();
@@ -76,6 +80,9 @@ public class UserActionBean implements ActionBean {
 
     public Resolution edit() {
         setOrganisations((List<Organisation>) Stripersist.getEntityManager().createQuery("From Organisation").getResultList());
+        if (user!=null) {
+            roles = user.getRoles();
+        }
         Stripersist.getEntityManager().getTransaction().commit();
         return new ForwardResolution(JSP);
     }
@@ -148,19 +155,22 @@ public class UserActionBean implements ActionBean {
     public void setOrganisations(List<Organisation> organisations) {
         this.organisations = organisations;
     }
-    //</editor-fold>
-
-    /**
-     * @return the roles
-     */
+    
     public Set<String> getRoles() {
         return roles;
     }
 
-    /**
-     * @param roles the roles to set
-     */
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    //</editor-fold>
+
 }
