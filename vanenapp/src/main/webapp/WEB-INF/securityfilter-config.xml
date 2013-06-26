@@ -34,7 +34,7 @@
                 beheer vanenapp
             </web-resource-name>
             <url-pattern>/admin/user/*</url-pattern>
-            <url-pattern>action/admin/user/*</url-pattern>
+            <url-pattern>/action/admin/user/*</url-pattern>
             <http-method>POST</http-method>
             <http-method>GET</http-method>
         </web-resource-collection>
