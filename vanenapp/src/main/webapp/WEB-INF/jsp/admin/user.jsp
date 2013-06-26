@@ -17,33 +17,34 @@
     </stripes:layout-component>
 
     <stripes:layout-component name="body">
-       <p>
+        <p>
             <stripes:errors/>
             <stripes:messages/>
-       </p>
-            <h1>Beheer Gebruikers</h1><br/>
-            <div class="admin-list">
-                <table>
+        </p>
+        <h1>Beheer Gebruikers</h1><br/>
+        <div class="admin-list">
+            <table>
+                <tr>
+                <th>Naam</th>
+                <th>Gebruikersnaam</th>
+                <th>Rollen</th>
+                <th></th>
+                </tr>
+                <c:forEach items="${actionBean.users}" var="u">
                     <tr>
-                        <td>Naam</td>
-                        <td>Gebruikersnaam</td>
-                        <td>Rollen</td>
-                        <td></td>
+                        <td><c:out value="${u.name}"/></td>
+                        <td><c:out value="${u.username}"/></td>
+                        <td><c:out value="${u.roles}"/></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="delete"/>?user=${u.id}'>Verwijder</a></td>
                     </tr>
-                    <c:forEach items="${actionBean.users}" var="u">
-                        <tr>
-                            <td><c:out value="${u.name}"/></td>
-                            <td><c:out value="${u.username}"/></td>
-                            <td><c:out value="${u.roles}"/></td>
-                            <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="delete"/>?user=${u.id}'>Verwijder</a></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </div>
-            <stripes:form beanclass="com.roybraam.vanenapp.stripes.UserActionBean">
-                <c:choose>
-                    <c:when test="${actionBean.context.eventName == 'edit'}">
-                        <stripes:hidden name="user" value="${actionBean.user.id}"/>
+                </c:forEach>
+            </table>
+        </div>
+        <stripes:form beanclass="com.roybraam.vanenapp.stripes.UserActionBean">
+            <c:choose>
+                <c:when test="${actionBean.context.eventName == 'edit'}">
+                    <stripes:hidden name="user" value="${actionBean.user.id}"/>
+                    <div class="form-container">
                         <table class="formtable">                    
                             <tr>
                                 <td>Naam</td>
@@ -73,17 +74,18 @@
                                 </td>
                             </tr>
                         </table>
-                        <div class="submitbuttons">
-                            <stripes:submit name="save" value="Opslaan"/>
-                            <stripes:submit name="cancel" value="Annuleren"/>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <stripes:submit name="edit" value="Nieuwe gebruiker"/>
-                    </c:otherwise>
-                </c:choose>
-            </stripes:form>
-            
+                    </div>
+                    <div class="submitbuttons">
+                        <stripes:submit name="save" value="Opslaan"/>
+                        <stripes:submit name="cancel" value="Annuleren"/>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <stripes:submit name="edit" value="Nieuwe gebruiker"/>
+                </c:otherwise>
+            </c:choose>
+        </stripes:form>
+
     </stripes:layout-component>
 
 </stripes:layout-render>
