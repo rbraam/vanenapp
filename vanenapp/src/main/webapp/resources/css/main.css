@@ -130,12 +130,17 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     font-weight: bold;
     background-color: lightgray;
 }
+
 /*Form*/
 .form-container{
     width: 100%;
 }
 .form-container table{
     width: 100%;
+}
+.form-container table tr td:first-child{
+    font-weight: bold;
+    width: 200px;
 }
 /*Menu*/
 .menuUl a, .menuUl a:visited, .menuUl a:hover{
