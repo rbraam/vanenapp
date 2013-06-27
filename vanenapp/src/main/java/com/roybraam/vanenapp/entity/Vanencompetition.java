@@ -103,4 +103,14 @@ public class Vanencompetition {
         this.location = location;
     }
     //</editor-fold>
+
+    public boolean isAllowed(User user) {
+        if(user.checkRole(Role.SUPERADMIN.name())){
+            return true;
+        }
+        if (getOrganisation().getId().equals(user.getOrganisation().getId())){
+            return true;
+        }
+        return false;
+    }
 }

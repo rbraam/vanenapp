@@ -11,18 +11,21 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+            <link rel="stylesheet" type="text/css" href="${contextPath}/extjs/resources/css/ext-all-gray.css">
             <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/main.css">
 
-        <stripes:layout-component name="head"/>
+            <stripes:layout-component name="head"/>
 
-        <script type="text/javascript">
-            if (console == undefined) {
-                var console = {};
-                console.log = function(logmsg) {
-                    //alert(logmsg);
+            <script type="text/javascript">
+                if (console == undefined) {
+                    var console = {};
+                    console.log = function(logmsg) {
+                        //alert(logmsg);
+                    }
                 }
-            }
-        </script>
+            </script>
+            <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
+            <script type="text/javascript" src="${contextPath}/extjs/locale/ext-lang-nl.js"></script>
         </head>
         <body>
             <div id="header">
