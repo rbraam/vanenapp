@@ -27,6 +27,7 @@
                 <tr>
                 <th>Naam</th>
                 <th>Gebruikersnaam</th>
+                <th>Organisatie</th>
                 <th>Rollen</th>
                 <th></th>
                 </tr>
@@ -34,6 +35,7 @@
                     <tr>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="edit"/>?user=${u.id}'><c:out value="${u.name}"/></a></td>
                         <td><c:out value="${u.username}"/></td>
+                        <td><c:out value="${u.organisation.name}"/></td>
                         <td><c:out value="${u.roles}"/></td>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.UserActionBean" event="delete"/>?user=${u.id}'>Verwijder</a></td>
                     </tr>
@@ -62,6 +64,7 @@
                                 <td>Organisatie</td>
                                 <td>
                                     <stripes:select name="user.organisation">
+                                        <stripes:option value="-1">Kies een organisatie</stripes:option>
                                         <stripes:options-collection collection="${actionBean.organisations}" value="id" label="name"/>
                                     </stripes:select>
                                 </td>

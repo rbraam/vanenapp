@@ -40,7 +40,8 @@ public class UserActionBean implements ActionBean {
     @Validate(on = {"save"})
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
-        @Validate(on = {"save"}, field = "username", required = true, maxlength = 255, label = "Gebruikersnaam")
+        @Validate(on = {"save"}, field = "username", required = true, maxlength = 255, label = "Gebruikersnaam"),
+        @Validate(on = {"save"}, field = "organisation")
     })
     private User user;
     @Validate
