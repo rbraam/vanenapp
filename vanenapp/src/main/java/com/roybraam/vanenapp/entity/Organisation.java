@@ -27,7 +27,7 @@ import javax.persistence.Id;
 public class Organisation {
     @Id
     private Long id;
-    private String naam;
+    private String name;
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Long getId() {
@@ -38,12 +38,12 @@ public class Organisation {
         this.id = id;
     }
     
-    public String getNaam() {
-        return naam;
+    public String getName(){
+        return name;
     }
     
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setName(String name) {
+        this.name = name;
     }
     //</editor-fold>
 }
