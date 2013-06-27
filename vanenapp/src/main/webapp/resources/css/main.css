@@ -61,3 +61,7 @@ body{
 .form-container table{
     width: 100%;
 }
+/*Menu*/
+.menuUl a, .menuUl a:visited, .menuUl a:hover{
+    color: white;
+}
