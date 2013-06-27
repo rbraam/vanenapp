@@ -30,8 +30,8 @@
                 </tr>
                 <c:forEach items="${actionBean.organisations}" var="o">
                     <tr>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean" event="edit"/>?user=${o.id}'><c:out value="${o.name}"/></a></td>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean" event="delete"/>?user=${o.id}'>Verwijder</a></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean" event="edit"/>?organisation=${o.id}'><c:out value="${o.name}"/></a></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean" event="delete"/>?organisation=${o.id}'>Verwijder</a></td>
                     </tr>
                 </c:forEach>
             </table>
