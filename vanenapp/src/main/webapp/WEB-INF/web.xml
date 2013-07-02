@@ -10,6 +10,9 @@
         <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
         <param-value>nl</param-value>
     </context-param>
+    <!--listener>
+        <listener-class>com.roybraam.vanenapp.service.DatabaseSynchronizer</listener-class>
+    </listener-->
     <filter>
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
@@ -78,6 +81,11 @@
         <servlet-name>StripesDispatcher</servlet-name>
         <servlet-class>net.sourceforge.stripes.controller.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>DatabaseSynchronizer</servlet-name>
+        <servlet-class>com.roybraam.vanenapp.service.DatabaseSynchronizer</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>StripesDispatcher</servlet-name>

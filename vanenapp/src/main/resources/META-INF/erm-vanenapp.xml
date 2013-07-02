@@ -56,4 +56,11 @@
             </id>
         </attributes>
     </entity>
+    <entity class="com.roybraam.vanenapp.entity.Metadata">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
 </entity-mappings>

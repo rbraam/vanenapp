@@ -138,7 +138,7 @@
                         <id>schema-export</id>
                         <phase>process-classes</phase>
                         <configuration>
-                            <hibernatetool destdir="target">
+                            <hibernatetool destdir="${project.build.outputDirectory}/scripts">
                                 <classpath>
                                     <path location="target"/>                                    
                                 </classpath>
