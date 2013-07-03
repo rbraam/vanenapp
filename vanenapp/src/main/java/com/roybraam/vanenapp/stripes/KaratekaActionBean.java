@@ -2,17 +2,25 @@ package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Kyu;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -21,6 +29,7 @@ import org.stripesstuff.stripersist.Stripersist;
 @StrictBinding
 @UrlBinding("/action/admin/karateka/{$event}")
 public class KaratekaActionBean implements ActionBean{
+    private static final Log log = LogFactory.getLog(KaratekaActionBean.class);
     private String JSP = "/WEB-INF/jsp/admin/karateka.jsp";
     private String EDITJSP = "/WEB-INF/jsp/admin/karatekaedit.jsp";
     private ActionBeanContext context;
@@ -57,6 +66,27 @@ public class KaratekaActionBean implements ActionBean{
         getContext().getMessages().add(new SimpleMessage("Karateka is opgeslagen"));
         return new ForwardResolution(EDITJSP);
     }
+    
+    public Resolution listJSON() {
+        List<Karateka> karatekas=Stripersist.getEntityManager().createQuery("FROM Karateka").getResultList();
+        final JSONArray array = new JSONArray();
+        for (Karateka k : karatekas){
+            try{
+                JSONObject jsonKarateka = k.toJSON();
+                array.put(jsonKarateka);
+            }catch (Exception e){
+                log.warn("Failed to make JSONObject of karateka with id: "+k.getId());
+            }
+        }
+        return new StreamingResolution("application/json") {
+
+            @Override
+            public void stream(HttpServletResponse response) throws Exception {
+                response.getWriter().print(array.toString());
+            }
+        };
+    }
+        
     
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public ActionBeanContext getContext() {
