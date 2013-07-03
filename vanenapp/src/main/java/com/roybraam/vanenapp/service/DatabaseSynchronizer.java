@@ -47,7 +47,7 @@ public class DatabaseSynchronizer implements Servlet {
     public void doInit(){
         try {
             //System.out.println(getClass().getClassLoader().getResource(".").getPath());
-        
+            checkScriptDir();
             Stripersist.requestInit();
             EntityManager em = Stripersist.getEntityManager();
             if (em!=null){
@@ -128,6 +128,30 @@ public class DatabaseSynchronizer implements Servlet {
             }
         }
         return scripts;
+    }
+
+    private void checkScriptDir() {
+        File scriptDir = new File(DatabaseSynchronizer.class.getResource("/scripts").getFile());
+        File[] scripts=scriptDir.listFiles();
+        for (File script : scripts){
+            boolean found=false;
+            for (Entry<String, List<File>> entry : this.updates.entrySet()) {
+                for (File registeredScript : entry.getValue()){
+                    if (script.equals(registeredScript)){
+                        found=true;
+                        break;
+                    }
+                }
+                if (found){
+                    break;
+                }
+            }
+            if (!found){
+                log.warn("The sql script "+script.getAbsolutePath()+" is not registered in a update. "
+                        + "The script is not used to updated the database. Is this correct? "
+                        + "Otherwise add the script to the var DatabaseSynchronizer.updates.");
+            }
+        }
     }
     
     public class ScriptWorker implements Work{
