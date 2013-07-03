@@ -43,6 +43,9 @@ public class DatabaseSynchronizer implements Servlet {
         updates.put("0", new ArrayList<File>());
         updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/vanenapp_schema.sql").getFile()));
         updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/01_init-data.sql").getFile()));
+        
+        updates.put("0.1", new ArrayList<File>());
+        updates.get("0.1").add(new File(DatabaseSynchronizer.class.getResource("/scripts/02_rename-karateka-birthdate.sql").getFile()));
     }
 
     public void doInit(){

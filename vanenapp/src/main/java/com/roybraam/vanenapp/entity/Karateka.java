@@ -39,7 +39,7 @@ public class Karateka {
     private Kyu belt;
     private String gender;    
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date birthdata;
+    private Date birthdate;
     private double weight;
     
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
@@ -91,12 +91,12 @@ public class Karateka {
         this.gender = gender;
     }
     
-    public Date getBirthdata() {
-        return birthdata;
+    public Date getBirthdate() {
+        return birthdate;
     }
     
-    public void setBirthdata(Date birthdata) {
-        this.birthdata = birthdata;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
     
     public double getWeight() {
@@ -113,7 +113,7 @@ public class Karateka {
             GregorianCalendar vanen= new GregorianCalendar();
             vanen.setTime(vanenDate);
             GregorianCalendar geb= new GregorianCalendar();
-            geb.setTime(getBirthdata());
+            geb.setTime(getBirthdate());
             int leeftijd= vanen.get(GregorianCalendar.YEAR)-geb.get(GregorianCalendar.YEAR);
             if (vanen.get(GregorianCalendar.MONTH)<geb.get(GregorianCalendar.MONTH)){
                 leeftijd=leeftijd-1;
