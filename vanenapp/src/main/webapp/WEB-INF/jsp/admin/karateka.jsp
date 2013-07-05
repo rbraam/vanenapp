@@ -22,11 +22,18 @@
             <stripes:messages/>
         </p>
         <h1>Beheer karateka</h1><br/>
-        <div id="filterContainer">Zoek: <div id="filterTextBox"></div></div>
+        <div id="filterContainer">
+            <table>
+                <tr>
+                    <td>Zoek:</td>
+                    <td><div id="filterTextBox"></div></td>
+                </tr>
+            </table> 
+        </div>
         <div id="karatekaList">
             
         </div>
-        <iframe class="form-iframe" src="<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="cancel"/>"></iframe>
+        <iframe id="editKaratekaFrame" class="form-iframe" src="<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="cancel"/>"></iframe>
         
         <script type="text/javascript">
             var editKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="edit"/>';
