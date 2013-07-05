@@ -11,9 +11,8 @@ Ext.onReady(function(){
         listeners: {
             change:{
                 fn: function(){
-                    this.filterList(this.value());
-                },
-                scope: this
+                    listController.setFilter(this.value);
+                }
             }
         }
     });

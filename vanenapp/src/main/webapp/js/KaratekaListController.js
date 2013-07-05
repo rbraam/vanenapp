@@ -5,6 +5,7 @@
  */
 Ext.define("KaratekaListController",{
     list: null,
+    filter: null,
     config: {
         url: null,
         renderTo: null
@@ -37,11 +38,36 @@ Ext.define("KaratekaListController",{
      * Update the dom list elements with the already recieved karateka's
      */
     update: function(){
+        this.renderTo.update("");
         for (var i=0; i < this.list.length; i++){
             var k = this.list[i];
-            var el=this.createElement(k);
-            this.renderTo.appendChild(el);
+            if (this.checkFilter(k)){
+                var el=this.createElement(k);
+                this.renderTo.appendChild(el);
+            }
         }
+    },
+            
+    setFilter: function(filter){
+        this.filter=filter;
+        this.update();
+    },
+    /**
+     * Check if the given karateka passes the filter that is set. It's checking the surname and name caseinsensitive
+     * @param k the karateka
+     * @return {boolean} true/false
+     */
+    checkFilter: function (k){
+        if (this.filter===null){
+            return true;
+        }
+        if (k.name.toLowerCase().indexOf(this.filter.toLowerCase())!==-1){
+            return true;
+        }
+        if (k.surname.toLowerCase().indexOf(this.filter.toLowerCase())!==-1){
+            return true;
+        }
+        return false;
     },
             
     createElement: function(k){
@@ -53,7 +79,7 @@ Ext.define("KaratekaListController",{
         var textDiv = new Ext.Element(document.createElement('div'));
         var text =k.surname+", "+k.name;
         if (k.insert){
-            text+=k.insert;
+            text+=" "+k.insert;
         }
         textDiv.update(text);
         element.appendChild(textDiv);
