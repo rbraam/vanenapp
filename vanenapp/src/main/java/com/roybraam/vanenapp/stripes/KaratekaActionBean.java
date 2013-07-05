@@ -38,13 +38,14 @@ public class KaratekaActionBean implements ActionBean{
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
         @Validate(on = {"save"}, field = "surname", required = true, maxlength = 255, label = "Achternaam"),
-        @Validate(on = {"save"}, field = "insert", required = true, maxlength = 255, label = "Tussenvoegsel"),
+        @Validate(on = {"save"}, field = "insert", maxlength = 255, label = "Tussenvoegsel"),
         @Validate(on = {"save"}, field = "gender", required = true, maxlength = 255, label = "Geslacht"),
         @Validate(on = {"save"}, field = "birthdate", required = true, maxlength = 255, label = "Geboortedatum"),
         @Validate(on = {"save"}, field = "weight", label = "Gewicht")
     })
     private Karateka karateka;
-    @Validate(on ={"save"}, required = true, label= "Kyu-graad")
+    
+    @Validate(on = {"save"}, required = true, label= "Kyu-graad")
     private String belt;
 
     @DefaultHandler
@@ -64,6 +65,10 @@ public class KaratekaActionBean implements ActionBean{
         Stripersist.getEntityManager().persist(karateka);
         Stripersist.getEntityManager().getTransaction().commit();
         getContext().getMessages().add(new SimpleMessage("Karateka is opgeslagen"));
+        return new ForwardResolution(EDITJSP);
+    }
+    
+    public Resolution cancel(){
         return new ForwardResolution(EDITJSP);
     }
     

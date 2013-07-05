@@ -142,6 +142,11 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     font-weight: bold;
     width: 200px;
 }
+.form-iframe{
+    width: 100%;
+    height: 400px;
+    
+}
 /*Menu*/
 .menuUl a, .menuUl a:visited, .menuUl a:hover{
     color: white;
