@@ -151,3 +151,31 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
 .menuUl a, .menuUl a:visited, .menuUl a:hover{
     color: white;
 }
+
+#karatekaList{
+    height: 200px;
+    width: 100%;
+    overflow: auto;
+}
+#filterContainer{
+    width: 100%;
+}
+.karateka-item{
+    float: left;
+    height: 15x;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: white;
+   /* font-weight: bold;*/
+    background-color: #1E93DD;
+}
+.karateka-item-over{
+    background-color: #57B2EB;
+    cursor: pointer;    
+}
+.karateka-item-click{    
+    background-color: #7F7F6C;
+    cursor: pointer;
+}

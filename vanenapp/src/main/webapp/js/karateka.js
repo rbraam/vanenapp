@@ -1,10 +1,22 @@
+var list;
+var listController;
 Ext.onReady(function(){
-  Ext.Ajax.request({
+    listController = Ext.create("KaratekaListController",{
         url: listKaratekaUrl,
-        success: function(response){
-            var karatekas = response.responseText;
-            alert(karatekas);
-            // process server response here
+        renderTo: 'karatekaList'
+    });
+    
+    Ext.create('Ext.form.field.Text',{
+        renderTo: 'filterTextBox',
+        listeners: {
+            change:{
+                fn: function(){
+                    this.filterList(this.value());
+                },
+                scope: this
+            }
         }
     });
+    listController.refresh();
+    
 });

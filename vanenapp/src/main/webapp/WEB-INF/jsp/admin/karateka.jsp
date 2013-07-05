@@ -22,6 +22,7 @@
             <stripes:messages/>
         </p>
         <h1>Beheer karateka</h1><br/>
+        <div id="filterContainer">Zoek: <div id="filterTextBox"></div></div>
         <div id="karatekaList">
             
         </div>

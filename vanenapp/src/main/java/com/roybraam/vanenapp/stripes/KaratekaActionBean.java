@@ -73,7 +73,7 @@ public class KaratekaActionBean implements ActionBean{
     }
     
     public Resolution list() {
-        List<Karateka> karatekas=Stripersist.getEntityManager().createQuery("FROM Karateka").getResultList();
+        List<Karateka> karatekas=Stripersist.getEntityManager().createQuery("FROM Karateka order by surname").getResultList();
         final JSONArray array = new JSONArray();
         for (Karateka k : karatekas){
             try{
