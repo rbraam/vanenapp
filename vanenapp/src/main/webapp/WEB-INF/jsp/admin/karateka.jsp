@@ -32,6 +32,7 @@
             var editKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="edit"/>';
             var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
         </script>
+        <script src="${contextPath}/js/KaratekaListController.js"></script>
         <script src="${contextPath}/js/karateka.js"></script>
     </stripes:layout-component>
 
