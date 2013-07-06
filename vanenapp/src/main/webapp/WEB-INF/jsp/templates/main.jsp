@@ -31,11 +31,13 @@
             <div id="header">
                 <stripes:layout-component name="header" />
             </div>
-            <div id="menu">
-                <stripes:layout-component name="menu" />
-            </div>
-            <div id="content">
-                <stripes:layout-component name="body"/>
+            <div id="mid">
+                <div id="menu">
+                    <stripes:layout-component name="menu" />
+                </div>
+                <div id="content">
+                    <stripes:layout-component name="body"/>
+                </div>
             </div>
         </body>
     </html>
