@@ -152,12 +152,12 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     color: white;
 }
 
-#karatekaList{
+.karatekaList{
     height: 200px;
     width: 100%;
     overflow: auto;
 }
-#filterContainer{
+.filterContainer{
     width: 100%;
 }
 .karateka-item{

@@ -22,16 +22,8 @@
             <stripes:messages/>
         </p>
         <h1>Beheer karateka</h1><br/>
-        <div id="filterContainer">
-            <table>
-                <tr>
-                    <td>Zoek:</td>
-                    <td><div id="filterTextBox"></div></td>
-                </tr>
-            </table> 
-        </div>
-        <div id="karatekaList">
-            
+        <div id="karatekaListContainer">
+                        
         </div>
         <iframe id="editKaratekaFrame" class="form-iframe" src="<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="cancel"/>"></iframe>
         

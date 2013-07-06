@@ -7,6 +7,7 @@
 Ext.define("KaratekaListController",{
     list: null,
     filter: null,
+    listContainer: null,
     config: {
         url: null,
         renderTo: null,
@@ -14,7 +15,23 @@ Ext.define("KaratekaListController",{
     },
     constructor: function (conf){
         this.initConfig(conf);
-        this.renderTo= Ext.get(this.renderTo);
+        //this.renderTo= Ext.get(this.renderTo);
+        var me=this;
+        Ext.create('Ext.form.field.Text',{
+            renderTo: this.renderTo,
+            fieldLabel: 'Zoek',
+            listeners: {
+                change:{
+                    fn: function(){
+                        me.setFilter(this.value);
+                    }
+                }
+            }
+        });
+        
+        this.listContainer = new Ext.Element(document.createElement("div"));
+        this.listContainer.addCls('karatekaList');
+        Ext.get(this.renderTo).appendChild(this.listContainer);
     },
     /**
      * Overwrite the list and update it.
@@ -40,12 +57,12 @@ Ext.define("KaratekaListController",{
      * Update the dom list elements with the already recieved karateka's
      */
     update: function(){
-        this.renderTo.update("");
+        this.listContainer.update("");
         for (var i=0; i < this.list.length; i++){
             var k = this.list[i];
             if (this.checkFilter(k)){
                 var el=this.createElement(k);
-                this.renderTo.appendChild(el);
+                this.listContainer.appendChild(el);
             }
         }
     },
