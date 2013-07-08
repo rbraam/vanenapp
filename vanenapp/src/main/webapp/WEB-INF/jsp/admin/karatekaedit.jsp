@@ -58,6 +58,7 @@
                     </div>
                     <div class="submitbuttons">
                         <stripes:submit name="save" value="Opslaan"/>
+                        <stripes:submit name="delete" value="Verwijderen"/>
                         <stripes:submit name="cancel" value="Annuleren"/>
                     </div>
                     <script type="text/javascript">

@@ -21,19 +21,18 @@ import org.stripesstuff.stripersist.Stripersist;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 /**
  *
  * @author Roy Braam
  */
 @StrictBinding
 @UrlBinding("/action/admin/karateka/{$event}")
-public class KaratekaActionBean implements ActionBean{
+public class KaratekaActionBean implements ActionBean {
+
     private static final Log log = LogFactory.getLog(KaratekaActionBean.class);
     private String JSP = "/WEB-INF/jsp/admin/karateka.jsp";
     private String EDITJSP = "/WEB-INF/jsp/admin/karatekaedit.jsp";
     private ActionBeanContext context;
-    
     @Validate(on = {"save"})
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
@@ -44,76 +43,82 @@ public class KaratekaActionBean implements ActionBean{
         @Validate(on = {"save"}, field = "weight", label = "Gewicht")
     })
     private Karateka karateka;
-    
-    @Validate(on = {"save"}, required = true, label= "Kyu-graad")
+    @Validate(on = {"save"}, required = true, label = "Kyu-graad")
     private String belt;
 
     @DefaultHandler
-    public Resolution view(){
+    public Resolution view() {
         return new ForwardResolution(JSP);
     }
-    
-    public Resolution edit(){
-        if (karateka!=null){
+
+    public Resolution edit() {
+        if (karateka != null) {
             this.belt = karateka.getBelt().name();
         }
         return new ForwardResolution(EDITJSP);
     }
-    
-    public Resolution save(){
+
+    public Resolution save() {
         karateka.setBelt(Kyu.valueOf(this.belt));
         Stripersist.getEntityManager().persist(karateka);
         Stripersist.getEntityManager().getTransaction().commit();
         getContext().getMessages().add(new SimpleMessage("Karateka is opgeslagen"));
         return new ForwardResolution(EDITJSP);
     }
-    
-    public Resolution cancel(){
+
+    public Resolution delete() {
+        if (this.karateka != null) {
+            Stripersist.getEntityManager().remove(karateka);
+            Stripersist.getEntityManager().getTransaction().commit();
+            getContext().getMessages().add(new SimpleMessage("Karateka is verwijderd"));
+        }
         return new ForwardResolution(EDITJSP);
     }
-    
+
+    public Resolution cancel() {
+        return new ForwardResolution(EDITJSP);
+    }
+
     public Resolution list() {
-        List<Karateka> karatekas=Stripersist.getEntityManager().createQuery("FROM Karateka order by surname").getResultList();
+        List<Karateka> karatekas = Stripersist.getEntityManager().createQuery("FROM Karateka order by surname").getResultList();
         final JSONArray array = new JSONArray();
-        for (Karateka k : karatekas){
-            try{
+        for (Karateka k : karatekas) {
+            try {
                 JSONObject jsonKarateka = k.toJSON();
                 array.put(jsonKarateka);
-            }catch (Exception e){
-                log.warn("Failed to make JSONObject of karateka with id: "+k.getId());
+            } catch (Exception e) {
+                log.warn("Failed to make JSONObject of karateka with id: " + k.getId());
             }
         }
         return new StreamingResolution("application/json") {
-
             @Override
             public void stream(HttpServletResponse response) throws Exception {
                 response.getWriter().print(array.toString());
             }
         };
     }
-        
-    
+
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public ActionBeanContext getContext() {
         return context;
     }
-    
+
     public void setContext(ActionBeanContext context) {
         this.context = context;
     }
-    
+
     public Karateka getKarateka() {
         return karateka;
     }
-    
+
     public void setKarateka(Karateka karateka) {
         this.karateka = karateka;
     }
-    
+
     public String getBelt() {
         return belt;
     }
-    
+
     public void setBelt(String belt) {
         this.belt = belt;
     }

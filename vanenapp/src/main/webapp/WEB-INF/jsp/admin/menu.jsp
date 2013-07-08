@@ -7,6 +7,7 @@
 <h2>Beheer</h2>
 <ul class="menuUl">
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.VanencompetitionActionBean">Vanencompetitie</stripes:link></li>
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean">Karateka</stripes:link></li>
     
 </ul>
 <req:isUserInRole role="admin">
