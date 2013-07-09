@@ -191,3 +191,13 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     background-color: #7F7F6C;
     cursor: pointer;
 }
+.karateka-item-text{
+    float: left;
+}
+.karateka-item-cross{
+    float: left;
+    width: 16px;
+    height: 16px;
+    background: url(../images/cross16.png) no-repeat;
+    margin-left: 5px;
+}

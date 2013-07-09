@@ -97,12 +97,22 @@ Ext.define("KaratekaListController",{
         element.addClsOnClick("karateka-item-click");
         //make the text
         var textDiv = new Ext.Element(document.createElement('div'));
+        textDiv.addCls("karateka-item-text");
         var text =k.surname+", "+k.name;
         if (k.insert){
             text+=" "+k.insert;
         }
         textDiv.update(text);
         element.appendChild(textDiv);
+        
+        var crossDiv = new Ext.Element(document.createElement('div'));
+        crossDiv.addCls("karateka-item-cross");
+        crossDiv.addListener("click",function(){
+            if (me.crossClickHandler){
+                me.crossClickHandler.call(this,k.id);
+            }
+        });
+        element.appendChild(crossDiv);
         //add listener
         var me = this;
         element.addListener("click",function(){
