@@ -7,7 +7,7 @@ Ext.onReady(function(){
         clickHandler: function(id){
             openKarateka(id);
         },
-        crossClickHandler: function (id){
+        crossClickHandler: function(id){
             removeKarateka(id);
         }
     });

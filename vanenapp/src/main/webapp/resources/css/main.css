@@ -175,7 +175,6 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
 .karateka-item{
     float: left;
     height: 15x;
-    padding: 5px 10px 5px 10px;
     margin: 5px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -192,6 +191,7 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     cursor: pointer;
 }
 .karateka-item-text{
+    padding: 5px 10px 5px 10px;
     float: left;
 }
 .karateka-item-cross{
@@ -199,5 +199,6 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     width: 16px;
     height: 16px;
     background: url(../images/cross16.png) no-repeat;
-    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
 }

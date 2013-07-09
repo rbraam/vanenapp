@@ -11,7 +11,8 @@ Ext.define("KaratekaListController",{
     config: {
         url: null,
         renderTo: null,
-        clickHandler: null
+        clickHandler: null,
+        crossClickHandler: null
     },
     constructor: function (conf){
         this.initConfig(conf);
@@ -90,6 +91,7 @@ Ext.define("KaratekaListController",{
     },
             
     createElement: function(k){
+        var me = this;
         var element = new Ext.Element(document.createElement('div'));
         //add classesk
         element.addCls("karateka-item");
@@ -107,17 +109,18 @@ Ext.define("KaratekaListController",{
         
         var crossDiv = new Ext.Element(document.createElement('div'));
         crossDiv.addCls("karateka-item-cross");
+        
+        element.appendChild(crossDiv);
+        //add listeners
+        textDiv.addListener("click",function(){
+            if (me.clickHandler){
+                me.clickHandler.call(this,k.id);
+            }
+        });
         crossDiv.addListener("click",function(){
             if (me.crossClickHandler){
                 me.crossClickHandler.call(this,k.id);
-            }
-        });
-        element.appendChild(crossDiv);
-        //add listener
-        var me = this;
-        element.addListener("click",function(){
-            if (me.clickHandler){
-                me.clickHandler.call(this,k.id);
+                return false;
             }
         });
         return element;
