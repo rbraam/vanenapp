@@ -15,12 +15,21 @@ body{
     overflow: auto;
 }
 
+iframe{
+    border: none;
+}
+
 #header{
     float: left;
     width: 100%;
     height: 0px;
     color: #fff;
     background-color: #003333;
+}
+#mid{
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #menu{
     position: static;
@@ -31,9 +40,8 @@ body{
     background-color: #186198; 
 }
 #content{
-    position: static;
-    float: none;
-    width: 997px;
+    float: left;
+    width: 820px;
     height: 100%;
     margin-left: auto; 
     margin-right: auto;
@@ -142,7 +150,55 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     font-weight: bold;
     width: 200px;
 }
+.form-iframe{
+    width: 100%;
+    height: 400px;
+    
+}
 /*Menu*/
 .menuUl a, .menuUl a:visited, .menuUl a:hover{
     color: white;
+}
+
+.karatekaList{
+    height: 200px;
+    width: 100%;
+    overflow: auto;
+    border-bottom: 1px solid #B0ACA8;
+    border-top: 1px solid #B0ACA8;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.filterContainer{
+    width: 100%;
+}
+.karateka-item{
+    float: left;
+    height: 15x;
+    margin: 5px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: white;
+   /* font-weight: bold;*/
+    background-color: #1E93DD;
+}
+.karateka-item-over{
+    background-color: #57B2EB;
+    cursor: pointer;    
+}
+.karateka-item-click{    
+    background-color: #7F7F6C;
+    cursor: pointer;
+}
+.karateka-item-text{
+    padding: 5px 10px 5px 10px;
+    float: left;
+}
+.karateka-item-cross{
+    float: left;
+    width: 16px;
+    height: 16px;
+    background: url(../images/cross16.png) no-repeat;
+    margin-right: 5px;
+    margin-top: 5px;
 }

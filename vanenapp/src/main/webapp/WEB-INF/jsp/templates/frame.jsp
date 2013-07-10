@@ -27,17 +27,9 @@
             <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
             <script type="text/javascript" src="${contextPath}/extjs/locale/ext-lang-nl.js"></script>
         </head>
-        <body>
-            <div id="header">
-                <stripes:layout-component name="header" />
-            </div>
-            <div id="mid">
-                <div id="menu">
-                    <stripes:layout-component name="menu" />
-                </div>
-                <div id="content">
-                    <stripes:layout-component name="body"/>
-                </div>
+        <body>           
+            <div id="content">
+                <stripes:layout-component name="body"/>
             </div>
         </body>
     </html>

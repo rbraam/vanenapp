@@ -21,18 +21,38 @@ package com.roybraam.vanenapp.entity;
  * @author Roy Braam
  */
 public enum Kyu{
-    KYU_8(0),
-    KYU_7(1),
-    KYU_6(2),
-    KYU_5(3),
-    KYU_4(4),
-    KYU_3(5),
-    KYU_2(6),
-    KYU_1(7);
+    KYU_8(0,"8e Kyu"),
+    KYU_7(1,"7e Kyu"),
+    KYU_6(2,"6e Kyu"),
+    KYU_5(3,"5e Kyu"),
+    KYU_4(4,"4e Kyu"),
+    KYU_3(5,"3e Kyu"),
+    KYU_2(6,"2e Kyu"),
+    KYU_1(7,"1e Kyu");
     
-    public final int id;
+    private int id;
+    private String description;
     
-    Kyu(int id){
+    Kyu(int id, String description){
         this.id=id;
+        this.description=description;
     }
+
+    //<editor-fold defaultstate="collapsed" desc="Getters and setters">
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    //</editor-fold>
 }

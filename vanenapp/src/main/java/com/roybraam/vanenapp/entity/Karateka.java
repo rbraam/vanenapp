@@ -16,6 +16,8 @@
  */
 package com.roybraam.vanenapp.entity;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.Entity;
@@ -23,6 +25,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -127,5 +133,12 @@ public class Karateka {
         }else{
             return 0;
         }
+    }
+
+    public JSONObject toJSON() throws JSONException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        StringWriter s = new StringWriter();
+        mapper.writeValue(s, this);
+        return new JSONObject(s.toString());
     }
 }
