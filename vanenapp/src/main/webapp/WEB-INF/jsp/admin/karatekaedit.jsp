@@ -76,6 +76,12 @@
                         });
                     </script>
                 </c:when>
+                <c:when test="${actionBean.context.eventName == 'delete'}">
+                    <stripes:submit name="edit" value="Nieuwe karateka"/>
+                    <script type="text/javascript">
+                        window.parent.listController.refresh();
+                    </script>
+                </c:when>
                 <c:otherwise>
                     <stripes:submit name="edit" value="Nieuwe karateka"/>
                 </c:otherwise>
