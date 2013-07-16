@@ -19,9 +19,13 @@ package com.roybraam.vanenapp.entity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -39,6 +43,8 @@ public class Vanencompetition {
     @ManyToOne
     private Organisation organisation;
     private String location;
+    @OneToMany(orphanRemoval=true, cascade=CascadeType.ALL, mappedBy="vanencompetition")
+    private Set<Participant> participants = new HashSet<Participant>();
     
     
     public String getDatumString(){
@@ -102,6 +108,14 @@ public class Vanencompetition {
     public void setLocation(String location) {
         this.location = location;
     }
+    
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<Participant> participants) {
+        this.participants = participants;
+    }
     //</editor-fold>
 
     public boolean isAllowed(User user) {
@@ -113,4 +127,5 @@ public class Vanencompetition {
         }
         return false;
     }
+
 }

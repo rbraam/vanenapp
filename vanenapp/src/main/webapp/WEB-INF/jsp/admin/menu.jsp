@@ -8,8 +8,14 @@
 <ul class="menuUl">
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.VanencompetitionActionBean">Vanencompetitie</stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean">Karateka</stripes:link></li>
-    
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean">Deelnemers selecteren</stripes:link></li>
 </ul>
+Organiseer Vanencompetitie
+<ul class="menuUl">
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Selecteer Vanencompetitie</stripes:link></li>
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean">Selecteer deelnemers</stripes:link></li>
+</ul>
+
 <req:isUserInRole role="admin">
     <h2>Beheer applicatie</h2>
     <ul class="menuUl">
