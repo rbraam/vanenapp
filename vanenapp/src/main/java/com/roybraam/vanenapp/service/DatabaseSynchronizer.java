@@ -84,6 +84,10 @@ public class DatabaseSynchronizer implements Servlet {
                             mdVersion = new Metadata();
                             mdVersion.setConfigKey(Metadata.VERSION_KEY);
                         }
+                        if (updatedVersion.equals("0")){
+                            //if version ==0 the database is created with a schema, so its on the latest version
+                            updatedVersion=(String)updates.keySet().toArray()[updates.size()-1];
+                        }
                         mdVersion.setConfigValue(updatedVersion);
                         em.persist(mdVersion);
                         trans.commit();
