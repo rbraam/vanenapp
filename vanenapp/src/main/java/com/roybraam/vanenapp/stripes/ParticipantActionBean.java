@@ -4,9 +4,7 @@
  */
 package com.roybraam.vanenapp.stripes;
 
-import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Participant;
-import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
 import java.util.List;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -15,7 +13,9 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.validation.Validate;
-import org.stripesstuff.stripersist.Stripersist;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
 
 /**
  *
@@ -24,30 +24,47 @@ import org.stripesstuff.stripersist.Stripersist;
 @StrictBinding
 @UrlBinding("/action/admin/participant/{$event}")
 public class ParticipantActionBean extends OrganizeVanencompetitionActionBean{
+
+    private static final Log log = LogFactory.getLog(ParticipantActionBean.class);
     private static final String JSP = "/WEB-INF/jsp/admin/participant.jsp";
+    @Validate
+    private List<Integer> participants = new ArrayList<Integer>();
     
-    List<Karateka> participants = new ArrayList<Karateka>();
-    List<Karateka> karatekas = new ArrayList<Karateka>();
-    
+    private String participantsJson = "";
     @DefaultHandler
     public Resolution view(){
         if (this.getVanencompetition()==null){
             setNoVanencompetitionMessage();
             return this.getChooseVanencompetitionResolution();
         }
-        List<Integer> notInList = new ArrayList<Integer>();
-        this.participants = new ArrayList<Karateka>();
+        this.participants = new ArrayList<Integer>();
+        JSONArray participantsArray = new JSONArray();
         for (Participant p : this.vanencompetition.getParticipants()){
             if (p.getKarateka()!=null){
-                this.participants.add(p.getKarateka());
-                notInList.add(p.getKarateka().getId());
+                try{    
+                    participantsArray.put(p.getKarateka().toJSON());
+                }catch (Exception e){
+                    log.error("Failed to get Karateka",e);
+                }
             }
         }
-        if (notInList.isEmpty()){
-            this.karatekas = Stripersist.getEntityManager().createQuery("FROM Karateka").getResultList();
-        }else{
-            this.karatekas = Stripersist.getEntityManager().createQuery("FROM Karateka where id not in(:l)").setParameter("l", notInList).getResultList();
-        }
+        this.participantsJson = participantsArray.toString();
         return new ForwardResolution(JSP);
+    }
+
+    public List<Integer> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Integer> participants) {
+        this.participants = participants;
+    }
+
+    public String getParticipantsJson() {
+        return participantsJson;
+    }
+
+    public void setParticipantsJson(String participantsJson) {
+        this.participantsJson = participantsJson;
     }
 }

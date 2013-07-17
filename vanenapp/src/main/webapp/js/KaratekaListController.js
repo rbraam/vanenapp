@@ -10,6 +10,7 @@ Ext.define("KaratekaListController",{
     listContainer: null,
     config: {
         url: null,
+        data: null,
         renderTo: null,
         clickHandler: null,
         crossClickHandler: null
@@ -46,13 +47,17 @@ Ext.define("KaratekaListController",{
      */
     refresh: function(){
         var me=this;
-        Ext.Ajax.request({
-            url: listKaratekaUrl,
-            success: function(response){
-                var karatekas = Ext.JSON.decode(response.responseText);
-                me.setList(karatekas);
-            }
-        });
+        if (this.url){
+            Ext.Ajax.request({
+                url: me.url,
+                success: function(response){
+                    var karatekas = Ext.JSON.decode(response.responseText);
+                    me.setList(karatekas);
+                }
+            });
+        }else{
+            this.setList(this.data);
+        }
     },
     /**
      * Update the dom list elements with the already recieved karateka's
@@ -106,23 +111,26 @@ Ext.define("KaratekaListController",{
         }
         textDiv.update(text);
         element.appendChild(textDiv);
-        
-        var crossDiv = new Ext.Element(document.createElement('div'));
-        crossDiv.addCls("karateka-item-cross");
-        
-        element.appendChild(crossDiv);
-        //add listeners
-        textDiv.addListener("click",function(){
-            if (me.clickHandler){
-                me.clickHandler.call(this,k.id);
-            }
-        });
-        crossDiv.addListener("click",function(){
-            if (me.crossClickHandler){
-                me.crossClickHandler.call(this,k.id);
-                return false;
-            }
-        });
+        //add listener
+        if (this.clickHandler!=null){
+            textDiv.addListener("click",function(){
+                if (me.clickHandler){
+                    me.clickHandler.call(this,k.id);
+                }
+            });
+        }
+        if (this.crossClickHandler!=null){
+            var crossDiv = new Ext.Element(document.createElement('div'));
+            crossDiv.addCls("karateka-item-cross");
+            element.appendChild(crossDiv);
+            //add listener
+            crossDiv.addListener("click",function(){
+                if (me.crossClickHandler){
+                    me.crossClickHandler.call(this,k.id);
+                    return false;
+                }
+            });
+        }
         return element;
     }
     

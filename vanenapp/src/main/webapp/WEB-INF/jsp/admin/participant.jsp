@@ -22,8 +22,18 @@
             <stripes:messages/>
         </p>
         <h1>Deelnemers vanencompetitie</h1><br/>
-        
-        
+        <div id="karatekaListContainer">
+                        
+        </div>
+        <div id="participantListContainer">
+                        
+        </div>
+        <script src="${contextPath}/js/KaratekaListController.js"></script>
+        <script src="${contextPath}/js/participant.js"></script>
+        <script type="text/javascript">
+            var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
+            var participants = Ext.JSON.decode("${actionBean.participantsJson}");
+        </script>
     </stripes:layout-component>
 
 </stripes:layout-render>
