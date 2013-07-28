@@ -19,11 +19,18 @@ Ext.onReady(function() {
             removeKarateka(id);
         }
     });
+    listControllerParticipant.refresh();
 });
 
 function addKarateka(id) {
-    console.log('Add karateka: '+id);
+    var k=listControllerKarateka.removeKarateka(id);
+    listControllerKarateka.update();
+    listControllerParticipant.addKarateka(k);
+    listControllerParticipant.update();
 }
 function removeKarateka(id){
-    console.log("Remove karateka: "+id);
+    var k = listControllerParticipant.removeKarateka(id);
+    listControllerParticipant.update();
+    listControllerKarateka.addKarateka(k);
+    listControllerKarateka.update();
 }

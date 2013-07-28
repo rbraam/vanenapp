@@ -22,10 +22,10 @@
             <stripes:messages/>
         </p>
         <h1>Deelnemers vanencompetitie</h1><br/>
-        <div id="karatekaListContainer">
+        <div id="karatekaListContainer" class="two-column">
                         
         </div>
-        <div id="participantListContainer">
+        <div id="participantListContainer" class="two-column">
                         
         </div>
         <script src="${contextPath}/js/KaratekaListController.js"></script>

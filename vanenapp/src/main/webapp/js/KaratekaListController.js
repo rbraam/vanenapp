@@ -132,6 +132,48 @@ Ext.define("KaratekaListController",{
             });
         }
         return element;
+    },
+    /**
+     * Get the index of the karateka with the given id. Or null if not found.
+     */
+    getKaratekaIndex: function(id){
+        for (var i=0; i < this.list.length; i++){
+            var k = this.list[i];
+            if (k.id == id){
+                return i;
+            }
+        }
+        return null;
+    },
+    /**
+     * Get a karateka by id. Return null if not found.
+     */
+    getKarateka : function(id){
+        var index= this.getKaratekaIndex(id);
+        if (index){
+            return this.list[index];
+        }
+        return null;
+    },
+    /**
+     * Remove the karateka with the given id. Return the removed karateka or null if not removed.
+     */
+    removeKarateka: function(id){
+        var index= this.getKaratekaIndex(id);
+        var returnVal = null;
+        if (index){
+            returnVal=this.list.splice(index,1);
+            if(returnVal.length ==1){
+                returnVal=returnVal[0]
+            }
+        }
+        return returnVal;
+    },
+    /**
+     * Add a karateka to the list
+     */
+    addKarateka: function (k){
+        this.list.push(k);
     }
     
 });

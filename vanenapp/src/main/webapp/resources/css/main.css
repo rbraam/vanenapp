@@ -202,3 +202,10 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     margin-right: 5px;
     margin-top: 5px;
 }
+
+.two-column{
+    float: left;
+    width: 350px;
+    clear: none;
+    margin-left: 5px;
+}
