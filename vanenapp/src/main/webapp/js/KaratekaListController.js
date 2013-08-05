@@ -173,7 +173,34 @@ Ext.define("KaratekaListController",{
      * Add a karateka to the list
      */
     addKarateka: function (k){
+        var index=this.list.length;
+        for (var i=0; i < this.list.length; i++){
+            var compare = this.compareKarateka(k, this.list[i]);
+            if (compare ==-1){
+                this.list.splice(i,0,k);
+                return;
+            }
+        }
         this.list.push(k);
+    },
+    /**
+     * compare 2 karateka's
+     * -1 if a is smaller then b
+     * 0 if a equals b
+     * 1 if a is bigger then b 
+     */
+    compareKarateka: function(karatekaA,karatekaB){
+        if (karatekaA.surname.toLowerCase() < karatekaB.surname.toLowerCase()){
+            return -1;
+        }if (karatekaA.surname.toLowerCase() > karatekaB.surname.toLowerCase()){
+            return 1;
+        }
+        //surname ==
+        if (karatekaA.name.toLowerCase() < karatekaB.name.toLowerCase()){
+            return -1;
+        }if (karatekaA.name.toLowerCase() > karatekaB.name.toLowerCase()){
+            return 1;
+        }
+        return 0;
     }
-    
 });

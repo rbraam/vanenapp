@@ -22,6 +22,8 @@
             <stripes:messages/>
         </p>
         <h1>Deelnemers vanencompetitie</h1><br/>
+        Klik links de karateka's aan die meedoen aan deze vanencompetitie. De karateka's die meedoen
+        staan rechts in het vak.
         <div id="karatekaListContainer" class="two-column">
                         
         </div>
