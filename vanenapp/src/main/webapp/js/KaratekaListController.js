@@ -161,7 +161,7 @@ Ext.define("KaratekaListController",{
     removeKarateka: function(id){
         var index= this.getKaratekaIndex(id);
         var returnVal = null;
-        if (index){
+        if (index!=null){
             returnVal=this.list.splice(index,1);
             if(returnVal.length ==1){
                 returnVal=returnVal[0]
