@@ -181,6 +181,10 @@ Ext.define("KaratekaListController",{
     addKarateka: function (k){
         var index=this.list.length;
         for (var i=0; i < this.list.length; i++){
+            //don't add dublicates
+            if (k.id==this.list[i].id){
+                return;
+            }
             var compare = this.compareKarateka(k, this.list[i]);
             if (compare ==-1){
                 this.list.splice(i,0,k);
