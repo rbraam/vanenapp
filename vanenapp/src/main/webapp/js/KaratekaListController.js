@@ -43,6 +43,12 @@ Ext.define("KaratekaListController",{
         this.update();
     },
     /**
+     * Get the list
+     */
+    getList: function(){
+        return this.list;
+    },
+    /**
      * Refreshes the list by getting the karateka's from the url
      */
     refresh: function(){

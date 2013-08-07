@@ -205,7 +205,7 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
 
 .two-column{
     float: left;
-    width: 350px;
+    width: 390px;
     clear: none;
     margin-left: 5px;
 }

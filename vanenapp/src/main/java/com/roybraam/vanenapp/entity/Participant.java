@@ -39,6 +39,14 @@ public class Participant {
     private Integer points;
     @Enumerated(EnumType.STRING)
     private CompetitionType type;
+    
+    public Participant(){
+    }
+
+    public Participant(Vanencompetition vanencompetition, Karateka k) {
+        this.karateka = k;
+        this.vanencompetition=vanencompetition;
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Long getId() {

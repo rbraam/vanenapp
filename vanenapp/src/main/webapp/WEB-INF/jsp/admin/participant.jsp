@@ -24,17 +24,24 @@
         <h1>Deelnemers vanencompetitie</h1><br/>
         Klik links de karateka's aan die meedoen aan deze vanencompetitie. De karateka's die meedoen
         staan rechts in het vak.
-        <div id="karatekaListContainer" class="two-column">
-                        
-        </div>
-        <div id="participantListContainer" class="two-column">
-                        
-        </div>
+        <stripes:form beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" onsubmit="onSubmitForm()">
+            <!--intput type="hidden" name="participants" id="participants" value=""/-->
+            <stripes:hidden name="participants" id="participants"/>
+            <div id="karatekaListContainer" class="two-column">
+
+            </div>
+            <div id="participantListContainer" class="two-column">
+
+            </div>
+            <div>
+                <stripes:submit name="save">Opslaan</stripes:submit>
+            </div>
+        </stripes:form>
         <script src="${contextPath}/js/KaratekaListController.js"></script>
         <script src="${contextPath}/js/participant.js"></script>
         <script type="text/javascript">
             var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
-            var participants = Ext.JSON.decode("${actionBean.participantsJson}");
+            var participants = Ext.JSON.decode('${actionBean.participantsJson}');
         </script>
     </stripes:layout-component>
 

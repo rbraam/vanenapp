@@ -34,3 +34,13 @@ function removeKarateka(id){
     listControllerKarateka.addKarateka(k);
     listControllerKarateka.update();
 }
+
+function onSubmitForm(){
+    var list = listControllerParticipant.getList();
+    var intList=[];
+    for (var i=0; i < list.length; i++){
+        intList.push(list[i].id);
+    }
+    document.getElementById("participants").value = intList.join(",");
+    return true;
+}
