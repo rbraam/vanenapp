@@ -20,7 +20,17 @@ Ext.onReady(function() {
         }
     });
     listControllerParticipant.refresh();
+    
+    listControllerKarateka.on("loaded", filterKaratekas,this);
 });
+
+function filterKaratekas(){
+    var list = this.listControllerParticipant.getList();
+    for (var i=0; i < list.length; i++){
+        listControllerKarateka.removeKarateka(list[i].id);
+    }
+    listControllerKarateka.update();
+}
 
 function addKarateka(id) {
     var k=listControllerKarateka.removeKarateka(id);

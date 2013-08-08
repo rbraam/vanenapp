@@ -5,6 +5,7 @@
  * @param {function} handler when clicked on element
  */
 Ext.define("KaratekaListController",{
+    extend: "Ext.util.Observable",
     list: null,
     filter: null,
     listContainer: null,
@@ -16,6 +17,7 @@ Ext.define("KaratekaListController",{
         crossClickHandler: null
     },
     constructor: function (conf){
+        KaratekaListController.superclass.constructor.call(this,conf);
         this.initConfig(conf);
         //this.renderTo= Ext.get(this.renderTo);
         var me=this;
@@ -59,10 +61,12 @@ Ext.define("KaratekaListController",{
                 success: function(response){
                     var karatekas = Ext.JSON.decode(response.responseText);
                     me.setList(karatekas);
+                    me.fireEvent("loaded",me,{});
                 }
             });
         }else{
             this.setList(this.data);
+            me.fireEvent("loaded",me,{});
         }
     },
     /**
