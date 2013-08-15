@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -30,17 +31,21 @@ public class Poule {
     @Id
     private long id;
     
+    private String name;
+    
     @Enumerated(EnumType.STRING)
     private Kyu startKyu;    
     
     @Enumerated(EnumType.STRING)
     private Kyu endKyu;
-    private int startAge;
-    private int endAge;
+    private Integer startAge;
+    private Integer endAge;
     
     @Enumerated(EnumType.STRING)
     private CompetitionType type;
 
+    @ManyToOne
+    private Vanencompetition vanencompetition;
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {
         return id;
@@ -66,19 +71,19 @@ public class Poule {
         this.endKyu = endKyu;
     }
     
-    public int getStartAge() {
+    public Integer getStartAge() {
         return startAge;
     }
     
-    public void setStartAge(int startAge) {
+    public void setStartAge(Integer startAge) {
         this.startAge = startAge;
     }
     
-    public int getEndAge() {
+    public Integer getEndAge() {
         return endAge;
     }
     
-    public void setEndAge(int endAge) {
+    public void setEndAge(Integer endAge) {
         this.endAge = endAge;
     }
     
@@ -88,6 +93,42 @@ public class Poule {
 
     public void setType(CompetitionType type) {
         this.type = type;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Vanencompetition getVanencompetition() {
+        return vanencompetition;
+    }
+
+    public void setVanencompetition(Vanencompetition vanencompetition) {
+        this.vanencompetition = vanencompetition;
+    }
+    
+    public String toString(){
+        String s="";
+        if (startKyu!=null){
+            s+= startKyu.getDescription();
+        }
+        if (endKyu!=null && endKyu!= startKyu){
+            s+=" - "+endKyu.getDescription();
+        }
+        if (startAge !=null){
+            s+=" "+startAge;
+        }
+        if (endAge !=null && endAge!=startAge){
+            s+=" t/m "+endAge;
+        }
+        if (startAge!=null){
+            s+= " jaar";
+        }
+        return s;
     }
     //</editor-fold>
 

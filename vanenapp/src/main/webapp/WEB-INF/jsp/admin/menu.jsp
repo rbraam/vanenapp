@@ -14,6 +14,7 @@ Organiseer Vanencompetitie
 <ul class="menuUl">
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Selecteer Vanencompetitie</stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean">Selecteer deelnemers</stripes:link></li>
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PouleActionBean">Maak poule indeling</stripes:link></li>
 </ul>
 
 <req:isUserInRole role="admin">

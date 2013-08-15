@@ -37,7 +37,7 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     @Session
     private Long vanencompetitionId;
     @Validate
-    protected Vanencompetition vanencompetition;
+    private Vanencompetition vanencompetition;
     private List<Vanencompetition> vanencompetitions = new ArrayList<Vanencompetition>();
     private User user;
 
@@ -85,12 +85,15 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     }
 
     public Vanencompetition getVanencompetition() {
-        return vanencompetition;
+        Object o = this.getContext().getRequest().getSession().getAttribute("vanencompetition");
+        if (o==null){
+            return null;
+        }
+        return (Vanencompetition)o;
     }
 
     public void setVanencompetition(Vanencompetition vanencompetition) {
-        this.vanencompetition = vanencompetition;
-        vanencompetitionId = vanencompetition.getId();
+        this.getContext().getRequest().getSession().setAttribute("vanencompetition", vanencompetition);
     }
     
     public List<Vanencompetition> getVanencompetitions() {

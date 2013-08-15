@@ -67,7 +67,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     private void createParticipantsJson(){
         if (this.getVanencompetition()!=null){
             JSONArray participantsArray = new JSONArray();
-            for (Participant p : this.vanencompetition.getParticipants()) {
+            for (Participant p : this.getVanencompetition().getParticipants()) {
                 if (p.getKarateka() != null) {
                     try {
                         participantsArray.put(p.getKarateka().toJSON());

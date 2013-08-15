@@ -42,6 +42,9 @@ public class DatabaseSynchronizer implements Servlet {
         
         updates.put("0.1", new ArrayList<File>());
         updates.get("0.1").add(new File(DatabaseSynchronizer.class.getResource("/scripts/02_rename-karateka-birthdate.sql").getFile()));
+        
+        updates.put("0.2", new ArrayList<File>());
+        updates.get("0.2").add(new File(DatabaseSynchronizer.class.getResource("/scripts/03_add_to_poule.sql").getFile()));
     }
 
     public void doInit(){

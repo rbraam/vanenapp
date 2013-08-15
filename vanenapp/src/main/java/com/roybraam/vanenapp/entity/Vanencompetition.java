@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,6 +35,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Vanencompetition {
+    @OneToMany(mappedBy = "vanencompetition")
+    private List<Poule> poules;
     @Id
     private long id;
     @Temporal(javax.persistence.TemporalType.DATE)
