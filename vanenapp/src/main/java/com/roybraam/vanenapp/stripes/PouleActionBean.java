@@ -75,8 +75,15 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         }
         this.poule.setStartKyu(Kyu.valueOf(this.startKyu));
         this.poule.setEndKyu(Kyu.valueOf(this.endKyu));
-        if (this.poule.getStartKyu() > this.poule.getEndKyu()){
-            
+        if (this.poule.getStartKyu().getId() > this.poule.getEndKyu().getId()){
+            Kyu temp = this.poule.getStartKyu();
+            this.poule.setStartKyu(this.poule.getEndKyu());
+            this.poule.setEndKyu(temp);
+        }
+        if (this.poule.getStartAge() > this.poule.getEndAge()){
+            Integer tmp = this.poule.getStartAge();
+            this.poule.setStartAge(this.poule.getEndAge());
+            this.poule.setEndAge(tmp);
         }
         this.poule.setVanencompetition(this.getVanencompetition());
         if (this.poule.getName()==null){
