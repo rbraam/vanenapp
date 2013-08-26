@@ -209,3 +209,19 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     clear: none;
     margin-left: 5px;
 }
+
+.candidate-container{
+    height: 200px;
+    overflow: auto;
+    width: 100%;
+}
+.candidate-label{
+}
+
+.candidate-class{
+    float: left;
+    
+}
+candidate-checkbox{
+    clear: none;
+}

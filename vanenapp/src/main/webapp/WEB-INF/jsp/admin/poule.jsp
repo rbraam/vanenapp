@@ -35,7 +35,7 @@
                 </tr>
                 <c:forEach items="${actionBean.poules}" var="p">
                     <tr>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?organisation=${p.id}'><c:out value="${p.name}"/></a></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p.name}"/></a></td>
                         <td><c:out value="${p.startKyu}"/></td>
                         <td><c:out value="${p.endKyu}"/></td>
                         <td><c:out value="${p.startAge}"/></td>
@@ -49,7 +49,7 @@
         <stripes:form beanclass="com.roybraam.vanenapp.stripes.PouleActionBean">
             <c:choose>
                 <c:when test="${actionBean.context.eventName == 'edit'}">
-                    <stripes:hidden name="poule" value="${actionBean.poule.id}"/>
+                    <stripes:hidden id="pouleId" name="poule" value="${actionBean.poule.id}"/>
                     <div class="form-container">
                         <table class="formtable">                    
                             <tr>
@@ -59,7 +59,7 @@
                             <tr>
                                 <td>Vanaf Kyu</td>
                                 <td>
-                                    <stripes:select name="startKyu">
+                                    <stripes:select name="startKyu" id="startKyu">
                                         <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description"/>
                                     </stripes:select>
                                 </td>
@@ -67,18 +67,22 @@
                             <tr>
                                 <td>Tot Kyu</td>
                                 <td>
-                                    <stripes:select name="endKyu">
-                                        <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description"/>
+                                    <stripes:select name="endKyu" id="endKyu">
+                                        <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description" />
                                     </stripes:select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Vanaf leeftijd</td>
-                                <td><stripes:text name="poule.startAge"/></td>
+                                <td><stripes:text name="poule.startAge" id="startAge"/></td>
                             </tr>
                             <tr>
                                 <td>Tot leeftijd</td>
-                                <td><stripes:text name="poule.endAge"/></td>
+                                <td><stripes:text name="poule.endAge" id="endAge"/></td>
+                            </tr>
+                            <tr>
+                                <td>Deelnemers</td>
+                                <td><div id="candidateContainer" class="candidate-container"></div></td>
                             </tr>
                         </table>
                     </div>
@@ -92,11 +96,16 @@
                 </c:otherwise>
             </c:choose>
         </stripes:form>
-        <script src="${contextPath}/js/KaratekaListController.js"></script>
-        <script src="${contextPath}/js/poule.js"></script>
         <script type="text/javascript">
-            var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
+            var savedParticipants=[];
+            <c:forEach items="${actionBean.participants}" var="p">
+                savedParticipants.push(${p.id});
+            </c:forEach>
+            var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
         </script>
+        <script src="${contextPath}/js/CandidateController.js"></script>
+        <script src="${contextPath}/js/poule.js"></script>
+        
     </stripes:layout-component>
 
 </stripes:layout-render>

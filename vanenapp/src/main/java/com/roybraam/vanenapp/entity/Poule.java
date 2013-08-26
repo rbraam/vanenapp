@@ -16,11 +16,14 @@
  */
 package com.roybraam.vanenapp.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -46,6 +49,9 @@ public class Poule {
 
     @ManyToOne
     private Vanencompetition vanencompetition;
+    
+    @OneToMany(mappedBy = "poule")
+    private List<Participant> participants = new ArrayList<Participant>();
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {
         return id;
@@ -129,6 +135,14 @@ public class Poule {
             s+= " jaar";
         }
         return s;
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
     }
     //</editor-fold>
 

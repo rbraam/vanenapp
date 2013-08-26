@@ -59,7 +59,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
             Participant p = new Participant(this.getVanencompetition(),k);
             this.getVanencompetition().getParticipants().add(p);
         }
-        Stripersist.getEntityManager().getTransaction().commit();
+        em.getTransaction().commit();
         this.createParticipantsJson();
         return new ForwardResolution(JSP);
     }

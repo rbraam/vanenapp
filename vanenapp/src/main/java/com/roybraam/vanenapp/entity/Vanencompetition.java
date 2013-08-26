@@ -28,6 +28,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Vanencompetition {
     private Organisation organisation;
     private String location;
     @OneToMany(orphanRemoval=true, cascade=CascadeType.ALL, mappedBy="vanencompetition")
+    @JsonIgnore
     private Set<Participant> participants = new HashSet<Participant>();
     
     
