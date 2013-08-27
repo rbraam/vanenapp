@@ -63,7 +63,7 @@ Ext.define("CandidateController",{
         var div = new Ext.Element(document.createElement('div'));
         div.addCls("candidate-class");
         
-        var candidateString =candidate.karateka.name + " "+candidate.karateka.belt+ " " + candidate.karateka.birthdate;
+        var candidateString =candidate.karateka.surname + ", "+candidate.karateka.name + " "+candidate.karateka.belt+ " " + candidate.karateka.birthdate;
         
         var checked = this.isCheckedCandidate(candidate);
         

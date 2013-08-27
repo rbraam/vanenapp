@@ -219,8 +219,6 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
 }
 
 .candidate-class{
-    float: left;
-    
 }
 candidate-checkbox{
     clear: none;

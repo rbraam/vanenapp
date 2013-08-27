@@ -16,26 +16,30 @@
  */
 package com.roybraam.vanenapp.entity;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  *
  * @author Roy Braam
  */
 public enum Kyu{
-    KYU_8(0,"8e Kyu"),
-    KYU_7(1,"7e Kyu"),
-    KYU_6(2,"6e Kyu"),
-    KYU_5(3,"5e Kyu"),
-    KYU_4(4,"4e Kyu"),
-    KYU_3(5,"3e Kyu"),
-    KYU_2(6,"2e Kyu"),
-    KYU_1(7,"1e Kyu");
+    KYU_8(0,"8e Kyu", "Wit"),
+    KYU_7(1,"7e Kyu", "Geel"),
+    KYU_6(2,"6e Kyu", "Oranje"),
+    KYU_5(3,"5e Kyu", "Groen"),
+    KYU_4(4,"4e Kyu", "Blauw"),
+    KYU_3(5,"3e Kyu", "Bruin"),
+    KYU_2(6,"2e Kyu", "Bruin"),
+    KYU_1(7,"1e Kyu", "Bruin");
     
     private int id;
     private String description;
+    private String color;
     
-    Kyu(int id, String description){
+    Kyu(int id, String description, String color){
         this.id=id;
         this.description=description;
+        this.color=color;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
@@ -47,12 +51,22 @@ public enum Kyu{
         this.id = id;
     }
     
-    public String getDescription() {
+    @JsonValue
+    public final String getDescription() {
         return description;
     }
     
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
     //</editor-fold>
+
 }
