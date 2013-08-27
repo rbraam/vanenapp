@@ -24,6 +24,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -51,6 +52,7 @@ public class Poule {
     private Vanencompetition vanencompetition;
     
     @OneToMany(mappedBy = "poule")
+    @JsonIgnore
     private List<Participant> participants = new ArrayList<Participant>();
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {

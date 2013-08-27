@@ -7,6 +7,7 @@ package com.roybraam.vanenapp.stripes;
 import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
+import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -144,15 +145,15 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     
     @Before(stages = LifecycleStage.EventHandling)
     public void list(){
-        if (this.poule !=null && this.poule.getVanencompetition()!=null && this.getVanencompetition()==null){
-            this.setVanencompetition(this.poule.getVanencompetition());
+        if (this.getVanencompetition()!=null){
+            this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
         }
-        this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
     }
     
     public Resolution participantList(){
         final List<Participant> kandidates;
-        if (this.getVanencompetition()!=null){
+        if (this.getVanencompetition()!=null && this.startAge!=null && this.endAge!=null &&
+                this.startKyu!=null && this.endKyu!=null){
             Date vanenDate = this.getVanencompetition().getDate();
             Calendar startCal = Calendar.getInstance();
             startCal.setTime(vanenDate);
@@ -165,7 +166,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             /*Date startDate= new GregorianCalendar(vanenDate.get);
             Date endDate = this.getVanencompetition().getDate();*/
             Query q = Stripersist.getEntityManager().createQuery("FROM Participant p where p.vanencompetition = :v"
-                    + " and (p.poule = null or p.poule = :p)"
+                    + " and (p.poule = :p or p.poule is null)"
                     + " and p.karateka.belt BETWEEN :ek and :sk"
               //      + " and p.karateka.birthdate >= :sd and p.karateka.birthdate < :ed"
                     );
@@ -246,5 +247,13 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
 
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
+    }
+    
+    public Vanencompetition getVanencompetition(){
+        if (super.getVanencompetition()==null && this.poule !=null){
+            return this.poule.getVanencompetition();
+        }else{
+            return super.getVanencompetition();
+        }
     }
 }

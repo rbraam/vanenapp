@@ -8,6 +8,7 @@ Ext.define("CandidateController",{
     config: {
         url: null,
         checkedCandidates: null,
+        poule: null,
         renderTo: null
     },
     constructor: function (conf){
@@ -39,7 +40,7 @@ Ext.define("CandidateController",{
                 endAge: endAge,
                 startKyu: startKyu,
                 endKyu: endKyu,
-                poule: null
+                poule: me.poule
             },
             success: function(response){
                 var candidates = Ext.JSON.decode(response.responseText);
@@ -87,7 +88,7 @@ Ext.define("CandidateController",{
     
     isCheckedCandidate: function(candidate){
         for (var i=0; i < this.checkedCandidates.length; i++){
-            if (this.checkedCandidates === candidate.id){
+            if (this.checkedCandidates[i] === candidate.id){
                 return true;
             }
         }

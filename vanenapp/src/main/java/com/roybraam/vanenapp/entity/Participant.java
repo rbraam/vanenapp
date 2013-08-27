@@ -21,6 +21,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *

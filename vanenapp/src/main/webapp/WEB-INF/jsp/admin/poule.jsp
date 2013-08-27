@@ -101,6 +101,10 @@
             <c:forEach items="${actionBean.participants}" var="p">
                 savedParticipants.push(${p.id});
             </c:forEach>
+            var pouleId=null;
+            <c:if test="${actionBean.poule !=null}">
+                pouleId="${actionBean.poule.id}";
+            </c:if>
             var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
         </script>
         <script src="${contextPath}/js/CandidateController.js"></script>

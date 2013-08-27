@@ -3,7 +3,9 @@ Ext.onReady(function() {
     
     candidateController = Ext.create("CandidateController",{
         url: listParticipantUrl,
-        renderTo: "candidateContainer"
+        renderTo: "candidateContainer",
+        checkedCandidates: savedParticipants,
+        poule: pouleId
     });
     
     Ext.get('startAge').on("change",function(el){
@@ -18,6 +20,7 @@ Ext.onReady(function() {
     Ext.get('endKyu').on("change",function(el){
         getParticipantList();
     });
+    getParticipantList();
 });
 
 function getParticipantList(){
