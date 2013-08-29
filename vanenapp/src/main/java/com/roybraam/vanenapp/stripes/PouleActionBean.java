@@ -171,14 +171,14 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             Query q = Stripersist.getEntityManager().createQuery("FROM Participant p where p.vanencompetition = :v"
                     + " and (p.poule = :p or p.poule is null)"
                     + " and p.karateka.belt BETWEEN :ek and :sk"
-              //      + " and p.karateka.birthdate >= :sd and p.karateka.birthdate < :ed"
+                    + " and p.karateka.birthdate <= :sd and p.karateka.birthdate >= :ed"
                     );
-            q.setParameter("v", this.getVanencompetition());
+                q.setParameter("v", this.getVanencompetition());
             q.setParameter("sk", Kyu.valueOf(this.startKyu));
             q.setParameter("ek", Kyu.valueOf(this.endKyu));
             q.setParameter("p", this.poule);
-           // q.setParameter("sd",startCal.getTime());
-            //q.setParameter("ed",endCal.getTime());
+            q.setParameter("sd",startCal.getTime());
+            q.setParameter("ed",endCal.getTime());
             kandidates = q.getResultList();            
         }else{
             kandidates = new ArrayList<Participant>();
