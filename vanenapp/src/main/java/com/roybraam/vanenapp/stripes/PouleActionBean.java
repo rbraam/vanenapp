@@ -63,6 +63,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     private Integer endAge=null;
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
+    @Validate
+    private List<Participant> participantsWithoutPoule = new ArrayList<Participant>();
     
     @DefaultHandler
     public Resolution view() {
@@ -147,6 +149,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void list(){
         if (this.getVanencompetition()!=null){
             this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
+            this.participantsWithoutPoule = Stripersist.getEntityManager().createQuery("FROM Participant where poule is null and vanencompetition = :v").setParameter("v", this.getVanencompetition()).getResultList();
         }
     }
     
@@ -223,8 +226,6 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void setEndKyu(String endKyu) {
         this.endKyu = endKyu;
     }
-    //</editor-fold>
-
     public Integer getStartAge() {
         return startAge;
     }
@@ -256,4 +257,15 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             return super.getVanencompetition();
         }
     }
+
+    public List<Participant> getParticipantsWithoutPoule() {
+        return participantsWithoutPoule;
+    }
+
+    public void setParticipantsWithoutPoule(List<Participant> participantsWithoutPoule) {
+        this.participantsWithoutPoule = participantsWithoutPoule;
+    }
+    //</editor-fold>
+
+    
 }

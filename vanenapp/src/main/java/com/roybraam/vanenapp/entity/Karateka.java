@@ -18,6 +18,7 @@ package com.roybraam.vanenapp.entity;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
-import org.codehaus.jackson.JsonGenerator;
+import javax.swing.text.DateFormatter;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +49,8 @@ public class Karateka {
     private Date birthdate;
     private double weight;
     
+    
+    private static SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Integer getId() {
         return id;
@@ -133,6 +136,21 @@ public class Karateka {
         }else{
             return 0;
         }
+    }
+     
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.surname);
+        if (this.name!=null){
+            sb.append(", ").append(this.name);
+        }if(this.insert!=null){
+            sb.append(" ").append(this.insert);
+        }if (this.belt!=null){
+            sb.append(" ").append(this.belt.getDescription());
+        }if (this.birthdate!=null){
+            sb.append(" ").append(df.format(birthdate));
+        }
+        return sb.toString();
     }
 
     public JSONObject toJSON() throws JSONException, IOException {

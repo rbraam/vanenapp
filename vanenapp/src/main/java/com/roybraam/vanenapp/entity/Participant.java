@@ -48,6 +48,10 @@ public class Participant {
         this.karateka = k;
         this.vanencompetition=vanencompetition;
     }
+    
+    public String toString(){
+        return this.karateka.toString();
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Long getId() {
