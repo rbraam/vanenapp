@@ -149,7 +149,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void list(){
         if (this.getVanencompetition()!=null){
             this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
-            this.participantsWithoutPoule = Stripersist.getEntityManager().createQuery("FROM Participant where poule is null and vanencompetition = :v").setParameter("v", this.getVanencompetition()).getResultList();
+            this.participantsWithoutPoule = Stripersist.getEntityManager().createQuery("FROM Participant where poule is null and vanencompetition = :v order by karateka.belt,karateka.birthdate").setParameter("v", this.getVanencompetition()).getResultList();
         }
     }
     
