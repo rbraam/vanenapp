@@ -46,7 +46,7 @@
                 </c:forEach>
             </table>
         </div>
-        <div style="width: 70%; float: left;">
+        <div class="participant-left-col">
             <stripes:form beanclass="com.roybraam.vanenapp.stripes.PouleActionBean">
                 <c:choose>
                     <c:when test="${actionBean.context.eventName == 'edit'}">
@@ -98,8 +98,8 @@
                 </c:choose>
             </stripes:form>
         </div>
-        <div style="width: 25%; float: left;">
-            Niet ingedeelde deelnemers:
+        <div class="participants-without-poule-col">
+            <b>Niet ingedeelde deelnemers:</b>
             <div>
                 <c:forEach items="${actionBean.participantsWithoutPoule}" var="p">
                      <c:out value="${p}"/><br/>

@@ -223,3 +223,15 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
 candidate-checkbox{
     clear: none;
 }
+
+.participants-without-poule-col{
+    width: 25%; 
+    float: left; 
+    height: 400px; 
+    overflow: auto;
+}
+
+.participant-left-col{
+    width: 70%; 
+    float: left;
+}
