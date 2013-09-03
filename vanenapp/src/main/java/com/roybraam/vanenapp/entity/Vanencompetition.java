@@ -19,6 +19,7 @@ package com.roybraam.vanenapp.entity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,18 +62,7 @@ public class Vanencompetition {
         String datum=df.format(date);
         return datum;
     }
-    public String toString(){
-        StringBuffer sb= new StringBuffer();
-        if (getDatumString()!=null){
-            sb.append(getDatumString());
-            sb.append(" ");
-        }
-        if (getLocation()!=null){
-            sb.append(getLocation());            
-        }
-       return sb.toString();
-    }
-
+    
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {
         return id;
@@ -131,6 +121,10 @@ public class Vanencompetition {
             return true;
         }
         return false;
+    }
+    
+    public String toString(){
+        return String.format("%s (%s)", location,getDatumString());
     }
 
 }

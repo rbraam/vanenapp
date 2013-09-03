@@ -5,6 +5,7 @@
 package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Participant;
+import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
 import java.util.List;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -26,10 +27,17 @@ import org.stripesstuff.stripersist.Stripersist;
 public class PrintActionBean extends OrganizeVanencompetitionActionBean{
     
     private static final String JSP = "/WEB-INF/jsp/admin/print.jsp";
+    private static final String PRINT_JSP= "/WEB-INF/jsp/admin/printPoule.jsp";
     private ActionBeanContext context;
     
     @Validate
+    private List<Poule> poules = new ArrayList<Poule>();
+    
+    @Validate
     private List<Participant> participantsNotInPoule = new ArrayList<Participant>();
+    
+    @Validate
+    private List<Poule> invalidPoules = new ArrayList<Poule>();
     
     @DefaultHandler
     public Resolution view() {
@@ -43,7 +51,31 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
         if (!participantsNotInPoule.isEmpty()){
             getContext().getMessages().add(new SimpleMessage("Er zijn nog "+participantsNotInPoule.size()+" karateka's die niet zijn ingedeeld!"));
         }
+        
+        List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
+                .setParameter("v", getVanencompetition())
+                .getResultList();
+        
+        for (Poule p : poules){
+            if(p.getParticipants().size() < 3 || p.getParticipants().size() > 6){
+                invalidPoules.add(p);
+            }
+        }
+        
         return new ForwardResolution(JSP);
+    }
+    
+    public Resolution printPoules(){
+        List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
+                .setParameter("v", getVanencompetition())
+                .getResultList();
+        
+        for (Poule p : poules){
+            if(p.getParticipants().size() >= 3 && p.getParticipants().size() <= 6){
+                this.poules.add(p);
+            }
+        }
+        return new ForwardResolution(PRINT_JSP);
     }
 
     public List<Participant> getParticipantsNotInPoule() {
@@ -52,5 +84,21 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
 
     public void setParticipantsNotInPoule(List<Participant> participantsNotInPoule) {
         this.participantsNotInPoule = participantsNotInPoule;
+    }
+
+    public List<Poule> getInvalidPoules() {
+        return invalidPoules;
+    }
+
+    public void setInvalidPoules(List<Poule> invalidPoules) {
+        this.invalidPoules = invalidPoules;
+    }
+
+    public List<Poule> getPoules() {
+        return poules;
+    }
+
+    public void setPoules(List<Poule> poules) {
+        this.poules = poules;
     }
 }
