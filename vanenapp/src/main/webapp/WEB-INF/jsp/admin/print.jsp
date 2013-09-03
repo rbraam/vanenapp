@@ -31,7 +31,7 @@
             <c:if test="${not empty actionBean.invalidPoules}">
                 De volgende poules zijn niet volledig doordat het aantal deelnemers niet klopt.
                 <c:forEach items="${actionBean.invalidPoules}" var="p">
-                    <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p.name}"/></a><br/>
+                    <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p}"/></a><br/>
                 </c:forEach>
             </c:if>
         </div>

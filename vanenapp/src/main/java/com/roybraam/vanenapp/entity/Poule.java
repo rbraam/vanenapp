@@ -121,6 +121,10 @@ public class Poule {
     
     public String toString(){
         String s="";
+        if (name!=null){
+            s+= name+" ";
+        }
+        s+="(";
         if (startKyu!=null){
             s+= startKyu.getDescription();
         }
@@ -136,6 +140,7 @@ public class Poule {
         if (startAge!=null){
             s+= " jaar";
         }
+        s+=")";
         return s;
     }
 

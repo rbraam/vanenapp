@@ -108,9 +108,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         EntityManager em = Stripersist.getEntityManager();
         
         this.poule.setVanencompetition(this.getVanencompetition());
-        if (this.poule.getName()==null){
-            this.poule.setName(this.poule.toString());
-        }
+        
         //set correct participants for poule
         for (Participant p : this.poule.getParticipants()){
             p.setPoule(null);

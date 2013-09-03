@@ -32,15 +32,17 @@
                     <th>Tot leeftijd</th>
                     <th>Type</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <c:forEach items="${actionBean.poules}" var="p">
                     <tr>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p.name}"/></a></td>
+                        <td><c:out value="${p.name}"/></td>
                         <td><c:out value="${p.startKyu}"/></td>
                         <td><c:out value="${p.endKyu}"/></td>
                         <td><c:out value="${p.startAge}"/></td>
                         <td><c:out value="${p.endAge}"/></td>
                         <td><c:out value="${p.type}"/></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'>Wijzig</a></td>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="delete"/>?poule=${p.id}'>Verwijder</a></td>
                     </tr>
                 </c:forEach>
