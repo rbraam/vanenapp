@@ -22,19 +22,19 @@
             </c:if>
             <table class="topTable">
                 <tr>
-                    <td>Datum: <c:out value="${p.vanencompetition}"/></td>
+                    <td>Datum: <c:out value="${p.vanencompetition.datumString}"/></td>
                     <td><fmt:message key="printpoule.pouleformulier"/></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
-                    <td><fmt:message key="printpoule.sportschool"/></td>
-                    <td>&nbsp;</td>
+                    <td>Locatie: <c:out value="${p.vanencompetition.location}"/></td>
+                    <td><c:out value="${actionBean.vanencompetition.organisation.name}"/></td>
+                    <td>SHIAO: </td>
                 </tr>
                 <tr>
                     <td>Poule: <c:out value="${p.name}"/></td>
-                    <td><fmt:message key="printpoule.organisator"/></td>
-                    <td>SHIAO: </td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
             <c:set var="aantal" value="${fn:length(p.participants)}"/>
