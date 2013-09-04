@@ -4,10 +4,12 @@
  */
 package com.roybraam.vanenapp.stripes;
 
+import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Query;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -39,6 +41,9 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
     @Validate
     private List<Poule> invalidPoules = new ArrayList<Poule>();
     
+    @Validate
+    private String belt= null;
+    
     @DefaultHandler
     public Resolution view() {
         if (this.getVanencompetition() == null) {
@@ -66,13 +71,24 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
     }
     
     public Resolution printPoules(){
-        List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
-                .setParameter("v", getVanencompetition())
-                .getResultList();
-        
-        for (Poule p : poules){
-            if(p.getParticipants().size() >= 3 && p.getParticipants().size() <= 6){
-                this.poules.add(p);
+        if (this.poules.isEmpty()){
+            Kyu kyu=null;
+            String q = "FROM Poule where vanencompetition = :v";
+            if (this.belt!=null){
+                kyu = Kyu.valueOf(this.belt);
+                q+=" and startKyu = :b";
+            }
+            Query query = Stripersist.getEntityManager().createQuery(q);
+            query.setParameter("v", getVanencompetition());
+            if (kyu!=null){
+                query.setParameter("b", kyu);
+            }
+            List<Poule> poules = query.getResultList();
+
+            for (Poule p : poules){
+                if(p.getParticipants().size() >= 3 && p.getParticipants().size() <= 6){
+                    this.poules.add(p);
+                }
             }
         }
         return new ForwardResolution(PRINT_JSP);
@@ -100,5 +116,13 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
 
     public void setPoules(List<Poule> poules) {
         this.poules = poules;
+    }
+
+    public String getBelt() {
+        return belt;
+    }
+
+    public void setBelt(String belt) {
+        this.belt = belt;
     }
 }
