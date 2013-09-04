@@ -51,7 +51,7 @@ public class Poule {
     @ManyToOne
     private Vanencompetition vanencompetition;
     
-    @OneToMany(mappedBy = "poule")
+    @OneToMany(mappedBy = "poule" )
     @JsonIgnore
     private List<Participant> participants = new ArrayList<Participant>();
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">

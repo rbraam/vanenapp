@@ -109,11 +109,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         
         this.poule.setVanencompetition(this.getVanencompetition());
         
-        //set correct participants for poule
-        for (Participant p : this.poule.getParticipants()){
-            p.setPoule(null);
-            em.persist(p);
-        }
+        clearPouleParticipants(em);
         for (Participant p : this.participants){
            p.setPoule(this.poule);
             em.persist(p);
@@ -131,8 +127,10 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             return this.getChooseVanencompetitionResolution();
         }
         if (this.poule != null) {
-            Stripersist.getEntityManager().remove(this.poule);
-            Stripersist.getEntityManager().getTransaction().commit();
+            EntityManager em= Stripersist.getEntityManager();
+            clearPouleParticipants(em);
+            em.remove(this.poule);
+            em.getTransaction().commit();
             getContext().getMessages().add(new SimpleMessage("Poule is verwijderd"));
             this.list();
         }
@@ -192,6 +190,14 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         };
     }
 
+    private void clearPouleParticipants(EntityManager em) {
+        //set correct participants for poule
+        for (Participant p : this.poule.getParticipants()){
+            p.setPoule(null);
+            em.persist(p);
+        }
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getters/setters">
     public List<Poule> getPoules() {
         return poules;
@@ -264,6 +270,4 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         this.participantsWithoutPoule = participantsWithoutPoule;
     }
     //</editor-fold>
-
-    
 }

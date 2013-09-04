@@ -37,7 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 public class Vanencompetition {
-    @OneToMany(mappedBy = "vanencompetition")
+    @OneToMany(mappedBy = "vanencompetition", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Poule> poules;
     @Id
     private long id;
