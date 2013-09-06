@@ -25,7 +25,7 @@
         <div class="admin-list">
             <table>
                 <tr>
-                    <th>Naam</th>
+                    <th>Toevoeging op naam</th>
                     <th>Vanaf Kyu</th>                
                     <th>Tot Kyu</th>                
                     <th>Van leeftijd</th>                
@@ -56,7 +56,7 @@
                         <div class="form-container">
                             <table class="formtable">                    
                                 <tr>
-                                    <td>Naam</td>
+                                    <td>Toevoeging op naam</td>
                                     <td><stripes:text name="poule.name"/></td>
                                 </tr>
                                 <tr>
