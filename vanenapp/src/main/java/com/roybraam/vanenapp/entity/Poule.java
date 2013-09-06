@@ -124,12 +124,12 @@ public class Poule {
         if (name!=null){
             s+= name+" ";
         }
-        s+="(";
+        
         if (startKyu!=null){
-            s+= startKyu.getDescription();
+            s+=" "+ startKyu.getColor();
         }
         if (endKyu!=null && endKyu!= startKyu){
-            s+=" - "+endKyu.getDescription();
+            s+=" - "+endKyu.getColor();
         }
         if (startAge !=null){
             s+=" "+startAge;
