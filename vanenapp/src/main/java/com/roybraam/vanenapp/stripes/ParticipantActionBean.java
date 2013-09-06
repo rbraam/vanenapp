@@ -6,18 +6,15 @@ package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Participant;
+import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
-import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
-import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,12 +50,14 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
             return this.getChooseVanencompetitionResolution();
         }
         EntityManager em = Stripersist.getEntityManager();
+        reloadVanencompetition();
         this.getVanencompetition().getParticipants().clear();
         for (Integer kid : this.getParticipantsList()){
             Karateka k = em.find(Karateka.class, kid);
             Participant p = new Participant(this.getVanencompetition(),k);
             this.getVanencompetition().getParticipants().add(p);
         }
+        em.persist(this.getVanencompetition());
         em.getTransaction().commit();
         this.createParticipantsJson();
         return new ForwardResolution(JSP);
@@ -67,6 +66,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     private void createParticipantsJson(){
         if (this.getVanencompetition()!=null){
             JSONArray participantsArray = new JSONArray();
+            reloadVanencompetition();
             for (Participant p : this.getVanencompetition().getParticipants()) {
                 if (p.getKarateka() != null) {
                     try {

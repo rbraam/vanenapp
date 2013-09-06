@@ -74,6 +74,10 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     public void setNoVanencompetitionMessage() {
         getContext().getMessages().add(new SimpleError("Er moet eerst een vanencompetitie worden geselecteerd"));
     }
+    
+    public void reloadVanencompetition(){
+        this.setVanencompetition(Stripersist.getEntityManager().find(Vanencompetition.class, this.getVanencompetition().getId()));
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
     public ActionBeanContext getContext() {
