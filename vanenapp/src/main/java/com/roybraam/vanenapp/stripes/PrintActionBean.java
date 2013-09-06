@@ -9,6 +9,7 @@ import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.persistence.Query;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -39,7 +40,7 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
     @Validate
     private List<Poule> invalidPoules = new ArrayList<Poule>();
     @Validate
-    private HashMap<Kyu,Integer> validPoulesWithKyu = new HashMap<Kyu,Integer>();
+    private LinkedHashMap<Kyu,Integer> validPoulesWithKyu = new LinkedHashMap<Kyu,Integer>();
     @Validate
     private String belt = null;
 
@@ -67,6 +68,7 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
         for (Poule p : poules) {
             if (p.getParticipants().size() < 3 || p.getParticipants().size() > 6) {
                 invalidPoules.add(p);
+            }else{
                 validPoulesWithKyu.put(p.getStartKyu(),validPoulesWithKyu.get(p.getStartKyu())+1);
             }
         }
@@ -129,11 +131,11 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
         this.belt = belt;
     }
 
-    public HashMap<Kyu,Integer> getValidPoulesWithKyu() {
+    public LinkedHashMap<Kyu,Integer> getValidPoulesWithKyu() {
         return validPoulesWithKyu;
     }
 
-    public void setValidPoulesWithKyu(HashMap<Kyu,Integer> validPoulesWithKyu) {
+    public void setValidPoulesWithKyu(LinkedHashMap<Kyu,Integer> validPoulesWithKyu) {
         this.validPoulesWithKyu = validPoulesWithKyu;
     }
 }

@@ -22,11 +22,18 @@
             <stripes:messages/>
         </p>
         <h1>Uitdraaien Poules</h1>
-        Hier kan u de ingedeelde poules uitdraaien.
+        <h3>Hier kan u de ingedeelde poules uitdraaien.</h3><br/>
         <div class="two-column">
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>'>Alle poules</a><br/>
             <c:forEach items="${actionBean.validPoulesWithKyu}" var="b">
-                <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?belt=${b.key}'><c:out value="${b.key.description}"/><c:out value="${b.value}"/></a><br/>
+                <c:choose>
+                    <c:when test="${b.value > 0}">
+                        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?belt=${b.key}'> <c:out value="${b.key.description}"/> (<c:out value="${b.value}"/> poule(s))</a><br/>
+                    </c:when>
+                    <c:otherwise>
+                        Er zijn geen poules voor <c:out value="${b.key.description}"/><br/>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
             </div>
             <div class="two-column">

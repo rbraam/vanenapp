@@ -32,7 +32,7 @@
                     <td>SHIAO: </td>
                 </tr>
                 <tr>
-                    <td>Poule: <c:out value="${p.name}"/></td>
+                    <td>Poule: <c:out value="${p}"/></td>
                     <td></td>
                     <td></td>
                 </tr>
