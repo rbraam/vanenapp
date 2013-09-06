@@ -8,6 +8,7 @@ import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.persistence.Query;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -26,24 +27,22 @@ import org.stripesstuff.stripersist.Stripersist;
  */
 @StrictBinding
 @UrlBinding("/action/admin/print/{$event}")
-public class PrintActionBean extends OrganizeVanencompetitionActionBean{
-    
+public class PrintActionBean extends OrganizeVanencompetitionActionBean {
+
     private static final String JSP = "/WEB-INF/jsp/admin/print.jsp";
-    private static final String PRINT_JSP= "/WEB-INF/jsp/admin/printPoule.jsp";
+    private static final String PRINT_JSP = "/WEB-INF/jsp/admin/printPoule.jsp";
     private ActionBeanContext context;
-    
     @Validate
     private List<Poule> poules = new ArrayList<Poule>();
-    
     @Validate
     private List<Participant> participantsNotInPoule = new ArrayList<Participant>();
-    
     @Validate
     private List<Poule> invalidPoules = new ArrayList<Poule>();
-    
     @Validate
-    private String belt= null;
-    
+    private HashMap<Kyu,Integer> validPoulesWithKyu = new HashMap<Kyu,Integer>();
+    @Validate
+    private String belt = null;
+
     @DefaultHandler
     public Resolution view() {
         if (this.getVanencompetition() == null) {
@@ -52,41 +51,45 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
         }
         participantsNotInPoule = Stripersist.getEntityManager()
                 .createQuery("FROM Participant where vanencompetition = :v and poule is null")
-                .setParameter("v",this.getVanencompetition()).getResultList();
-        if (!participantsNotInPoule.isEmpty()){
-            getContext().getMessages().add(new SimpleMessage("Er zijn nog "+participantsNotInPoule.size()+" karateka's die niet zijn ingedeeld!"));
+                .setParameter("v", this.getVanencompetition()).getResultList();
+        if (!participantsNotInPoule.isEmpty()) {
+            getContext().getMessages().add(new SimpleMessage("Er zijn nog " + participantsNotInPoule.size() + " karateka's die niet zijn ingedeeld!"));
         }
-        
+
         List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
                 .setParameter("v", getVanencompetition())
                 .getResultList();
-        
-        for (Poule p : poules){
-            if(p.getParticipants().size() < 3 || p.getParticipants().size() > 6){
+
+        for (Kyu k : Kyu.values()){
+            validPoulesWithKyu.put(k,new Integer("0"));
+            
+        }
+        for (Poule p : poules) {
+            if (p.getParticipants().size() < 3 || p.getParticipants().size() > 6) {
                 invalidPoules.add(p);
+                validPoulesWithKyu.put(p.getStartKyu(),validPoulesWithKyu.get(p.getStartKyu())+1);
             }
         }
-        
         return new ForwardResolution(JSP);
     }
-    
-    public Resolution printPoules(){
-        if (this.poules.isEmpty()){
-            Kyu kyu=null;
+
+    public Resolution printPoules() {
+        if (this.poules.isEmpty()) {
+            Kyu kyu = null;
             String q = "FROM Poule where vanencompetition = :v";
-            if (this.belt!=null){
+            if (this.belt != null) {
                 kyu = Kyu.valueOf(this.belt);
-                q+=" and startKyu = :b";
+                q += " and startKyu = :b";
             }
             Query query = Stripersist.getEntityManager().createQuery(q);
             query.setParameter("v", getVanencompetition());
-            if (kyu!=null){
+            if (kyu != null) {
                 query.setParameter("b", kyu);
             }
             List<Poule> poules = query.getResultList();
 
-            for (Poule p : poules){
-                if(p.getParticipants().size() >= 3 && p.getParticipants().size() <= 6){
+            for (Poule p : poules) {
+                if (p.getParticipants().size() >= 3 && p.getParticipants().size() <= 6) {
                     this.poules.add(p);
                 }
             }
@@ -124,5 +127,13 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean{
 
     public void setBelt(String belt) {
         this.belt = belt;
+    }
+
+    public HashMap<Kyu,Integer> getValidPoulesWithKyu() {
+        return validPoulesWithKyu;
+    }
+
+    public void setValidPoulesWithKyu(HashMap<Kyu,Integer> validPoulesWithKyu) {
+        this.validPoulesWithKyu = validPoulesWithKyu;
     }
 }
