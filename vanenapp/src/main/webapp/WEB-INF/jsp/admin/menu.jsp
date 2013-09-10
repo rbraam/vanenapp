@@ -16,10 +16,11 @@
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean">Selecteer deelnemers</stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PouleActionBean">Maak poule indeling</stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PrintActionBean">Uitdraaien poules</stripes:link></li>
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ListActionBean">Lijsten</stripes:link></li>
 </ul>
 
 <req:isUserInRole role="admin">
-    <h2>Beheer applicatie</h2>
+    <h2>Beheer VanenApp</h2>
     <ul class="menuUl">
         <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean">Organisaties</stripes:link></li>
         <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.UserActionBean">Gebruikers</stripes:link></li>
