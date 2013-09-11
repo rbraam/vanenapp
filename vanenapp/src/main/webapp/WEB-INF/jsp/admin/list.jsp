@@ -18,7 +18,6 @@
         <script type="text/javascript">
             function createDate(dateString){
                 var tokens = dateString.split("-");
-            // m/d/y
                 var s= tokens[1]+"/"+tokens[2]+"/"+tokens[0];
                 return new Date(s);
             }
@@ -27,13 +26,13 @@
         <a href="#" onclick="javascript: window.print()">Print</a><br/>
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
         <c:forEach varStatus="stat" items="${actionBean.resultList}" var="l">
+            
             <c:out value="${l}"/>
-            <c:out value="${l.karateka}"/>
-            <c:if test="${not empty l.karateka}">
+            <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
                 <script type="text/javascript">
                     var birthDate = createDate("${l.karateka.birthdate}");
                     var years = vanenDate.getFullYear() - birthDate.getFullYear();
-                    // Reset birthday to the current year.
+            
                     birthDate.setFullYear(vanenDate.getFullYear());
                     // If the user's birthday has not occurred yet this year, subtract 1.
                     if (vanenDate < birthDate){
