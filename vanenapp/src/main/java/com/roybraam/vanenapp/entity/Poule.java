@@ -122,7 +122,7 @@ public class Poule {
     public String toString(){
         String s="";
         if (name!=null){
-            s+= name+" ";
+            s+= name+" (";
         }
         
         if (startKyu!=null){
@@ -140,7 +140,9 @@ public class Poule {
         if (startAge!=null){
             s+= " jaar";
         }
-        s+=")";
+        if (name!=null){
+            s+=")";
+        }
         return s;
     }
 
