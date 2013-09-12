@@ -22,6 +22,10 @@
             <stripes:messages/>
         </p>
         <h1>Beheer karateka</h1><br/>
+        Hier kunnen karateka's worden toegevoegd en worden gewijzigd. Door te typen
+        in het zoek venster wordt de lijst met karateka's verkleind. Door te klikken
+        op een karateka wordt het formulier voor het wijzigen van een karateka geopend.
+        
         <div id="karatekaListContainer">
                         
         </div>
