@@ -125,6 +125,10 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     border: 2px solid red;
 }
 
+.table-key{
+    font-weight: bold;
+    width: 150px;
+}
 /*Admin list css*/
 .admin-list{
     width: 100%;

@@ -23,11 +23,14 @@
         <p>In het linker menu kan u kiezen uit een aantal opties:
         <table>
             <tr>
-                <td> <fmt:message key="admin.menu.vanencompetition"/> </td>
-                <td></td>
+                <td class="table-key"><fmt:message key="admin.menu.vanencompetition"/></td>
+                <td>
+                    Hier kan u een nieuwe vanencompetitie aanmaken en/of een 
+                    bestaande competitie wijzigen.
+                </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.menu.karateka"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.karateka"/></td>
                 <td>
                     Met deze optie kunnen nieuwe karateka's worden aangemaakt en 
                     er kunnen karateka's worden gewijzigd.
@@ -37,14 +40,14 @@
                 </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.mdenu.organizevanencompetition"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.organizevanencompetition"/></td>
                 <td>
                     Met deze optie kan er een nieuwe Vanencompetitie worden aangemaakt en 
                     kan een reeds aangemaakte Vanencompetitie worden gewijzigd.
                 </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.menu.participant"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.participant"/></td>
                 <td>
                     Hier kunnen de karateka's die deelnemen aan de geselecteerde 
                     vanencompetitie worden geselecteerd.
@@ -52,7 +55,7 @@
                 </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.menu.poule"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.poule"/></td>
                 <td>
                     In dit gedeelte van de applicatie kunnen de poules worden 
                     ingedeeld op basis van de eerder geselecteerde
@@ -60,18 +63,47 @@
                 </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.menu.printpoule"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.printpoule"/></td>
                 <td>
                     Vanuit dit scherm kunnen de ingedeelde poules worden uitgeprint.
                 </td>
             </tr>
             <tr>
-                <td><fmt:message key="admin.menu.list"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.list"/></td>
                 <td>
                     Met deze menu optie kunnen er lijsten worden opgevraagd die 
                     kunnen helpen bij het indelen van poules voor een vanencompetitie.
                 </td>
             </tr>
+            <req:isUserInRole role="admin">
+                <tr>
+                    <td class="table-key" colspan="2">
+                        De volgende opties zijn alleen toegankelijk voor beheerders
+                        van de VanenApp
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-key">
+                        <fmt:message key="admin.menu.organisation"/>
+                    </td>
+                    <td>
+                        Hier kan een nieuwe organisaties worden aangemaakt. Een organisatie
+                        is een entiteit dat een vanencompetitie organiseerd en 
+                        gebruik wil maken van de VanenApp. Een organisatie kan 
+                        meerdere gebruikers van de VanenApp bevatten.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-key">
+                        <fmt:message key="admin.menu.user"/>
+                    </td>
+                    <td>
+                        Hier kunnen nieuwe gebruikers worden aangemaakt. Een gebruiker
+                        is gekoppeld aan een organisatie. De gebruiker kan de door
+                        die georganisatie georganiseerde vanencompetities wijzigen.
+                    </td>
+                </tr>
+            </req:isuserinrole>>
         </table>
         </p>
     </stripes:layout-component>
