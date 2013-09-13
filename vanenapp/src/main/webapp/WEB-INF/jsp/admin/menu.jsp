@@ -3,7 +3,6 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/taglibs.jsp"%>
-[admin menu]
 <h2>Beheer</h2>
 <ul class="menuUl">
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.VanencompetitionActionBean"><fmt:message key="admin.menu.vanencompetition"/></stripes:link></li>

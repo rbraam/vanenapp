@@ -10,7 +10,7 @@ body{
     margin: 0px;
     font-size: 8pt; 
     color: #000000; 
-    background-color: #D6EAF2;
+    background-color: #d4d4d4;
     font-family: arial, sans-serif;
     overflow: auto;
 }
@@ -19,6 +19,9 @@ iframe{
     border: none;
 }
 
+.iframe-body{
+    background-color: #FFF;
+}
 #header{
     float: left;
     width: 100%;
@@ -28,35 +31,41 @@ iframe{
 }
 #mid{
     width: 1024px;
+    height: 768px;
     margin-left: auto;
     margin-right: auto;
 }
 #menu{
     position: static;
     float: left;
-    width: 200px;
-    height: 1100px;
+    width: 190px;
+    height: 768px;
     color: white;
     background-color: #186198; 
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 5px;
 }
 #content{
     float: left;
-    width: 810px;
+    width: 805px;
     height: 100%;
     margin-left: auto; 
     margin-right: auto;
-    background-color: #FFF;
     padding: 5px;
-    
+    margin: 5px 0px 0px 5px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #FFF;
 }
 #content-iframe{
     float: left;
-    width: 810px;
+    width: 805px;
     height: 100%;
     margin-left: auto; 
     margin-right: auto;
     background-color: #FFF;
-    
 }
 /*Messages*/
 .box {

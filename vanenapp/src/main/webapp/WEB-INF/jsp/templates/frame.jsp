@@ -27,7 +27,7 @@
             <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
             <script type="text/javascript" src="${contextPath}/extjs/locale/ext-lang-nl.js"></script>
         </head>
-        <body>           
+        <body class="iframe-body">           
             <div id="content-iframe">
                 <stripes:layout-component name="body"/>
             </div>

@@ -18,9 +18,13 @@
 
     <stripes:layout-component name="body">
         <h1> VanenApp beheer pagina's</h1>
-        <p>Welkom op het beheer gedeelte van de VanenApp.
-        Vanuit deze pagina kan u starten met het op papier organiseren van een vanencompetitie.</p>
-        <p>In het linker menu kan u kiezen uit een aantal opties:
+        <p>
+            Welkom op het beheer gedeelte van de VanenApp.
+            Vanuit deze pagina kan u starten met het op papier organiseren van een vanencompetitie.
+        </p>
+        <p>
+            In het linker menu kan u kiezen uit een aantal opties:
+        </p>
         <table>
             <tr>
                 <td class="table-key"><fmt:message key="admin.menu.vanencompetition"/></td>
