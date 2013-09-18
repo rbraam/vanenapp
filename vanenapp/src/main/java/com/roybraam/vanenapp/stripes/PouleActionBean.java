@@ -4,6 +4,8 @@
  */
 package com.roybraam.vanenapp.stripes;
 
+import com.roybraam.vanenapp.entity.CompetitionType;
+import com.roybraam.vanenapp.entity.KumitePoule;
 import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
@@ -30,7 +32,6 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONArray;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
@@ -49,7 +50,10 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", maxlength = 255, label = "Naam"),
         @Validate(on = {"save"}, field = "startAge", required = true, label = "Vanaf leeftijd"),
-        @Validate(on = {"save"}, field = "endAge", required = true, label = "Tot leeftijd")
+        @Validate(on = {"save"}, field = "endAge", required = true, label = "T/m leeftijd"),
+        @Validate(on = {"save"}, field = "startWeight", required = true, label = "Vanaf gewicht"),
+        @Validate(on = {"save"}, field = "endWeight", required = true, label = "T/m gewicht")
+
     })
     private Poule poule;
     
@@ -61,6 +65,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     private Integer startAge=null;
     @Validate
     private Integer endAge=null;
+    @Validate(on = {"save"},required = true)
+    private String type=null;
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
     @Validate
@@ -84,6 +90,11 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             this.startKyu = poule.getStartKyu().name();
             this.endKyu = poule.getEndKyu().name();
             this.participants = this.poule.getParticipants();
+            if (this.poule.getType()!=null){
+                this.type = this.poule.getType().name();
+            }else{
+                this.type = CompetitionType.KATA.name();
+            }
         }
         return new ForwardResolution(JSP);
     }
@@ -105,6 +116,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             this.poule.setStartAge(this.poule.getEndAge());
             this.poule.setEndAge(tmp);
         }
+        this.poule.setType(CompetitionType.valueOf(this.type));
+        
         EntityManager em = Stripersist.getEntityManager();
         
         this.poule.setVanencompetition(this.getVanencompetition());
@@ -145,7 +158,15 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void list(){
         if (this.getVanencompetition()!=null){
             this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
-            this.participantsWithoutPoule = Stripersist.getEntityManager().createQuery("FROM Participant where poule is null and vanencompetition = :v order by karateka.belt,karateka.birthdate").setParameter("v", this.getVanencompetition()).getResultList();
+            if (this.poule!=null && this.poule.getType()!=null){
+                this.participantsWithoutPoule = Stripersist.getEntityManager()
+                        .createQuery("FROM Participant where poule is null and vanencompetition = :v and type = :t order by karateka.belt,karateka.birthdate")
+                        .setParameter("v", this.getVanencompetition()).setParameter("t", this.poule.getType()).getResultList();
+            }else{
+                this.participantsWithoutPoule = Stripersist.getEntityManager()
+                        .createQuery("FROM Participant where poule is null and vanencompetition = :v order by karateka.belt,karateka.birthdate")
+                        .setParameter("v", this.getVanencompetition()).getResultList();
+            }
         }
     }
     
@@ -268,6 +289,14 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
 
     public void setParticipantsWithoutPoule(List<Participant> participantsWithoutPoule) {
         this.participantsWithoutPoule = participantsWithoutPoule;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     //</editor-fold>
 }

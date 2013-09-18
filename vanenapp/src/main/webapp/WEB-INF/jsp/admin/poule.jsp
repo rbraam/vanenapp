@@ -80,8 +80,23 @@
                                     <td><stripes:text name="poule.startAge" id="startAge"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Tot leeftijd</td>
+                                    <td>T/m leeftijd</td>
                                     <td><stripes:text name="poule.endAge" id="endAge"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <stripes:radio name="type" value="KATA" checked="checked"/>Kata<br/>
+                                        <stripes:radio name="type" value="KUMITE"/>Kumité
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Vanaf gewicht (kg)</td>
+                                    <td><stripes:text name="poule.startWeight"/></td>
+                                </tr>
+                                <tr>
+                                    <td>T/m gewicht (kg)</td>
+                                    <td><stripes:text name="poule.endWeight"/></td>
                                 </tr>
                                 <tr>
                                     <td>Deelnemers</td>

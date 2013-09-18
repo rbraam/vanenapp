@@ -18,10 +18,15 @@ package com.roybraam.vanenapp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -31,6 +36,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author Roy Braam
  */
 @Entity
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Poule {
     @Id
     private long id;
@@ -39,21 +45,23 @@ public class Poule {
     
     @Enumerated(EnumType.STRING)
     private Kyu startKyu;    
-    
     @Enumerated(EnumType.STRING)
     private Kyu endKyu;
+    
     private Integer startAge;
     private Integer endAge;
     
+    @Column(insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private CompetitionType type;
-
+    
     @ManyToOne
     private Vanencompetition vanencompetition;
     
     @OneToMany(mappedBy = "poule" )
     @JsonIgnore
     private List<Participant> participants = new ArrayList<Participant>();
+    
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {
         return id;
@@ -153,6 +161,6 @@ public class Poule {
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
     }
+    
     //</editor-fold>
-
 }
