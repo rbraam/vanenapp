@@ -48,6 +48,9 @@ public class DatabaseSynchronizer implements Servlet {
         
         updates.put("0.3", new ArrayList<File>());
         updates.get("0.3").add(new File(DatabaseSynchronizer.class.getResource("/scripts/04_add_weight_to_poule.sql").getFile()));
+        
+        updates.put("0.4", new ArrayList<File>());
+        updates.get("0.4").add(new File(DatabaseSynchronizer.class.getResource("/scripts/05_alter_weight_in_poule.sql").getFile()));
     }
 
     public void doInit(){

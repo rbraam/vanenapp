@@ -50,9 +50,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", maxlength = 255, label = "Naam"),
         @Validate(on = {"save"}, field = "startAge", required = true, label = "Vanaf leeftijd"),
-        @Validate(on = {"save"}, field = "endAge", required = true, label = "T/m leeftijd"),
-        @Validate(on = {"save"}, field = "startWeight", required = true, label = "Vanaf gewicht"),
-        @Validate(on = {"save"}, field = "endWeight", required = true, label = "T/m gewicht")
+        @Validate(on = {"save"}, field = "endAge", required = true, label = "T/m leeftijd")
 
     })
     private Poule poule;
@@ -67,6 +65,11 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     private Integer endAge=null;
     @Validate(on = {"save"},required = true)
     private String type=null;
+    
+    @Validate
+    private Double startWeight=null;
+    @Validate
+    private Double endWeight=null;
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
     @Validate
@@ -95,6 +98,12 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             }else{
                 this.type = CompetitionType.KATA.name();
             }
+            if (this.poule instanceof KumitePoule){
+                KumitePoule kp = (KumitePoule)this.poule;
+                this.startWeight = kp.getStartWeight();
+                this.endWeight = kp.getEndWeight();
+            }
+                        
         }
         return new ForwardResolution(JSP);
     }
@@ -299,4 +308,20 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
         this.type = type;
     }
     //</editor-fold>
+
+    public Double getStartWeight() {
+        return startWeight;
+    }
+
+    public void setStartWeight(Double startWeight) {
+        this.startWeight = startWeight;
+    }
+
+    public Double getEndWeight() {
+        return endWeight;
+    }
+
+    public void setEndWeight(Double endWeight) {
+        this.endWeight = endWeight;
+    }
 }
