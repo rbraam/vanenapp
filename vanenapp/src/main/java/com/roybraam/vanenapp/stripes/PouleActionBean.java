@@ -198,6 +198,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
                     + " and (p.poule = :p or p.poule is null)"
                     + " and p.karateka.belt BETWEEN :ek and :sk"
                     + " and p.karateka.birthdate <= :sd and p.karateka.birthdate >= :ed"
+                    + " and p.type = :t"
                     );
                 q.setParameter("v", this.getVanencompetition());
             q.setParameter("sk", Kyu.valueOf(this.startKyu));
@@ -205,6 +206,7 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             q.setParameter("p", this.poule);
             q.setParameter("sd",startCal.getTime());
             q.setParameter("ed",endCal.getTime());
+            q.setParameter("t", CompetitionType.valueOf(this.type));
             kandidates = q.getResultList();            
         }else{
             kandidates = new ArrayList<Participant>();
