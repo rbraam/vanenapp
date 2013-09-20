@@ -47,7 +47,7 @@ public class Karateka {
     private String gender;    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdate;
-    private double weight;
+    private Double weight;
     
     
     private static SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");

@@ -27,7 +27,7 @@ Ext.define("CandidateController",{
         var endAge= document.getElementById("endAge").value;
         var startKyu= document.getElementById("startKyu").value; 
         var endKyu= document.getElementById("endKyu").value;
-
+        var type = Ext.query("input:checked[name='type']")[0].value;
         var poule = null;
         if (document.getElementById("pouleId")){
             poule=document.getElementById("pouleId").value;
@@ -40,7 +40,8 @@ Ext.define("CandidateController",{
                 endAge: endAge,
                 startKyu: startKyu,
                 endKyu: endKyu,
-                poule: me.poule
+                poule: me.poule,
+                type: type
             },
             success: function(response){
                 var candidates = Ext.JSON.decode(response.responseText);

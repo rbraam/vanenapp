@@ -86,17 +86,17 @@
                                 <tr>
                                     <td>Type</td>
                                     <td>
-                                        <stripes:radio name="type" value="KATA" checked="checked"/>Kata<br/>
-                                        <stripes:radio name="type" value="KUMITE"/>Kumité
+                                        <stripes:radio name="type" value="KATA" checked="checked" onchange="typeChange()"/>Kata<br/>
+                                        <stripes:radio name="type" value="KUMITE" onchange="typeChange()"/>Kumité
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr id="startWeightRow">
                                     <td>Vanaf gewicht (kg)</td>
-                                    <td><stripes:text name="poule.startWeight"/></td>
+                                    <td><stripes:text name="poule.startWeight" id="startWeight"/></td>
                                 </tr>
-                                <tr>
+                                <tr id="endWeightRow">
                                     <td>T/m gewicht (kg)</td>
-                                    <td><stripes:text name="poule.endWeight"/></td>
+                                    <td><stripes:text name="poule.endWeight" id="endWeight"/></td>
                                 </tr>
                                 <tr>
                                     <td>Deelnemers</td>
@@ -132,7 +132,8 @@
             <c:if test="${actionBean.poule !=null}">
                 pouleId = "${actionBean.poule.id}";
             </c:if>
-                var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
+            var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
+            
         </script>
         <script src="${contextPath}/js/CandidateController.js"></script>
         <script src="${contextPath}/js/poule.js"></script>
