@@ -44,9 +44,10 @@ public class Participant {
     public Participant(){
     }
 
-    public Participant(Vanencompetition vanencompetition, Karateka k) {
+    public Participant(Vanencompetition vanencompetition, Karateka k, CompetitionType type) {
         this.karateka = k;
         this.vanencompetition=vanencompetition;
+        this.type=type;
     }
     
     public String toString(){

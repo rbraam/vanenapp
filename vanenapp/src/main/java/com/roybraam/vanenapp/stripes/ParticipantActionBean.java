@@ -4,10 +4,11 @@
  */
 package com.roybraam.vanenapp.stripes;
 
+import com.roybraam.vanenapp.entity.CompetitionType;
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Participant;
-import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -34,6 +35,9 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     @Validate
     private String participants = "";
     private String participantsJson = "";
+    
+    @Validate(required = true)
+    private String competitionType = "";
 
     @DefaultHandler
     public Resolution view() {
@@ -51,10 +55,17 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
         }
         EntityManager em = Stripersist.getEntityManager();
         reloadVanencompetition();
-        this.getVanencompetition().getParticipants().clear();
+        
+        Iterator<Participant> it =this.getVanencompetition().getParticipants().iterator();
+        while(it.hasNext()){
+            Participant p = it.next();
+            if (CompetitionType.valueOf(this.competitionType).equals(p.getType())){
+                it.remove();
+            }
+        }
         for (Integer kid : this.getParticipantsList()){
             Karateka k = em.find(Karateka.class, kid);
-            Participant p = new Participant(this.getVanencompetition(),k);
+            Participant p = new Participant(this.getVanencompetition(),k,CompetitionType.valueOf(this.competitionType));
             this.getVanencompetition().getParticipants().add(p);
         }
         em.persist(this.getVanencompetition());
@@ -66,8 +77,12 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     private void createParticipantsJson(){
         if (this.getVanencompetition()!=null){
             JSONArray participantsArray = new JSONArray();
-            reloadVanencompetition();
-            for (Participant p : this.getVanencompetition().getParticipants()) {
+            List<Participant> participantList = Stripersist.getEntityManager()
+                    .createQuery("FROM Participant where vanencompetition = :v and type = :t")
+                    .setParameter("v", this.getVanencompetition())
+                    .setParameter("t", CompetitionType.valueOf(this.competitionType))
+                    .getResultList();
+            for (Participant p : participantList) {
                 if (p.getKarateka() != null) {
                     try {
                         participantsArray.put(p.getKarateka().toJSON());
@@ -104,5 +119,13 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
 
     public void setParticipantsJson(String participantsJson) {
         this.participantsJson = participantsJson;
+    }
+
+    public String getCompetitionType() {
+        return competitionType;
+    }
+
+    public void setCompetitionType(String competitionType) {
+        this.competitionType = competitionType;
     }
 }

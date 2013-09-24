@@ -35,7 +35,7 @@
                         <td><c:out value="${v.location}"/></td>
                         <td><fmt:formatDate value="${v.date}" pattern="dd-MM-yyyy"/></td>
                         <td><c:out value="${v.organisation.name}"/></td>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean"/>?vanencompetition=${v.id}'>Selecteer</a></td>
+                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean"/>?competitionType=KATA&vanencompetition=${v.id}'>Selecteer</a></td>
                     </tr>
                 </c:forEach>
             </table>
