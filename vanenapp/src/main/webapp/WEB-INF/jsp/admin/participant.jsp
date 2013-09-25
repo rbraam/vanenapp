@@ -27,6 +27,7 @@
         <stripes:form beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" onsubmit="onSubmitForm()">
             <!--intput type="hidden" name="participants" id="participants" value=""/-->
             <stripes:hidden name="participants" id="participants"/>
+            <stripes:hidden name="competitionType"/>
             <div id="karatekaListContainer" class="two-column">
 
             </div>
