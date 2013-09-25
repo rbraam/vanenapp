@@ -24,8 +24,9 @@
         <h1>Uitdraaien Poules</h1>
         <h3>Hier kan u de ingedeelde poules uitdraaien.</h3><br/>
         <div class="two-column">
-            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>'>Alle poules</a><br/>
-            <c:forEach items="${actionBean.validPoulesWithKyu}" var="b">
+            <h2>Kata</h2>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?competitionType=KATA'>Alle kata poules</a><br/>
+            <c:forEach items="${actionBean.validKataPoulesWithKyu}" var="b">
                 <c:choose>
                     <c:when test="${b.value > 0}">
                         <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?belt=${b.key}'> <c:out value="${b.key.description}"/> (<c:out value="${b.value}"/> poule(s))</a><br/>
@@ -35,11 +36,21 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            </div>
-            <div class="two-column">
-            <c:if test="${not empty actionBean.invalidPoules}">
+            <h2>Kumite</h2>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?competitionType=KUMITE'>Alle kumite poules</a><br/>
+        </div>
+        <div class="two-column">
+            <c:if test="${not empty actionBean.invalidKataPoules}">
+                <h2>Kata</h2>
                 De volgende poules zijn niet volledig doordat het aantal deelnemers niet klopt. Deze poules kunnen niet uitgedraaid worden.
-                <c:forEach items="${actionBean.invalidPoules}" var="p">
+                <c:forEach items="${actionBean.invalidKataPoules}" var="p">
+                    <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p}"/></a><br/>
+                </c:forEach>
+            </c:if>
+            <c:if test="${not empty actionBean.invalidKumitePoules}">
+                <h2>Kumite</h2>
+                De volgende poules zijn niet volledig doordat het aantal deelnemers niet klopt. Deze poules kunnen niet uitgedraaid worden.
+                <c:forEach items="${actionBean.invalidKumitePoules}" var="p">
                     <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'><c:out value="${p}"/></a><br/>
                 </c:forEach>
             </c:if>

@@ -4,6 +4,7 @@
  */
 package com.roybraam.vanenapp.stripes;
 
+import com.roybraam.vanenapp.entity.CompetitionType;
 import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
@@ -38,9 +39,11 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
     @Validate
     private List<Participant> participantsNotInPoule = new ArrayList<Participant>();
     @Validate
-    private List<Poule> invalidPoules = new ArrayList<Poule>();
+    private List<Poule> invalidKataPoules = new ArrayList<Poule>();
+    @Validate 
+    private List<Poule> invalidKumitePoules = new ArrayList<Poule>();
     @Validate
-    private LinkedHashMap<Kyu,Integer> validPoulesWithKyu = new LinkedHashMap<Kyu,Integer>();
+    private LinkedHashMap<Kyu,Integer> validKataPoulesWithKyu = new LinkedHashMap<Kyu,Integer>();
     @Validate
     private String belt = null;
 
@@ -62,14 +65,19 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
                 .getResultList();
 
         for (Kyu k : Kyu.values()){
-            validPoulesWithKyu.put(k,new Integer("0"));
-            
+            validKataPoulesWithKyu.put(k,new Integer("0"));
         }
         for (Poule p : poules) {
-            if (p.getParticipants().size() < 3 || p.getParticipants().size() > 6) {
-                invalidPoules.add(p);
+            if (p.getType().equals(CompetitionType.KATA)){
+                if (p.getParticipants().size() < 3 || p.getParticipants().size() > 6) {
+                    invalidKataPoules.add(p);
+                }else{
+                    validKataPoulesWithKyu.put(p.getStartKyu(),validKataPoulesWithKyu.get(p.getStartKyu())+1);
+                }
             }else{
-                validPoulesWithKyu.put(p.getStartKyu(),validPoulesWithKyu.get(p.getStartKyu())+1);
+                if (p.getParticipants().size() < 3 || p.getParticipants().size() > 6) {
+                    invalidKumitePoules.add(p);
+                }
             }
         }
         return new ForwardResolution(JSP);
@@ -99,43 +107,53 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
         return new ForwardResolution(PRINT_JSP);
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public List<Participant> getParticipantsNotInPoule() {
         return participantsNotInPoule;
     }
-
+    
     public void setParticipantsNotInPoule(List<Participant> participantsNotInPoule) {
         this.participantsNotInPoule = participantsNotInPoule;
     }
-
-    public List<Poule> getInvalidPoules() {
-        return invalidPoules;
+    
+    public List<Poule> getInvalidKataPoules() {
+        return invalidKataPoules;
     }
-
-    public void setInvalidPoules(List<Poule> invalidPoules) {
-        this.invalidPoules = invalidPoules;
+    
+    public void setInvalidKataPoules(List<Poule> invalidPoules) {
+        this.invalidKataPoules = invalidPoules;
     }
-
+    
     public List<Poule> getPoules() {
         return poules;
     }
-
+    
     public void setPoules(List<Poule> poules) {
         this.poules = poules;
     }
-
+    
     public String getBelt() {
         return belt;
     }
-
+    
     public void setBelt(String belt) {
         this.belt = belt;
     }
-
-    public LinkedHashMap<Kyu,Integer> getValidPoulesWithKyu() {
-        return validPoulesWithKyu;
+    
+    public LinkedHashMap<Kyu,Integer> getValidKataPoulesWithKyu() {
+        return validKataPoulesWithKyu;
     }
-
-    public void setValidPoulesWithKyu(LinkedHashMap<Kyu,Integer> validPoulesWithKyu) {
-        this.validPoulesWithKyu = validPoulesWithKyu;
+    
+    public void setValidKataPoulesWithKyu(LinkedHashMap<Kyu,Integer> validKataPoulesWithKyu) {
+        this.validKataPoulesWithKyu = validKataPoulesWithKyu;
     }
+    
+    public List<Poule> getInvalidKumitePoules() {
+        return invalidKumitePoules;
+    }
+    
+    public void setInvalidKumitePoules(List<Poule> invalidKumitePoules) {
+        this.invalidKumitePoules = invalidKumitePoules;
+    }
+    //</editor-fold>
 }
