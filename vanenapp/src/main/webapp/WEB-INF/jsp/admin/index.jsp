@@ -51,7 +51,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="table-key"><fmt:message key="admin.menu.participant"/></td>
+                <td class="table-key"><fmt:message key="admin.menu.kataparticipant"/> / <fmt:message key="admin.menu.kumiteparticipant"/></td>
                 <td>
                     Hier kunnen de karateka's die deelnemen aan de geselecteerde 
                     vanencompetitie worden geselecteerd.

@@ -9,7 +9,6 @@ import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import javax.persistence.Query;
