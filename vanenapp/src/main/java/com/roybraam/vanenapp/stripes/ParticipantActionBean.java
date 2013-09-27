@@ -78,7 +78,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
         if (this.getVanencompetition()!=null){
             JSONArray participantsArray = new JSONArray();
             List<Participant> participantList = Stripersist.getEntityManager()
-                    .createQuery("FROM Participant where vanencompetition = :v and type = :t")
+                    .createQuery("FROM Participant where vanencompetition = :v and type = :t order by karateka.surname,karateka,name")
                     .setParameter("v", this.getVanencompetition())
                     .setParameter("t", CompetitionType.valueOf(this.competitionType))
                     .getResultList();
