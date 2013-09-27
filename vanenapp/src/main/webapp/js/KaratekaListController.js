@@ -9,6 +9,7 @@ Ext.define("KaratekaListController",{
     list: null,
     filter: null,
     listContainer: null,
+    searchField: null,
     config: {
         url: null,
         data: null,
@@ -21,15 +22,25 @@ Ext.define("KaratekaListController",{
         this.initConfig(conf);
         //this.renderTo= Ext.get(this.renderTo);
         var me=this;
-        Ext.create('Ext.form.field.Text',{
+        this.searchField= Ext.create('Ext.form.field.Text',{
             renderTo: this.renderTo,
             fieldLabel: 'Zoek',
+            enableKeyEvents: true,
             listeners: {
                 change:{
                     fn: function(){
                         me.setFilter(this.value);
                     }
+                },
+                keydown: {
+                    fn: function(el,event,eopts){
+                        if (event.keyCode === Ext.EventObject.RETURN){
+                            me.clickFirst();
+                            return false;
+                        }
+                    }
                 }
+            
             }
         });
         
@@ -87,6 +98,17 @@ Ext.define("KaratekaListController",{
         this.filter=filter;
         this.update();
     },
+            
+    clickFirst: function(){
+        var firstElement = this.listContainer.first();
+        if (firstElement){
+            if (this.clickHandler){
+                this.clickHandler.call(this,firstElement.getAttribute("id"));
+            }
+            this.searchField.setValue("");
+        }
+        
+    },
     /**
      * Check if the given karateka passes the filter that is set. It's checking the surname and name caseinsensitive
      * @param k the karateka
@@ -108,6 +130,7 @@ Ext.define("KaratekaListController",{
     createElement: function(k){
         var me = this;
         var element = new Ext.Element(document.createElement('div'));
+        element.set({id: k.id});
         //add classesk
         element.addCls("karateka-item");
         element.addClsOnOver("karateka-item-over");
