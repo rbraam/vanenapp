@@ -62,15 +62,15 @@
                                 <tr>
                                     <td>Vanaf Kyu</td>
                                     <td>
-                                        <stripes:select name="startKyu" id="startKyu">
-                                            <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description"/>
+                                        <stripes:select name="startKyu" id="startKyu" value="KYU_8">
+                                            <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description" />
                                         </stripes:select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tot Kyu</td>
                                     <td>
-                                        <stripes:select name="endKyu" id="endKyu">
+                                        <stripes:select name="endKyu" id="endKyu" value="KYU_1">
                                             <stripes:options-enumeration enum="com.roybraam.vanenapp.entity.Kyu" label="description" />
                                         </stripes:select>
                                     </td>
