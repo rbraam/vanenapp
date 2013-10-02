@@ -167,10 +167,16 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void list(){
         if (this.getVanencompetition()!=null){
             this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
-            if (this.poule!=null && this.poule.getType()!=null){
+            if (this.type!=null || (this.poule!=null && this.poule.getType()!=null)){
+                CompetitionType ct =null;
+                if (this.type!=null){
+                    ct= CompetitionType.valueOf(this.type);
+                }else{
+                    ct = this.poule.getType();
+                }
                 this.participantsWithoutPoule = Stripersist.getEntityManager()
                         .createQuery("FROM Participant where poule is null and vanencompetition = :v and type = :t order by karateka.belt,karateka.birthdate")
-                        .setParameter("v", this.getVanencompetition()).setParameter("t", this.poule.getType()).getResultList();
+                        .setParameter("v", this.getVanencompetition()).setParameter("t", ct).getResultList();
             }else{
                 this.participantsWithoutPoule = Stripersist.getEntityManager()
                         .createQuery("FROM Participant where poule is null and vanencompetition = :v order by karateka.belt,karateka.birthdate")
@@ -194,19 +200,33 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             
             /*Date startDate= new GregorianCalendar(vanenDate.get);
             Date endDate = this.getVanencompetition().getDate();*/
-            Query q = Stripersist.getEntityManager().createQuery("FROM Participant p where p.vanencompetition = :v"
+            String queryString="FROM Participant p where p.vanencompetition = :v"
                     + " and (p.poule = :p or p.poule is null)"
                     + " and p.karateka.belt BETWEEN :ek and :sk"
                     + " and p.karateka.birthdate <= :sd and p.karateka.birthdate >= :ed"
-                    + " and p.type = :t"
-                    );
-                q.setParameter("v", this.getVanencompetition());
+                    + " and p.type = :t";
+            if (CompetitionType.KUMITE.equals(CompetitionType.valueOf(this.type))){
+                if (this.startWeight!=null){
+                    queryString+= " and p.karateka.weight >= :sw";
+                }if (this.endWeight!=null){
+                    queryString+= " and p.karateka.weight <= :ew";
+                }
+            }
+            Query q = Stripersist.getEntityManager().createQuery(queryString);
+            q.setParameter("v", this.getVanencompetition());
             q.setParameter("sk", Kyu.valueOf(this.startKyu));
             q.setParameter("ek", Kyu.valueOf(this.endKyu));
             q.setParameter("p", this.poule);
             q.setParameter("sd",startCal.getTime());
             q.setParameter("ed",endCal.getTime());
             q.setParameter("t", CompetitionType.valueOf(this.type));
+            if (CompetitionType.KUMITE.equals(CompetitionType.valueOf(this.type))){
+                if(this.startWeight!=null){
+                    q.setParameter("sw", this.startWeight);
+                }if (this.endWeight!=null){
+                    q.setParameter("ew", this.endWeight);
+                }
+            }
             kandidates = q.getResultList();            
         }else{
             kandidates = new ArrayList<Participant>();

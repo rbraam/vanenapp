@@ -23,11 +23,23 @@ Ext.define("CandidateController",{
     },
     
     refresh: function(){
+        var checkedTypeElements = Ext.query("input:checked[name='type']");
+        if (checkedTypeElements.length == 0){
+            return;
+        }
         var startAge = document.getElementById("startAge").value;
         var endAge= document.getElementById("endAge").value;
         var startKyu= document.getElementById("startKyu").value; 
         var endKyu= document.getElementById("endKyu").value;
-        var type = Ext.query("input:checked[name='type']")[0].value;
+        var type = checkedTypeElements[0].value;
+        var startWeight= null;
+        if (document.getElementById("startWeight")){
+            startWeight=document.getElementById("startWeight").value;
+        }
+        var endWeight= null;
+        if(document.getElementById("endWeight")){
+            endWeight=document.getElementById("endWeight").value;
+        }
         var poule = null;
         if (document.getElementById("pouleId")){
             poule=document.getElementById("pouleId").value;
@@ -41,6 +53,8 @@ Ext.define("CandidateController",{
                 startKyu: startKyu,
                 endKyu: endKyu,
                 poule: me.poule,
+                startWeight: startWeight,
+                endWeight: endWeight,
                 type: type
             },
             success: function(response){
