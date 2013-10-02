@@ -249,13 +249,13 @@ candidate-checkbox{
 }
 
 .participants-without-poule-col{
-    width: 25%; 
+    width: 37%; 
     float: left; 
     height: 400px; 
     overflow: auto;
 }
 
 .participant-left-col{
-    width: 70%; 
+    width: 60%; 
     float: left;
 }
