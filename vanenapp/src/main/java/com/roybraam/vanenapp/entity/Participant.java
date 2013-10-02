@@ -51,7 +51,11 @@ public class Participant {
     }
     
     public String toString(){
-        return this.karateka.toString();
+        String s= this.karateka.toString();
+        if (this.getType()!=null){
+            s+=" ("+this.getType().name()+")";
+        }
+        return s;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
