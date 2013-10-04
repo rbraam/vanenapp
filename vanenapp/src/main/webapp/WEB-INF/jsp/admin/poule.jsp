@@ -108,6 +108,21 @@
                             <stripes:submit name="save" value="Opslaan"/>
                             <stripes:submit name="cancel" value="Annuleren"/>
                         </div>
+                        <script type="text/javascript">
+                            var savedParticipants = [];
+                            <c:forEach items="${actionBean.participants}" var="p">
+                            savedParticipants.push(${p.id});
+                            </c:forEach>
+                                var pouleId = null;
+                            <c:if test="${actionBean.poule !=null}">
+                                pouleId = "${actionBean.poule.id}";
+                            </c:if>
+                            var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
+
+                        </script>
+                        <script src="${contextPath}/js/CandidateController.js"></script>
+                        <script src="${contextPath}/js/poule.js"></script>
+
                     </c:when>
                     <c:otherwise>
                         <stripes:submit name="edit" value="Nieuwe poule"/>
@@ -123,20 +138,6 @@
                 </c:forEach>
             </div>
         </div>
-        <script type="text/javascript">
-            var savedParticipants = [];
-            <c:forEach items="${actionBean.participants}" var="p">
-            savedParticipants.push(${p.id});
-            </c:forEach>
-                var pouleId = null;
-            <c:if test="${actionBean.poule !=null}">
-                pouleId = "${actionBean.poule.id}";
-            </c:if>
-            var listParticipantUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="participantList"/>';
-            
-        </script>
-        <script src="${contextPath}/js/CandidateController.js"></script>
-        <script src="${contextPath}/js/poule.js"></script>
 
     </stripes:layout-component>
 
