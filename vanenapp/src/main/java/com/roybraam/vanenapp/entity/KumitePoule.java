@@ -18,6 +18,17 @@ public class KumitePoule extends Poule{
     private Double startWeight;
     private Double endWeight;
     
+    public KumitePoule(){
+        super();
+    }
+    public KumitePoule(Poule p){
+        super(p);
+        if (p instanceof KumitePoule){
+            this.startWeight = ((KumitePoule)p).getStartWeight();
+            this.endWeight = ((KumitePoule)p).getEndWeight();
+        }
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getters / Setters">
     public Double getStartWeight() {
         return startWeight;

@@ -15,4 +15,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "KATA")
 public class KataPoule extends Poule{
     
+    public KataPoule(){
+        super();
+    }
+    public KataPoule(Poule p){
+        super(p);
+    }
+        
 }

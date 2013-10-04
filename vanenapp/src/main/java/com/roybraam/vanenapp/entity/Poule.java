@@ -36,6 +36,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author Roy Braam
  */
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Poule {
     @Id
@@ -61,6 +62,20 @@ public class Poule {
     @OneToMany(mappedBy = "poule" )
     @JsonIgnore
     private List<Participant> participants = new ArrayList<Participant>();
+    
+    public Poule(){}
+    
+    public Poule(Poule p){
+        this.id = p.getId();
+        this.name= p.getName();
+        this.startKyu = p.getStartKyu();
+        this.endKyu = p.getEndKyu();
+        this.startAge= p.getStartAge();
+        this.endAge = p.getEndAge();
+        this.type = p.getType();
+        this.vanencompetition = p.getVanencompetition();
+        this.participants = p.getParticipants();
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public long getId() {

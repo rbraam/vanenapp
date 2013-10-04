@@ -5,6 +5,7 @@
 package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.CompetitionType;
+import com.roybraam.vanenapp.entity.KataPoule;
 import com.roybraam.vanenapp.entity.KumitePoule;
 import com.roybraam.vanenapp.entity.Kyu;
 import com.roybraam.vanenapp.entity.Participant;
@@ -125,8 +126,15 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             this.poule.setStartAge(this.poule.getEndAge());
             this.poule.setEndAge(tmp);
         }
+        if (!CompetitionType.valueOf(this.type).equals(this.poule.getType())){
+            if (CompetitionType.valueOf(this.type).equals(CompetitionType.KUMITE)){
+                this.poule = new KumitePoule(this.poule);
+            }else{
+                this.poule= new KataPoule(this.poule);
+            }
+        }            
         this.poule.setType(CompetitionType.valueOf(this.type));
-        
+            
         EntityManager em = Stripersist.getEntityManager();
         
         this.poule.setVanencompetition(this.getVanencompetition());
