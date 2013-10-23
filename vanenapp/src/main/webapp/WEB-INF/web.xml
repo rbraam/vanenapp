@@ -22,6 +22,12 @@
             <param-value>com.roybraam.vanenapp.stripes</param-value>
         </init-param>
         <init-param>
+            <param-name>PopulationStrategy.Class</param-name>
+            <param-value>
+                net.sourceforge.stripes.tag.BeanFirstPopulationStrategy
+            </param-value>
+        </init-param>
+        <init-param>
             <param-name>Extension.Packages</param-name>
             <param-value>org.stripesstuff.stripersist,org.stripesstuff.plugin.session</param-value>
         </init-param>
