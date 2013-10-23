@@ -32,6 +32,7 @@ import org.stripesstuff.stripersist.Stripersist;
 public class VanencompetitionActionBean implements ActionBean{
     private ActionBeanContext context;
     private static final String JSP = "/WEB-INF/jsp/admin/vanencompetition.jsp";
+    protected boolean finishedVanencompetitions=false;
     
     @Validate
     private User user;

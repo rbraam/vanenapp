@@ -17,7 +17,10 @@
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PrintActionBean"><fmt:message key="admin.menu.printpoule"/></stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ListActionBean"><fmt:message key="admin.menu.list"/></stripes:link></li>
 </ul>
-
+<h2>Beheer punten</h2>
+<ul class="menuUl">
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PointsActionBean"><fmt:message key="admin.menu.points"/></stripes:link></li>
+</ul>
 <req:isUserInRole role="admin">
     <h2>Beheer VanenApp</h2>
     <ul class="menuUl">
