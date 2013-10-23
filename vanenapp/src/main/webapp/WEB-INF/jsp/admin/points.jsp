@@ -13,7 +13,7 @@
 
 <stripes:layout-render name="/WEB-INF/jsp/templates/main.jsp">
     <stripes:layout-component name="head">
-        <title>Kies vanencompetitie</title>
+        <title>Vul punten in</title>
     </stripes:layout-component>
 
     <stripes:layout-component name="header">
@@ -29,6 +29,7 @@
             <stripes:messages/>
         </p>
         <h1>Vul de punten in van de afgeronde Vanencompetitie</h1>
+        Een karateka heeft recht op minimaal 50 punten en maximaal 90 punten per competitie dag.
         <div>
             <stripes:form beanclass="com.roybraam.vanenapp.stripes.PointsActionBean">
                 <stripes:hidden name="vanencompetition" value="$actionBean.vanencompetition.id"/>

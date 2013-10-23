@@ -88,12 +88,18 @@ public class PointsActionBean implements ActionBean {
 
     
     public Resolution save(){
-        for (Entry<Long,Integer> entry: this.points.entrySet()){
-            Participant p = Stripersist.getEntityManager().find(Participant.class, entry.getKey());
-            p.setPoints(entry.getValue());
+        for (Participant p : this.getVanencompetition().getParticipants()){
+            Integer point = this.points.get(p.getId());
+            if (point !=null){
+                point = point < 50 ? new Integer(50) : point;
+                point = point > 90 ? new Integer(90) : point;
+            }
+            p.setPoints(point);
+            
             Stripersist.getEntityManager().persist(p);
         }
-        Stripersist.getEntityManager().getTransaction().commit();        
+        Stripersist.getEntityManager().getTransaction().commit(); 
+        Stripersist.getEntityManager().flush();
         getContext().getMessages().add(new SimpleMessage("Punten met succes opgeslagen"));
         return this.showPoints();
     }
