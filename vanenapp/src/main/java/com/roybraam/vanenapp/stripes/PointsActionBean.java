@@ -38,6 +38,9 @@ public class PointsActionBean implements ActionBean {
     private static final Log log = LogFactory.getLog(PointsActionBean.class);
     private String JSP = "/WEB-INF/jsp/admin/points.jsp";
     private String VANEN_JSP = "/WEB-INF/jsp/admin/selectVanencompetition.jsp";
+    private static Integer MIN_POINTS = 50;
+    private static Integer MAX_POINTS = 90;
+    
     private ActionBeanContext context;
     @Validate
     private List<Vanencompetition> vanencompetitions;
@@ -91,8 +94,8 @@ public class PointsActionBean implements ActionBean {
         for (Participant p : this.getVanencompetition().getParticipants()){
             Integer point = this.points.get(p.getId());
             if (point !=null){
-                point = point < 50 ? new Integer(50) : point;
-                point = point > 90 ? new Integer(90) : point;
+                point = point < MIN_POINTS ? new Integer(MIN_POINTS) : point;
+                point = point > MAX_POINTS ? new Integer(MAX_POINTS) : point;
             }
             p.setPoints(point);
             
