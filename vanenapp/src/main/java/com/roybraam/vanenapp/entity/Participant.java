@@ -27,7 +27,7 @@ import javax.persistence.ManyToOne;
  * @author Roy Braam
  */
 @Entity
-public class Participant {
+public class Participant implements Comparable{
     @Id
     private Long id;
     @ManyToOne
@@ -55,6 +55,17 @@ public class Participant {
             s+=" ("+this.getType().name()+")";
         }
         return s;
+    }
+    
+    @Override
+    public int compareTo(Object o) {
+        Participant p = (Participant)o;
+        int result = this.getKarateka().getSurname().compareTo(p.getKarateka().getSurname());
+        if (result!=0){
+            return result;
+        }
+        result = this.getKarateka().getName().compareTo(p.getKarateka().getName());
+        return result;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">

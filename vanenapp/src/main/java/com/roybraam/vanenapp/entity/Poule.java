@@ -17,6 +17,7 @@
 package com.roybraam.vanenapp.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -59,7 +60,7 @@ public class Poule {
     @ManyToOne
     private Vanencompetition vanencompetition;
     
-    @OneToMany(mappedBy = "poule" )
+    @OneToMany(mappedBy = "poule")
     @JsonIgnore
     private List<Participant> participants = new ArrayList<Participant>();
     
@@ -170,6 +171,7 @@ public class Poule {
     }
 
     public List<Participant> getParticipants() {
+        Collections.sort(participants);
         return participants;
     }
 
