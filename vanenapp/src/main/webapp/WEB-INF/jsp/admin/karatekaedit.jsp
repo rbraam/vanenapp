@@ -54,6 +54,13 @@
                                 <td>Gewicht</td>
                                 <td><stripes:text name="karateka.weight"/></td>
                             </tr>
+                            <tr>
+                                <td>Basis punten *</td>
+                                <td><stripes:text name="karateka.basePoints"/></td>
+                            </tr>
+                            <tr><td colspan="2">* Een optelling van de punten die niet zijn geregistreerd in 1 van de Vanencompetities in deze applicatie.
+                                Bijvoorbeeld omdat de applicatie toen nog niet gebruikt werd of omdat de vanencompetitie is weggegooid maar de punten
+                                nog wel bewaard moeten blijven.</td></tr>
                         </table>
                     </div>
                     <div class="submitbuttons">

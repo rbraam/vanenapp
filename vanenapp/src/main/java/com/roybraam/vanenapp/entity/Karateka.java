@@ -49,6 +49,7 @@ public class Karateka {
     private Date birthdate;
     private Double weight;
     
+    private Integer basePoints = new Integer(0);    
     
     private static SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
@@ -115,6 +116,15 @@ public class Karateka {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+    
+    public Integer getBasePoints() {
+        return basePoints;
+    }
+
+    public void setBasePoints(Integer basePoints){
+        this.basePoints = basePoints;
+    }
+    
     //</editor-fold>
     
      public int getAgeOnDate(Date vanenDate){
@@ -159,4 +169,5 @@ public class Karateka {
         mapper.writeValue(s, this);
         return new JSONObject(s.toString());
     }
+
 }
