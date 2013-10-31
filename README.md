@@ -1,4 +1,5 @@
-vanenapp
+VanenApp
 ========
 
-Vanen app
+Applicatie for organizing Vanencompetitions.
+
