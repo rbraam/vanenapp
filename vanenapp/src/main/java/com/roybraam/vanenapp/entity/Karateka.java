@@ -170,4 +170,13 @@ public class Karateka {
         return new JSONObject(s.toString());
     }
 
+    public String getFullName() {
+        String result = this.getName();
+        if (this.insert!=null){
+            result+=this.insert;
+        }
+        result+=this.getSurname();
+        return result;
+    }
+
 }
