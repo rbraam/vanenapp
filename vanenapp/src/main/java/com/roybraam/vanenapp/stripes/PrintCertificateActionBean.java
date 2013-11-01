@@ -139,11 +139,11 @@ public class PrintCertificateActionBean implements ActionBean {
     private String calculateCategory(Long points, Participant p){
         String categorie =  "Categorie Super Vaan";
         if(points <= 700){
-            return "Categorie C";
+            categorie= "Categorie C";
         }else if (points <=1400){
-            return "Categorie B";
+            categorie= "Categorie B";
         }else if (points <=2100){
-            return "Categorie A";
+            categorie= "Categorie A";
         }
         if (CompetitionType.KATA.equals(p.getType())){
             categorie+=" Kata";
