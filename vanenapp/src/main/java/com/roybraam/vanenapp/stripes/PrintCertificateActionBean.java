@@ -46,7 +46,7 @@ import org.stripesstuff.stripersist.Stripersist;
 public class PrintCertificateActionBean implements ActionBean {
 
     private static final Log log = LogFactory.getLog(PrintCertificateActionBean.class);
-    private static final String ERRORJSP = "/WEB-INF/jsp/admin/print.jsp";
+    private static final String ERRORJSP = "/WEB-INF/jsp/error.jsp";
     private ActionBeanContext context;
     @Validate
     private Vanencompetition vanencompetition;
