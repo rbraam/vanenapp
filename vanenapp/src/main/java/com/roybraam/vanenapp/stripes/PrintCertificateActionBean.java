@@ -20,13 +20,13 @@ import net.sourceforge.stripes.validation.Validate;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.TabStop;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.roybraam.vanenapp.entity.CompetitionType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -56,6 +56,7 @@ public class PrintCertificateActionBean implements ActionBean {
     private List<Participant> participants = new ArrayList<Participant>();
 
     public Resolution print() {
+        Exception e = null;
         if (!this.participants.isEmpty()) {
         } else if (!this.poules.isEmpty()) {
             for (Poule poule : this.poules) {
@@ -67,9 +68,9 @@ public class PrintCertificateActionBean implements ActionBean {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-ykyyy");
             //create itext doc
-            final Document doc = new Document(PageSize.A4);
+            final Document doc = new Document(PageSize.A4.rotate());
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfWriter writer = PdfWriter.getInstance(doc, baos);
 
             doc.open();
@@ -79,59 +80,63 @@ public class PrintCertificateActionBean implements ActionBean {
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
-                    this.addText(participant.getKarateka().getFullName(),421,390,32,writer);
+                    this.addText(participant.getKarateka().getFullName(),421,205,32,writer);
                     //points
-                    Integer points = (Integer) em.createQuery("select sum(points) from participants where karateka = :k").setParameter("k", participant.getKarateka()).getSingleResult();
+                    Long points = (Long) em.createQuery("select sum(points) from Participant where karateka = :k").setParameter("k", participant.getKarateka()).getSingleResult();
                     if (points == null) {
-                        points = 0;
+                        points = 0l;
                     }
                     if (participant.getKarateka().getBasePoints() != null) {
                         points += participant.getKarateka().getBasePoints();
                     }
-                    Integer certificatePoints = calculateCertPoints(points);
-                    this.addText(""+points,300,480,20,writer);
+                    Long certificatePoints = calculateCertPoints(points);
+                    this.addText(""+points,300,115,20,writer);
                     //category
                     String category = this.calculateCategory(points,participant);
-                    this.addText(category,464,170,24,writer);
+                    this.addText(category,464,425,24,writer);
                     //date
                     Date date = participant.getVanencompetition().getDate();
                     String stringDate=sdf.format(date);
-                    this.addText(stringDate,421,400,8,writer);
+                    this.addText(stringDate,421,195,8,writer);
                     //start points
-                    this.addText("10",475,480,20,writer);
+                    this.addText("10",475,115,20,writer);
                     doc.newPage();
                 }
+                doc.close();
             }
 
             //close doc
             return new StreamingResolution("application/pdf") {
                 @Override
                 public void stream(HttpServletResponse response) throws Exception {
-                    response.getWriter().print(doc);
+                    OutputStream os = response.getOutputStream();
+                    baos.writeTo(os);
+                    baos.close();
+                    os.flush();
+                    os.close();
                 }
             };
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            e = ex;
             log.error("Fout tijdens printen van Certificaten: ", e);
         }
-        getContext().getMessages().add(new SimpleError("Het is wegens een fout niet mogelijk om de certificaten te printen. Neem contact op met de beheerder"));
+        getContext().getMessages().add(new SimpleError("Het is wegens een fout niet mogelijk om de certificaten te printen. Neem contact op met de beheerder. Fout: "+e.getMessage()));
         return new ForwardResolution(ERRORJSP);
     }
 
     private void addText(String text, int x, int y, int fontSize,PdfWriter writer) throws DocumentException, IOException {
         PdfContentByte cb = writer.getDirectContent();
-        BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+        BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
         cb.saveState();
         cb.beginText();
-        cb.moveText(x, y);
         cb.setFontAndSize(bf, fontSize);
-        cb.showText(text);
         float n = 0;
         cb.showTextAligned(PdfContentByte.ALIGN_CENTER, text, x, y, n);
         cb.endText();
         cb.restoreState();
     }
     
-    private String calculateCategory(Integer points, Participant p){
+    private String calculateCategory(Long points, Participant p){
         String categorie =  "Categorie Super Vaan";
         if(points <= 700){
             return "Categorie C";
@@ -148,7 +153,7 @@ public class PrintCertificateActionBean implements ActionBean {
         return categorie;
     }
 
-    private Integer calculateCertPoints(Integer points){
+    private Long calculateCertPoints(Long points){
         if (points >= 700){
             return calculateCertPoints(points -700);
         }

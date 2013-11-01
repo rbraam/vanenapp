@@ -173,9 +173,9 @@ public class Karateka {
     public String getFullName() {
         String result = this.getName();
         if (this.insert!=null){
-            result+=this.insert;
+            result+=" "+this.insert;
         }
-        result+=this.getSurname();
+        result+=" "+this.getSurname();
         return result;
     }
 
