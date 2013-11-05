@@ -93,7 +93,7 @@ public class PrintCertificateActionBean implements ActionBean {
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
-                    this.addText(participant.getKarateka().getFullName(),421,205,LUCIDA_FONT,32,writer);
+                    this.addText(participant.getKarateka().getFullName().toUpperCase(),400,190,LUCIDA_FONT,32,writer);
                     //points
                     Long points = (Long) em.createQuery("select sum(points) from Participant where karateka = :k").setParameter("k", participant.getKarateka()).getSingleResult();
                     if (points == null) {
@@ -103,16 +103,16 @@ public class PrintCertificateActionBean implements ActionBean {
                         points += participant.getKarateka().getBasePoints();
                     }
                     Long certificatePoints = calculateCertPoints(points);
-                    this.addText(""+points,300,115,20,writer);
+                    this.addText(""+points,295,95,20,writer);
                     //category
                     String category = this.calculateCategory(points,participant);
-                    this.addText(category,464,425,24,writer);
+                    this.addText(category,464,440,24,writer);
                     //date
                     Date date = participant.getVanencompetition().getDate();
                     String stringDate=sdf.format(date);
                     this.addText(stringDate,780,25,8,writer);
                     //start points
-                    this.addText("10",475,115,20,writer);
+                    this.addText("10",470,95,20,writer);
                     doc.newPage();
                 }
                 doc.close();
