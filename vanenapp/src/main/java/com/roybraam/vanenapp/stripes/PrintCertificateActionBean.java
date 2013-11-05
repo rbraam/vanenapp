@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.StreamingResolution;
@@ -55,6 +57,17 @@ public class PrintCertificateActionBean implements ActionBean {
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
 
+    private static BaseFont LUCIDA_FONT;
+    
+    static{
+        try {
+            LUCIDA_FONT = BaseFont.createFont(PrintCertificateActionBean.class.getResource("/fonts/Lucida.ttf").getFile(), BaseFont.WINANSI , BaseFont.EMBEDDED);
+        } catch (Exception ex) {
+            LUCIDA_FONT = null;
+            log.error("Error while creating fonts",ex);
+        }
+    }
+    
     public Resolution print() {
         Exception e = null;
         if (!this.participants.isEmpty()) {
@@ -80,7 +93,7 @@ public class PrintCertificateActionBean implements ActionBean {
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
-                    this.addText(participant.getKarateka().getFullName(),421,205,32,writer);
+                    this.addText(participant.getKarateka().getFullName(),421,205,LUCIDA_FONT,32,writer);
                     //points
                     Long points = (Long) em.createQuery("select sum(points) from Participant where karateka = :k").setParameter("k", participant.getKarateka()).getSingleResult();
                     if (points == null) {
@@ -97,7 +110,7 @@ public class PrintCertificateActionBean implements ActionBean {
                     //date
                     Date date = participant.getVanencompetition().getDate();
                     String stringDate=sdf.format(date);
-                    this.addText(stringDate,421,195,8,writer);
+                    this.addText(stringDate,780,25,8,writer);
                     //start points
                     this.addText("10",475,115,20,writer);
                     doc.newPage();
@@ -124,16 +137,18 @@ public class PrintCertificateActionBean implements ActionBean {
         return new ForwardResolution(ERRORJSP);
     }
 
-    private void addText(String text, int x, int y, int fontSize,PdfWriter writer) throws DocumentException, IOException {
+    private void addText(String text, int x, int y, BaseFont font,int fontSize,PdfWriter writer) throws DocumentException, IOException {
         PdfContentByte cb = writer.getDirectContent();
-        BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
         cb.saveState();
         cb.beginText();
-        cb.setFontAndSize(bf, fontSize);
+        cb.setFontAndSize(font, fontSize);
         float n = 0;
         cb.showTextAligned(PdfContentByte.ALIGN_CENTER, text, x, y, n);
         cb.endText();
         cb.restoreState();
+    }
+    private void addText(String text, int x, int y, int fontSize,PdfWriter writer) throws DocumentException, IOException {
+        this.addText(text, x, y, BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED),fontSize, writer);
     }
     
     private String calculateCategory(Long points, Participant p){
