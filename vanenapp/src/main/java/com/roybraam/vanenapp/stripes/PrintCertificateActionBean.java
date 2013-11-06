@@ -28,9 +28,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.StreamingResolution;
@@ -56,6 +56,8 @@ public class PrintCertificateActionBean implements ActionBean {
     private List<Poule> poules = new ArrayList<Poule>();
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
+    
+    private static String[] CATEGORIES = new String[4];
 
     private static BaseFont LUCIDA_FONT;
     
@@ -66,6 +68,10 @@ public class PrintCertificateActionBean implements ActionBean {
             LUCIDA_FONT = null;
             log.error("Error while creating fonts",ex);
         }
+        CATEGORIES[0]="Categorie C";
+        CATEGORIES[1]="Categorie B";
+        CATEGORIES[2]="Categorie A";
+        CATEGORIES[3]="Categorie Super Vaan";
     }
     
     public Resolution print() {
@@ -94,18 +100,13 @@ public class PrintCertificateActionBean implements ActionBean {
                     //A4		 595x842
                     //name
                     this.addText(participant.getKarateka().getFullName().toUpperCase(),400,190,LUCIDA_FONT,32,writer);
-                    //points
-                    Long points = (Long) em.createQuery("select sum(points) from Participant where karateka = :k").setParameter("k", participant.getKarateka()).getSingleResult();
-                    if (points == null) {
-                        points = 0l;
-                    }
-                    if (participant.getKarateka().getBasePoints() != null) {
-                        points += participant.getKarateka().getBasePoints();
-                    }
-                    Long certificatePoints = calculateCertPoints(points);
+                    
+                    
+                    Entry<Integer,String> certPoints = calculateCertPoints(participant);
+                    Integer points = certPoints.getKey();
+                    String category = certPoints.getValue();
                     this.addText(""+points,295,95,20,writer);
-                    //category
-                    String category = this.calculateCategory(points,participant);
+                    //category                    
                     this.addText(category,464,440,24,writer);
                     //date
                     Date date = participant.getVanencompetition().getDate();
@@ -151,28 +152,46 @@ public class PrintCertificateActionBean implements ActionBean {
         this.addText(text, x, y, BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.NOT_EMBEDDED),fontSize, writer);
     }
     
-    private String calculateCategory(Long points, Participant p){
-        String category =  "Categorie Super Vaan";
-        if(points <= 700){
-            category= "Categorie C";
-        }else if (points <=1400){
-            category= "Categorie B";
-        }else if (points <=2100){
-            category= "Categorie A";
+    /**
+     * When points get to 700. The points are back to 0 and the points above 700 are lost.
+     * The karateka starts with 0 in the new category
+     * @param participant the participant
+     * @param category String is filled with the category which corresponds with the points this
+     * karateka has.
+     * @return The points that can be printed on the certificate
+     */
+    private Entry<Integer,String> calculateCertPoints(Participant participant){
+         //points
+        List<Integer> pointsList= Stripersist.getEntityManager()
+                .createQuery("select points from Participant where points is not null AND karateka = :k order by vanencompetition.date")
+                .setParameter("k",participant.getKarateka()).getResultList();
+        Integer points = 0;
+        if (participant.getKarateka().getBasePoints()!=null){
+            points=participant.getKarateka().getBasePoints();
         }
-        if (CompetitionType.KATA.equals(p.getType())){
+        
+        Integer c =0;
+        //if more then factor 700
+        if (points >=700){
+            points = points%700;
+            c = Math.round(points/700);
+        }
+        for (Integer p : pointsList){
+            if (p!=null){
+                points+=p;
+                if (points >=700){
+                    points=0;
+                    c++;
+                }
+            }
+        }
+        String category = this.CATEGORIES[c];
+        if (CompetitionType.KATA.equals(participant.getType())){
             category+=" Kata";
         }else{
             category+=" Kumite";
         }
-        return category;
-    }
-
-    private Long calculateCertPoints(Long points){
-        if (points >= 700){
-            return calculateCertPoints(points -700);
-        }
-        return points;
+        return new AbstractMap.SimpleEntry<Integer, String>(points,category);
     }
         
     private List<Participant> removeDuplicates(List<Participant> list) {
@@ -186,10 +205,9 @@ public class PrintCertificateActionBean implements ActionBean {
     }
     
     public static void main (String[] args){
-        
-        float height=PageSize.A4.getHeight();
-        float width= PageSize.A4.getWidth();
-        System.out.println(height+"x"+width);
+        System.out.println(100%700);
+        System.out.println(701%700);
+        System.out.println(800%700);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
