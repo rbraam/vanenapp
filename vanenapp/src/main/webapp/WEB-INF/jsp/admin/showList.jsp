@@ -24,13 +24,33 @@
             <stripes:messages/>
         </p>
         <h1>Lijsten vanencompetitie</h1>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWithoutPoule"/>'>Niet ingedeelde Karateka's</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipants"/>'>Deelnemende Karateka's</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBelt"/>'>Deelnemende Karateka's gesorteerd op Band</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAge"/>'>Deelnemende Karateka's gesorteerd op Leeftijd</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBeltAge"/>'>Deelnemende Karateka's gesorteerd op Band en Leeftijd</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByWeight"/>'>Deelnemende Karateka's gesorteerd op Gewicht</a><br/>
-        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAgeWeight"/>'>Deelnemende Karateka's gesorteerd op Leeftijd en Gewicht</a><br/>
+        <div>
+            <h2>Algemeen</h2>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWithoutPoule"/>'>Niet ingedeelde Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipants"/>'>Deelnemende Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBelt"/>'>Deelnemende Karateka's gesorteerd op Band</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAge"/>'>Deelnemende Karateka's gesorteerd op Leeftijd</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBeltAge"/>'>Deelnemende Karateka's gesorteerd op Band en Leeftijd</a><br/>
+        </div>
+        <div>
+            <h2>Kata</h2>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWithoutPoule"/>?competitionType=Kata'>Niet ingedeelde Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipants"/>?competitionType=Kata'>Deelnemende Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBelt"/>?competitionType=Kata'>Deelnemende Karateka's gesorteerd op Band</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAge"/>?competitionType=Kata'>Deelnemende Karateka's gesorteerd op Leeftijd</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBeltAge"/>?competitionType=Kata'>Deelnemende Karateka's gesorteerd op Band en Leeftijd</a><br/>            
+        </div>
+        <div>
+            <h2>Kumite</h2>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWithoutPoule"/>?competitionType=Kumite'>Niet ingedeelde Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipants"/>?competitionType=Kumite'>Deelnemende Karateka's</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBelt"/>?competitionType=Kumite'>Deelnemende Karateka's gesorteerd op Band</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAge"/>?competitionType=Kumite'>Deelnemende Karateka's gesorteerd op Leeftijd</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBeltAge"/>?competitionType=Kumite'>Deelnemende Karateka's gesorteerd op Band en Leeftijd</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByWeight"/>?competitionType=Kumite'>Deelnemende Karateka's gesorteerd op Gewicht</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAgeWeight"/>?competitionType=Kumite'>Deelnemende Karateka's gesorteerd op Leeftijd en Gewicht</a><br/>
+        </div>
+
         <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listPoules"/>'>Overzicht ingedeelde poules</a><br/>
     </stripes:layout-component>
 

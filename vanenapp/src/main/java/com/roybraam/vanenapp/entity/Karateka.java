@@ -159,6 +159,8 @@ public class Karateka {
             sb.append(" ").append(this.belt.getDescription());
         }if (this.birthdate!=null){
             sb.append(" ").append(df.format(birthdate));
+        }if (this.weight!=null){
+            sb.append(" ").append(this.weight+" kg");
         }
         return sb.toString();
     }
