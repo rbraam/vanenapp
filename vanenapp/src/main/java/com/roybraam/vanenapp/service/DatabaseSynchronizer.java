@@ -51,10 +51,9 @@ public class DatabaseSynchronizer implements Servlet {
         
         updates.put("0.5", new ArrayList<File>());
         updates.get("0.5").add(new File(DatabaseSynchronizer.class.getResource("/scripts/05_add_base_points.sql").getFile()));
-        /*
-        updates.put("0.4", new ArrayList<File>());
-        updates.get("0.4").add(new File(DatabaseSynchronizer.class.getResource("/scripts/05_alter_weight_in_poule.sql").getFile()));
-        */
+        
+        updates.put("0.6", new ArrayList<File>());
+        updates.get("0.6").add(new File(DatabaseSynchronizer.class.getResource("/scripts/06_add_base_points_kumite.sql").getFile()));
     }
 
     public void doInit(){

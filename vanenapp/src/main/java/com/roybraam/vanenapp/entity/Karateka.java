@@ -49,7 +49,8 @@ public class Karateka {
     private Date birthdate;
     private Double weight;
     
-    private Integer basePoints = new Integer(0);    
+    private Integer basePointsKata = new Integer(0);    
+    private Integer basePointsKumite = new Integer(0);    
     
     private static SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
@@ -117,37 +118,23 @@ public class Karateka {
         this.weight = weight;
     }
     
-    public Integer getBasePoints() {
-        return basePoints;
+    public Integer getBasePointsKata() {
+        return basePointsKata;
     }
 
-    public void setBasePoints(Integer basePoints){
-        this.basePoints = basePoints;
+    public void setBasePointsKata(Integer basePointsKata){
+        this.basePointsKata = basePointsKata;
     }
     
+    public Integer getBasePointsKumite() {
+        return basePointsKumite;
+    }
+
+    public void setBasePointsKumite(Integer basePointsKumite){
+        this.basePointsKumite = basePointsKumite;
+    }
     //</editor-fold>
     
-     public int getAgeOnDate(Date vanenDate){
-        if (vanenDate!=null){
-            GregorianCalendar vanen= new GregorianCalendar();
-            vanen.setTime(vanenDate);
-            GregorianCalendar geb= new GregorianCalendar();
-            geb.setTime(getBirthdate());
-            int leeftijd= vanen.get(GregorianCalendar.YEAR)-geb.get(GregorianCalendar.YEAR);
-            if (vanen.get(GregorianCalendar.MONTH)<geb.get(GregorianCalendar.MONTH)){
-                leeftijd=leeftijd-1;
-            }
-            else if (vanen.get(GregorianCalendar.MONTH)==geb.get(GregorianCalendar.MONTH)){
-                if (vanen.get(GregorianCalendar.DAY_OF_MONTH)<geb.get(GregorianCalendar.DAY_OF_MONTH)){
-                    leeftijd=leeftijd-1;
-                }
-            }            
-            return leeftijd;
-        }else{
-            return 0;
-        }
-    }
-     
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(this.surname);

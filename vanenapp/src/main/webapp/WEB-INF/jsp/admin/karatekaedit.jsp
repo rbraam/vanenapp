@@ -55,12 +55,16 @@
                                 <td><stripes:text name="karateka.weight"/></td>
                             </tr>
                             <tr>
-                                <td>Basis punten *</td>
-                                <td><stripes:text name="karateka.basePoints"/></td>
+                                <td>Basis punten kata*</td>
+                                <td><stripes:text name="karateka.basePointsKata"/></td>
+                            </tr>
+                            <tr>
+                                <td>Basis punten kumite*</td>
+                                <td><stripes:text name="karateka.basePointsKumite"/></td>
                             </tr>
                             <tr><td colspan="2">* Een optelling van de punten die niet zijn geregistreerd in 1 van de Vanencompetities in deze applicatie.
                                 Bijvoorbeeld omdat de applicatie toen nog niet gebruikt werd of omdat de vanencompetitie is weggegooid maar de punten
-                                nog wel bewaard moeten blijven.</td></tr>
+                                nog wel bewaard moeten blijven. Per categorie hoger dan de 'C categorie' moet er hier 700 punten bij worden opgeteld.</td></tr>
                         </table>
                     </div>
                     <div class="submitbuttons">

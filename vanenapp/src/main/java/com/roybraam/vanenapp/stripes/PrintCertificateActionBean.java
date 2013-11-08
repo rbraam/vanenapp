@@ -166,8 +166,12 @@ public class PrintCertificateActionBean implements ActionBean {
                 .createQuery("select points from Participant where points is not null AND karateka = :k order by vanencompetition.date")
                 .setParameter("k",participant.getKarateka()).getResultList();
         Integer points = 0;
-        if (participant.getKarateka().getBasePoints()!=null){
-            points=participant.getKarateka().getBasePoints();
+        if (CompetitionType.KATA.equals(participant.getType()) &&
+                participant.getKarateka().getBasePointsKata()!=null){
+            points=participant.getKarateka().getBasePointsKata();
+        }else if (CompetitionType.KUMITE.equals(participant.getType()) &&
+                participant.getKarateka().getBasePointsKumite()!=null){
+            points=participant.getKarateka().getBasePointsKumite();
         }
         
         Integer c =0;
