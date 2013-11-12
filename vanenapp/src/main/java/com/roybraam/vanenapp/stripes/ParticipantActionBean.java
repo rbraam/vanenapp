@@ -8,6 +8,7 @@ import com.roybraam.vanenapp.entity.CompetitionType;
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Participant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -32,6 +33,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
 
     private static final Log log = LogFactory.getLog(ParticipantActionBean.class);
     private static final String JSP = "/WEB-INF/jsp/admin/participant.jsp";
+    private static final Integer maxAge=18;
     @Validate
     private String participants = "";
     private String participantsJson = "";
@@ -76,11 +78,19 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
 
     private void createParticipantsJson(){
         if (this.getVanencompetition()!=null){
+            Calendar maxCal = Calendar.getInstance();
+            maxCal.setTime(this.getVanencompetition().getDate());
+            maxCal.add(Calendar.YEAR, -this.maxAge);
+            
             JSONArray participantsArray = new JSONArray();
             List<Participant> participantList = Stripersist.getEntityManager()
-                    .createQuery("FROM Participant where vanencompetition = :v and type = :t order by karateka.surname,karateka,name")
+                    .createQuery("FROM Participant where vanencompetition = :v"
+                    + " and type = :t"
+                    + " and karateka.birthdate > :mc"
+                    + " order by karateka.surname,karateka,name")
                     .setParameter("v", this.getVanencompetition())
                     .setParameter("t", CompetitionType.valueOf(this.competitionType))
+                    .setParameter("mc",maxCal)
                     .getResultList();
             for (Participant p : participantList) {
                 if (p.getKarateka() != null) {
