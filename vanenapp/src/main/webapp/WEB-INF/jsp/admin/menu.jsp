@@ -21,13 +21,13 @@
 <ul class="menuUl">
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PointsActionBean"><fmt:message key="admin.menu.points"/></stripes:link></li>
 </ul>
-<req:isUserInRole role="superddadmin">
+<% if (request.isUserInRole("superadmin")) { %>
     <h2>Beheer VanenApp</h2>
     <ul class="menuUl">
         <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganisationActionBean"><fmt:message key="admin.menu.organisation"/></stripes:link></li>
         <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.UserActionBean"><fmt:message key="admin.menu.user"/></stripes:link></li>
     </ul>
-</req:isuserinrole>
+<% } %>
 <br/><br/><div class="menuUl">
     <a href="${contextPath}/logout.jsp">Log uit</a>
 </div>

@@ -78,7 +78,7 @@ public class VanencompetitionActionBean implements ActionBean{
         if (vanencompetition == null){
             vanencompetition= new Vanencompetition();
         }
-        if (vanencompetition.getOrganisation()==null){
+        if (vanencompetition.getOrganisation()==null && getUser().getOrganisation()!=null){
             vanencompetition.setOrganisation(getUser().getOrganisation());
         }
         Stripersist.getEntityManager().getTransaction().commit();

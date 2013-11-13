@@ -61,17 +61,15 @@
                             <tr>
                                 <td>Organisatie</td>
                                 <td>
-                                    <c:choose>
-                                        <c:when test="${fn:length(actionBean.organisations)>1}">
-                                            <stripes:select name="vanencompetition.organisation">
-                                                <stripes:options-collection collection="${actionBean.organisations}" value="id" label="name"/>
-                                            </stripes:select>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:out value="${actionBean.vanencompetition.organisation.name}"/>
-                                            <stripes:hidden name="vanencompetition.organisation" value="${actionBean.vanencompetition.organisation.id}"/>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <% if (request.isUserInRole("superadmin")) { %>
+                                        <stripes:select name="vanencompetition.organisation">
+                                            <stripes:options-collection collection="${actionBean.organisations}" value="id" label="name"/>
+                                        </stripes:select>                                    
+                                    <% } %>
+                                    <% if (!request.isUserInRole("superadmin")) { %>
+                                        <c:out value="${actionBean.vanencompetition.organisation.name}"/>
+                                        <stripes:hidden name="vanencompetition.organisation" value="${actionBean.vanencompetition.organisation.id}"/>
+                                    <% } %>
                                 </td>
                             </tr>
                         </table>
