@@ -3,6 +3,7 @@ package com.roybraam.vanenapp.stripes;
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Kyu;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -13,6 +14,7 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.logging.Log;
@@ -70,9 +72,25 @@ public class KaratekaActionBean implements ActionBean {
 
     public Resolution delete() {
         if (this.karateka != null) {
-            Stripersist.getEntityManager().remove(karateka);
-            Stripersist.getEntityManager().getTransaction().commit();
-            getContext().getMessages().add(new SimpleMessage("Karateka is verwijderd"));
+            EntityManager em = Stripersist.getEntityManager();
+            Boolean remove=true;
+            if ((this.karateka.getBasePointsKata()!=null && this.karateka.getBasePointsKata()> 0) ||
+                    (this.karateka.getBasePointsKumite()!=null && this.karateka.getBasePointsKumite()>0)){
+                remove = false;
+            }
+            if (remove){
+                Long count = (Long) em.createQuery("select count(*) from Participant where karateka = :k and points > 0").setParameter("k", this.karateka).getSingleResult();
+                if (count > 0){
+                    remove = false;
+                }
+            }
+            if (remove){
+                em.remove(karateka);
+                getContext().getMessages().add(new SimpleMessage("Karateka is verwijderd"));
+            }else{
+                getContext().getMessages().add(new SimpleError("Karateka kan (nog) niet verwijderd worden omdat deze al punten heeft behaald."));
+            }
+            em.getTransaction().commit();
         }
         return new ForwardResolution(EDITJSP);
     }
