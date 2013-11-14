@@ -27,7 +27,7 @@ import org.stripesstuff.stripersist.Stripersist;
  *
  * @author Roy Braam
  */
-@StrictBinding
+ @StrictBinding
 @UrlBinding("/action/admin/participant/{$event}")
 public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
 
@@ -90,7 +90,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
                     + " order by karateka.surname,karateka,name")
                     .setParameter("v", this.getVanencompetition())
                     .setParameter("t", CompetitionType.valueOf(this.competitionType))
-                    .setParameter("mc",maxCal)
+                    .setParameter("mc",maxCal.getTime())
                     .getResultList();
             for (Participant p : participantList) {
                 if (p.getKarateka() != null) {
