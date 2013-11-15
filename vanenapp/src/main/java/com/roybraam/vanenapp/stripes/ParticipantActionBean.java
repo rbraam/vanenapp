@@ -56,7 +56,6 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
             return this.getChooseVanencompetitionResolution();
         }
         EntityManager em = Stripersist.getEntityManager();
-        reloadVanencompetition();
         
         Iterator<Participant> it =this.getVanencompetition().getParticipants().iterator();
         while(it.hasNext()){

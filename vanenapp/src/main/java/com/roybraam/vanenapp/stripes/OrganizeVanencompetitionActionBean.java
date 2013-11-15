@@ -53,14 +53,6 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
             setVanencompetition(em.find(Vanencompetition.class, vanencompetitionId));
         }
     }
-    /*@DefaultHandler
-    public Resolution select(){
-        if (vanencompetition!=null){
-            this.setVanencompetition(vanencompetition);
-        }
-        return new ForwardResolution(ParticipantActionBean.class);
-    }*/
-
     public Resolution getChooseVanencompetitionResolution() {
         if (user.checkRole(Role.SUPERADMIN.name())) {
             setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("FROM Vanencompetition").getResultList());
@@ -75,10 +67,6 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
         getContext().getMessages().add(new SimpleError("Er moet eerst een vanencompetitie worden geselecteerd"));
     }
     
-    public void reloadVanencompetition(){
-        this.setVanencompetition(Stripersist.getEntityManager().find(Vanencompetition.class, this.getVanencompetition().getId()));
-    }
-
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
     public ActionBeanContext getContext() {
         return context;
@@ -89,15 +77,24 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     }
 
     public Vanencompetition getVanencompetition() {
-        Object o = this.getContext().getRequest().getSession().getAttribute("vanencompetition");
-        if (o==null){
-            return null;
+        if (this.vanencompetition==null){
+            Object o = this.getContext().getRequest().getSession().getAttribute("vanencompetition");
+            if (o==null){
+                return null;
+            }
+            Long vanenId = (Long) o;
+            this.vanencompetition=Stripersist.getEntityManager().find(Vanencompetition.class, vanenId);
         }
-        return (Vanencompetition)o;
+        return this.vanencompetition;
     }
 
     public void setVanencompetition(Vanencompetition vanencompetition) {
-        this.getContext().getRequest().getSession().setAttribute("vanencompetition", vanencompetition);
+        this.vanencompetition=vanencompetition;
+        Long id = null;
+        if (this.vanencompetition!=null){
+            id=new Long(vanencompetition.getId());
+        }
+        this.getContext().getRequest().getSession().setAttribute("vanencompetition", id);
     }
     
     public List<Vanencompetition> getVanencompetitions() {
