@@ -14,7 +14,8 @@
     <li><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" event="view"/>?competitionType=KATA'><fmt:message key="admin.menu.kataparticipant"/></a></li>
     <li><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" event="view"/>?competitionType=KUMITE'><fmt:message key="admin.menu.kumiteparticipant"/></a></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PouleActionBean"><fmt:message key="admin.menu.poule"/></stripes:link></li>
-    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PrintActionBean"><fmt:message key="admin.menu.printpoule"/></stripes:link></li>
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PrintActionBean"><fmt:message key="admin.menu.printpoule"/></stripes:link></li>    
+    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PrintCertificateActionBean"><fmt:message key="admin.menu.printcertificate"/></stripes:link></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.ListActionBean"><fmt:message key="admin.menu.list"/></stripes:link></li>
 </ul>
 <h2>Beheer punten</h2>

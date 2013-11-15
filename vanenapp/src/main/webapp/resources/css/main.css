@@ -259,3 +259,23 @@ candidate-checkbox{
     width: 60%; 
     float: left;
 }
+.print-certificate-poule{
+    margin-bottom: 10px;
+    border: 1px solid #CCC;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    width: 400px;
+}
+.print-certificate-participants{
+    width: 400px;
+}
+.print-certificate-participant{
+    margin-left: 10px;
+}
+.print-certificate-poule a, .print-certificate-participant a{
+    float: right;
+}
+.print-certificate-poule-title{
+    font-weight: bold;
+}

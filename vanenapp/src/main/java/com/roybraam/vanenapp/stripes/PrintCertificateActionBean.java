@@ -32,6 +32,7 @@ import java.util.AbstractMap;
 import java.util.Date;
 import java.util.Map.Entry;
 import javax.persistence.EntityManager;
+import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.SimpleError;
@@ -45,13 +46,11 @@ import org.stripesstuff.stripersist.Stripersist;
  */
 @StrictBinding
 @UrlBinding("/action/admin/printcertificate/{$event}")
-public class PrintCertificateActionBean implements ActionBean {
+public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBean{
 
     private static final Log log = LogFactory.getLog(PrintCertificateActionBean.class);
     private static final String ERRORJSP = "/WEB-INF/jsp/error.jsp";
-    private ActionBeanContext context;
-    @Validate
-    private Vanencompetition vanencompetition;
+    private static final String JSP = "/WEB-INF/jsp/admin/printCertificate.jsp";
     @Validate
     private List<Poule> poules = new ArrayList<Poule>();
     @Validate
@@ -74,6 +73,21 @@ public class PrintCertificateActionBean implements ActionBean {
         CATEGORIES[3]="Categorie Super Vaan";
     }
     
+    @DefaultHandler
+    public Resolution list(){
+        if (this.getVanencompetition() == null) {
+            setNoVanencompetitionMessage();
+            return this.getChooseVanencompetitionResolution();
+        }
+        
+        EntityManager em = Stripersist.getEntityManager();
+        this.poules = em.createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
+        this.participants = em.createQuery("FROM Participant where vanencompetition = :v and poule = null")
+                .setParameter("v",this.getVanencompetition()).getResultList();
+        
+        return new ForwardResolution(JSP);
+    }
+    
     public Resolution print() {
         Exception e = null;
         if (!this.participants.isEmpty()) {
@@ -81,8 +95,8 @@ public class PrintCertificateActionBean implements ActionBean {
             for (Poule poule : this.poules) {
                 this.participants.addAll(poule.getParticipants());
             }
-        } else if (this.vanencompetition != null) {
-            this.participants.addAll(this.vanencompetition.getParticipants());
+        } else if (this.getVanencompetition()!=null) {
+            this.participants.addAll(this.getVanencompetition().getParticipants());
         }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-ykyyy");
@@ -215,24 +229,6 @@ public class PrintCertificateActionBean implements ActionBean {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
-    @Override
-    public void setContext(ActionBeanContext context) {
-        this.context = context;
-    }
-
-    @Override
-    public ActionBeanContext getContext() {
-        return context;
-    }
-
-    public Vanencompetition getVanencompetition() {
-        return vanencompetition;
-    }
-
-    public void setVanencompetition(Vanencompetition vanencompetition) {
-        this.vanencompetition = vanencompetition;
-    }
-
     public List<Poule> getPoules() {
         return poules;
     }
