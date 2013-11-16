@@ -118,13 +118,17 @@ Ext.define("KaratekaListController",{
         if (this.filter===null){
             return true;
         }
-        if (k.name.toLowerCase().indexOf(this.filter.toLowerCase())!==-1){
-            return true;
-        }
-        if (k.surname.toLowerCase().indexOf(this.filter.toLowerCase())!==-1){
-            return true;
-        }
-        return false;
+        var tokens = this.filter.split(" ");
+        for (var i=0; i < tokens.length; i++){
+            var q = tokens[i].toLowerCase();
+            if (k.name.toLowerCase().indexOf(q)===-1 &&
+                k.surname.toLowerCase().indexOf(q)===-1){
+                if (k.insert===null || k.insert.toLowerCase().indexOf(q)===-1){
+                    return false;
+                }
+            }
+        }        
+        return true;
     },
             
     createElement: function(k){
@@ -133,6 +137,7 @@ Ext.define("KaratekaListController",{
         element.set({id: k.id});
         //add classesk
         element.addCls("karateka-item");
+        
         element.addClsOnOver("karateka-item-over");
         element.addClsOnClick("karateka-item-click");
         //make the text
