@@ -167,6 +167,9 @@ public class Poule {
         if (name!=null){
             s+=")";
         }
+        if (this.type!=null){
+            s+= " "+this.type;
+        }
         return s;
     }
 
