@@ -18,7 +18,11 @@
 
     <stripes:layout-component name="body">
        
-            Welkom bij de Vanenapp.
+        <h2>Welkom bij de Vanenapp</h2>
+            
+            De VanenApp is ontwikkeld voor de KBN Vanencompetitie. 
+            Op <a href="https://github.com/rbraam/vanenapp">GitHub</a> kan u de ontwikkelingen volgen
+            rondom dit software pakket.
          
             
     </stripes:layout-component>
