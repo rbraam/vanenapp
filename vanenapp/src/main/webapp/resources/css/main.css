@@ -67,6 +67,16 @@ iframe{
     margin-right: auto;
     background-color: #FFF;
 }
+.logo-container{
+    background-color: #FFF;
+    border-radius: 10px;
+    width: 160px;
+    height: 160px;
+    margin-left: 15px;
+}
+.logo-container img{
+    margin: 5px;
+}
 /*Messages*/
 .box {
     padding: 5px;

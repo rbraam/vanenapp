@@ -32,3 +32,7 @@
 <br/><br/><div class="menuUl">
     <a href="${contextPath}/logout.jsp">Log uit</a>
 </div>
+<br/>
+<div class="logo-container">
+    <image src="${contextPath}/resources/images/logo.jpg"/>
+ </div>
