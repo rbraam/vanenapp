@@ -6,7 +6,7 @@
 
 <stripes:layout-render name="/WEB-INF/jsp/templates/main.jsp">
     <stripes:layout-component name="head">
-        <title>Deelnemers vanencompetitie</title>
+        <title>Deelnemers vanencompetitie ${actionBean.competitionType}</title>
     </stripes:layout-component>
 
     <stripes:layout-component name="header">
@@ -21,8 +21,8 @@
             <stripes:errors/>
             <stripes:messages/>
         </p>
-        <h1>Deelnemers vanencompetitie</h1><br/>
-        Klik links de karateka's aan die meedoen aan deze vanencompetitie. De karateka's die meedoen
+        <h1>Deelnemers vanencompetitie ${actionBean.competitionType}</h1><br/>
+        Klik links de ${actionBean.competitionType} karateka's aan die meedoen aan deze vanencompetitie. De ${actionBean.competitionType} karateka's die meedoen
         staan rechts in het vak.
         <stripes:form beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" onsubmit="onSubmitForm()" onkeypress="return checkEnter(event)">
             <!--intput type="hidden" name="participants" id="participants" value=""/-->
