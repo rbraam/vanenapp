@@ -87,7 +87,7 @@
                         });
                     </script>
                 </c:when>
-                <c:when test="${actionBean.context.eventName == 'delete'}">
+                <c:when test="${actionBean.context.eventName == 'delete' || actionBean.context.eventName == 'save' }">
                     <stripes:submit name="edit" value="Nieuwe karateka"/>
                     <script type="text/javascript">
                         window.parent.listController.refresh();
