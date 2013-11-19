@@ -34,5 +34,6 @@
 </div>
 <br/>
 <div class="logo-container">
-    <a target="_blank" href="http://www.kbn.nl"><image src="${contextPath}/resources/images/logo.jpg"/></a>
+    <a target="_blank" alt="logo" border="0" href="http://www.kbn.nl"><image src="${contextPath}/resources/images/logo.jpg"/></a>
  </div>
+ 

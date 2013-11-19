@@ -8,5 +8,5 @@
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.AdminIndexActionBean"><fmt:message key="main.menu.admin"/></stripes:link></li>
 </ul>
 <div class="logo-container">
-    <a target="_blank" href="http://www.kbn.nl"><image src="${contextPath}/resources/images/logo.jpg"/></a>
+    <a target="_blank" alt="logo" border="0" href="http://www.kbn.nl"><image src="${contextPath}/resources/images/logo.jpg"/></a>
  </div>
