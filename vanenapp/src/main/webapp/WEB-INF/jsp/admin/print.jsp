@@ -22,6 +22,10 @@
             <stripes:messages/>
         </p>
         <h1>Uitdraaien Poules</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
         <h3>Hier kan u de ingedeelde poules uitdraaien.</h3><br/>
         <div class="two-column">
             <h2>Kata</h2>

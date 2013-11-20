@@ -24,6 +24,10 @@
             <stripes:messages/>
         </p>
         <h1>Lijsten vanencompetitie</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
         <div>
             <h2>Algemeen</h2>
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWithoutPoule"/>'>Niet ingedeelde Karateka's</a><br/>

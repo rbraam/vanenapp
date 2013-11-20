@@ -21,7 +21,12 @@
             <stripes:errors/>
             <stripes:messages/>
         </p>
-        <h1>Deelnemers vanencompetitie ${actionBean.competitionType}</h1><br/>
+        <h1>Deelnemers vanencompetitie ${actionBean.competitionType}</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
+        
         Klik links de ${actionBean.competitionType} karateka's aan die meedoen aan deze vanencompetitie. De ${actionBean.competitionType} karateka's die meedoen
         staan rechts in het vak.
         <stripes:form beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" onsubmit="onSubmitForm()" onkeypress="return checkEnter(event)">

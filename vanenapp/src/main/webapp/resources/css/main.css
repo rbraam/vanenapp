@@ -289,3 +289,11 @@ candidate-checkbox{
 .print-certificate-poule-title{
     font-weight: bold;
 }
+
+.choose-vanencompetition{
+    position: relative;
+    top: -50px;
+    left: 600px;
+    clear: both;
+    margin: 0px;
+}

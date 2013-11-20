@@ -29,6 +29,10 @@
             <stripes:messages/>
         </p>
         <h1>Vul de punten in van de afgeronde Vanencompetitie</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
         Een karateka heeft recht op minimaal 50 punten en maximaal 90 punten per competitie dag.
         <div>
             <stripes:form beanclass="com.roybraam.vanenapp.stripes.PointsActionBean">

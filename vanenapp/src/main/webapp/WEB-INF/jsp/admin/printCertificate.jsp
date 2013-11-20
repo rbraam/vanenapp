@@ -22,6 +22,10 @@
             <stripes:messages/>
         </p>
         <h1>Uitdraaien certificaten</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
         <h2>Vanencompetitie</h2>
         <c:out value="${actionBean.vanencompetition}"/> <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintCertificateActionBean" event="print"/>?vanencompetition=${actionBean.vanencompetition.id}'> Print </a>
         <br/>(alle deelnemende karateka's worden uitgeprint, ook de niet in een poule ingedeelde deelnemers)

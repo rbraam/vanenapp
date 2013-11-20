@@ -21,7 +21,11 @@
             <stripes:errors/>
             <stripes:messages/>
         </p>
-        <h1>Poules vanencompetitie</h1><br/>
+        <h1>Poules vanencompetitie</h1>
+        <div class="choose-vanencompetition">
+            ${actionBean.vanencompetition}
+            <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
+        </div>
         <div class="admin-list">
             <table>
                 <tr>

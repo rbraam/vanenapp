@@ -10,7 +10,6 @@
 </ul>
 <h2>Organiseer Vanencompetitie</h2>
 <ul class="menuUl">
-    <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean"><fmt:message key="admin.menu.organizevanencompetition"/></stripes:link></li>
     <li><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" event="view"/>?competitionType=KATA'><fmt:message key="admin.menu.kataparticipant"/></a></li>
     <li><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" event="view"/>?competitionType=KUMITE'><fmt:message key="admin.menu.kumiteparticipant"/></a></li>
     <li><stripes:link beanclass="com.roybraam.vanenapp.stripes.PouleActionBean"><fmt:message key="admin.menu.poule"/></stripes:link></li>
