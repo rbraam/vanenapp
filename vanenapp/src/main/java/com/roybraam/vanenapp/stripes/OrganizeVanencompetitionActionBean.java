@@ -40,6 +40,10 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     private Vanencompetition vanencompetition;
     private List<Vanencompetition> vanencompetitions = new ArrayList<Vanencompetition>();
     private User user;
+    
+    private String forward ="";
+    private String forwardEvent="";
+    private String forwardParam="";
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
@@ -54,6 +58,7 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
         }
     }
     public Resolution getChooseVanencompetitionResolution() {
+        this.forward=this.getClass().getCanonicalName();
         if (user.checkRole(Role.SUPERADMIN.name())) {
             setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("FROM Vanencompetition").getResultList());
         } else if (user.getOrganisation() != null) {
@@ -111,6 +116,31 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     public void setVanencompetitionId(Long vanencompetitionId) {
         this.vanencompetitionId = vanencompetitionId;
     }
+
+    public String getForward() {
+        return forward;
+    }
+
+    public void setForward(String forward) {
+        this.forward = forward;
+    }
+    
+    public String getForwardEvent() {
+        return forwardEvent;
+    }
+
+    public void setForwardEvent(String forwardEvent) {
+        this.forwardEvent = forwardEvent;
+    }
+    
+    public String getForwardParam() {
+        return forwardParam;
+    }
+
+    public void setForwardParam(String forwardParam) {
+        this.forwardParam = forwardParam;
+    }
     //</editor-fold>
+
 
 }

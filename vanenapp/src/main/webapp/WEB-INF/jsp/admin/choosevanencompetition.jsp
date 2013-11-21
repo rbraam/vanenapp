@@ -35,7 +35,14 @@
                         <td><c:out value="${v.location}"/></td>
                         <td><fmt:formatDate value="${v.date}" pattern="dd-MM-yyyy"/></td>
                         <td><c:out value="${v.organisation.name}"/></td>
-                        <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean"/>?competitionType=KATA&vanencompetition=${v.id}'>Selecteer</a></td>
+                        <c:choose>
+                            <c:when test="${not empty actionBean.forward}">
+                                <td><a href='<stripes:url beanclass="${actionBean.forward}" event="${actionBean.forwardEvent}"/>?vanencompetition=${v.id}&${actionBean.forwardParam}'>Selecteer</a></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean"/>?competitionType=KATA&vanencompetition=${v.id}'>Selecteer</a></td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
                 </c:forEach>
             </table>

@@ -52,7 +52,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     }
     public Resolution save(){
         if (this.getVanencompetition() == null) {
-            setNoVanencompetitionMessage();
+            setNoVanencompetitionMessage();            
             return this.getChooseVanencompetitionResolution();
         }
         EntityManager em = Stripersist.getEntityManager();
@@ -73,6 +73,12 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
         em.getTransaction().commit();
         this.createParticipantsJson();
         return new ForwardResolution(JSP);
+    }
+    
+    @Override
+    public Resolution getChooseVanencompetitionResolution(){
+        this.setForwardParam("competitionType="+this.getCompetitionType());
+        return super.getChooseVanencompetitionResolution();
     }
 
     private void createParticipantsJson(){
