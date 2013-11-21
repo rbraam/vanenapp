@@ -48,6 +48,7 @@ public class Karateka {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdate;
     private Double weight;
+    private String memberNumber;
     
     private Integer basePointsKata = new Integer(0);    
     private Integer basePointsKumite = new Integer(0);    
@@ -133,6 +134,14 @@ public class Karateka {
     public void setBasePointsKumite(Integer basePointsKumite){
         this.basePointsKumite = basePointsKumite;
     }
+
+    public String getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(String memberNumber) {
+        this.memberNumber = memberNumber;
+    }
     //</editor-fold>
     
     public String toString(){
@@ -167,5 +176,4 @@ public class Karateka {
         result+=" "+this.getSurname();
         return result;
     }
-
 }
