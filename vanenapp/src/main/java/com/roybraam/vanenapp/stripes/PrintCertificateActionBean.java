@@ -6,12 +6,9 @@ package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
-import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
@@ -113,8 +110,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
-                    this.addText(participant.getKarateka().getFullName().toUpperCase(),400,190,LUCIDA_FONT,32,writer);
-                    
+                    this.addText(participant.getKarateka().getFullName(),400,190,LUCIDA_FONT,32,writer);
                     
                     Entry<Integer,String> certPoints = calculateCertPoints(participant);
                     Integer points = certPoints.getKey();
@@ -220,12 +216,6 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             }
         }
         return newList;
-    }
-    
-    public static void main (String[] args){
-        System.out.println(100%700);
-        System.out.println(701%700);
-        System.out.println(800%700);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
