@@ -55,6 +55,10 @@
                                 <td><stripes:text name="karateka.weight"/></td>
                             </tr>
                             <tr>
+                                <td>KBN lidmaatschapsnummer:</td>
+                                <td><stripes:text name="karateka.memberNumber"/></td>
+                            </tr>
+                            <tr>
                                 <td>Basis punten kata*</td>
                                 <td><stripes:text name="karateka.basePointsKata"/></td>
                             </tr>
