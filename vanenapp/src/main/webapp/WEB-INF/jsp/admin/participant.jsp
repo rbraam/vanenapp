@@ -17,7 +17,7 @@
     </stripes:layout-component>
 
     <stripes:layout-component name="body">
-        <p>
+        <p>            
             <stripes:errors/>
             <stripes:messages/>
         </p>
@@ -44,10 +44,12 @@
             </div>
         </stripes:form>
         <script src="${contextPath}/js/KaratekaListController.js"></script>
+        <script src="${contextPath}/js/UserPromptUnload.js"></script>
         <script src="${contextPath}/js/participant.js"></script>
         <script type="text/javascript">
             var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
             var participants = Ext.JSON.decode('${actionBean.participantsJson}');
+            promptUnload=true;
         </script>
     </stripes:layout-component>
 
