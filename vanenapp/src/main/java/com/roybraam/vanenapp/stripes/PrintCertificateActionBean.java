@@ -96,7 +96,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             this.participants.addAll(this.getVanencompetition().getParticipants());
         }
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-ykyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             //create itext doc
             final Document doc = new Document(PageSize.A4.rotate());
 
