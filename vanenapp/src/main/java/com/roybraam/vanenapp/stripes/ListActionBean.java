@@ -45,15 +45,15 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
 
     public Resolution listParticipantsWithoutPoule() {
-        return list("from Participant where vanencompetition = :v and poule is null","type");
+        return list("from Participant where vanencompetition = :v and poule is null","type,karateka.surname");
     }
 
     public Resolution listParticipants() {
-        return list("from Participant where vanencompetition= :v","type");
+        return list("from Participant where vanencompetition= :v","type,karateka.surname");
     }
 
     public Resolution listParticipantsSortByBelt() {
-        return list("from Participant where vanencompetition= :v","type,karateka.belt");
+        return list("from Participant where vanencompetition= :v","type,karateka.belt,karateka.surname");
     }
 
     public Resolution listParticipantsSortByAge() {
