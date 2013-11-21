@@ -49,7 +49,6 @@
         <script type="text/javascript">
             var listKaratekaUrl = '<stripes:url beanclass="com.roybraam.vanenapp.stripes.KaratekaActionBean" event="list"/>';
             var participants = Ext.JSON.decode('${actionBean.participantsJson}');
-            promptUnload=true;
         </script>
     </stripes:layout-component>
 

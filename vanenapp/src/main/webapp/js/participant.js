@@ -37,12 +37,14 @@ function addKarateka(id) {
     listControllerKarateka.update();
     listControllerParticipant.addKarateka(k);
     listControllerParticipant.update();
+    promptUnload=true;
 }
 function removeKarateka(id){
     var k = listControllerParticipant.removeKarateka(id);
     listControllerParticipant.update();
     listControllerKarateka.addKarateka(k);
     listControllerKarateka.update();
+    promptUnload=true;
 }
 
 function onSubmitForm(){
