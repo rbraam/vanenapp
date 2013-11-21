@@ -53,7 +53,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
 
     public Resolution listParticipantsSortByBelt() {
-        return list("from Participant where vanencompetition= :v","type,karateka.belt,karateka.surname");
+        return list("from Participant where vanencompetition= :v","type,karateka.belt desc,karateka.surname");
     }
 
     public Resolution listParticipantsSortByAge() {
@@ -61,7 +61,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
 
     public Resolution listParticipantsSortByBeltAge() {
-        return list("from Participant where vanencompetition= :v","type,karateka.belt,karateka.birthdate");
+        return list("from Participant where vanencompetition= :v","type,karateka.belt desc,karateka.birthdate");
     }
 
     public Resolution listParticipantsSortByWeight() {
