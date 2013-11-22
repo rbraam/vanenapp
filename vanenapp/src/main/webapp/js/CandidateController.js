@@ -33,6 +33,7 @@ Ext.define("CandidateController",{
         var endKyu= document.getElementById("endKyu").value;
         var type = checkedTypeElements[0].value;
         var startWeight= null;
+        var gender = null;
         if (document.getElementById("startWeight")){
             startWeight=document.getElementById("startWeight").value;
         }
@@ -43,6 +44,12 @@ Ext.define("CandidateController",{
         var poule = null;
         if (document.getElementById("pouleId")){
             poule=document.getElementById("pouleId").value;
+        }
+        if (document.getElementById("gender")){
+            gender= document.getElementById('gender').value;
+            if (Ext.isEmpty(gender)){
+                gender=null;
+            }
         }
         var me = this;
         Ext.Ajax.request({
@@ -55,7 +62,8 @@ Ext.define("CandidateController",{
                 poule: me.poule,
                 startWeight: startWeight,
                 endWeight: endWeight,
-                type: type
+                type: type,
+                gender: gender
             },
             success: function(response){
                 var candidates = Ext.JSON.decode(response.responseText);

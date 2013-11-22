@@ -73,6 +73,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     @Validate
     private Double endWeight=null;
     @Validate
+    private String gender=null;
+    @Validate
     private List<Participant> participants = new ArrayList<Participant>();
     @Validate
     private List<Participant> participantsWithoutPoule = new ArrayList<Participant>();
@@ -221,6 +223,9 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
                     queryString+= " and p.karateka.weight <= :ew";
                 }
             }
+            if (gender!=null){
+                queryString+=" and p.karateka.gender = :g";
+            }
             Query q = Stripersist.getEntityManager().createQuery(queryString);
             q.setParameter("v", this.getVanencompetition());
             q.setParameter("sk", Kyu.valueOf(this.startKyu));
@@ -235,6 +240,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
                 }if (this.endWeight!=null){
                     q.setParameter("ew", this.endWeight);
                 }
+            }if(gender!=null){
+                q.setParameter("g", gender);
             }
             kandidates = q.getResultList();            
         }else{
@@ -338,7 +345,6 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void setType(String type) {
         this.type = type;
     }
-    //</editor-fold>
 
     public Double getStartWeight() {
         return startWeight;
@@ -355,4 +361,13 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     public void setEndWeight(Double endWeight) {
         this.endWeight = endWeight;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    //</editor-fold>
 }

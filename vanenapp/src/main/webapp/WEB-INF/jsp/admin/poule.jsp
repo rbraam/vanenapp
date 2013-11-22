@@ -99,7 +99,7 @@
                                 <tr>
                                     <td>Geslacht</td>
                                     <td>
-                                        <stripes:select name="poule.gender">
+                                        <stripes:select name="poule.gender" id="gender">
                                             <stripes:option label="Beide" value=""/>
                                             <stripes:option value="MALE" label="Jongens"/>
                                             <stripes:option value="FEMALE" label="Meisjes"/>

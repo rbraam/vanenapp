@@ -26,6 +26,9 @@ Ext.onReady(function() {
     Ext.get('endWeight').on("change",function(el){
         getParticipantList();
     });
+    Ext.get('gender').on('change',function(el){
+        getParticipantList();
+    });
     typeChange();
 });
 function typeChange(el){
