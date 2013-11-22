@@ -88,6 +88,7 @@ public class VanencompetitionActionBean implements ActionBean{
     public Resolution save() {
         if (!this.vanencompetition.isAllowed(this.user)){
             getContext().getMessages().add(new SimpleError("U heeft geen rechten om een vanencompetitie aan te maken voor deze organisatie"));
+            return new ForwardResolution(JSP);
         }
         if (this.vanencompetition.getDate().compareTo(this.vanencompetition.getSubscriptionEnd()) < 0){
             getContext().getMessages().add(new SimpleError("Letop! De 'stop inschrijvingen' datum is later dan de datum waarop de vanencompetitie plaats vindt"));
