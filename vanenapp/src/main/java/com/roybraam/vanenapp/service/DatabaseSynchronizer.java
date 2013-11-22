@@ -57,6 +57,9 @@ public class DatabaseSynchronizer implements Servlet {
         
         updates.put("0.7", new ArrayList<File>());
         updates.get("0.7").add(new File(DatabaseSynchronizer.class.getResource("/scripts/07_add_member_number.sql").getFile()));
+        
+        updates.put("0.8", new ArrayList<File>());
+        updates.get("0.8").add(new File(DatabaseSynchronizer.class.getResource("/scripts/08_add_poule_gender.sql").getFile()));
     }
 
     public void doInit(){

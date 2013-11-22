@@ -35,6 +35,7 @@
                     <th>Van leeftijd</th>                
                     <th>Tot leeftijd</th>
                     <th>Type</th>
+                    <th>Geslacht</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -46,6 +47,7 @@
                         <td><c:out value="${p.startAge}"/></td>
                         <td><c:out value="${p.endAge}"/></td>
                         <td><c:out value="${p.type}"/></td>
+                        <td><c:out value="${p.gender}"/></td>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="edit"/>?poule=${p.id}'>Wijzig</a></td>
                         <td><a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PouleActionBean" event="delete"/>?poule=${p.id}'>Verwijder</a></td>
                     </tr>
@@ -92,6 +94,16 @@
                                     <td>
                                         <stripes:radio name="type" value="KATA" checked="checked" onchange="typeChange()"/>Kata<br/>
                                         <stripes:radio name="type" value="KUMITE" onchange="typeChange()"/>Kumité
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Geslacht</td>
+                                    <td>
+                                        <stripes:select name="poule.gender">
+                                            <stripes:option label="Beide" value=""/>
+                                            <stripes:option value="MALE" label="Jongens"/>
+                                            <stripes:option value="FEMALE" label="Meisjes"/>
+                                        </stripes:select>
                                     </td>
                                 </tr>
                                 <tr id="startWeightRow">

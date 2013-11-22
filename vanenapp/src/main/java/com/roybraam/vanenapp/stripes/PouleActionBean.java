@@ -51,7 +51,8 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", maxlength = 255, label = "Naam"),
         @Validate(on = {"save"}, field = "startAge", required = true, label = "Vanaf leeftijd"),
-        @Validate(on = {"save"}, field = "endAge", required = true, label = "T/m leeftijd")
+        @Validate(on = {"save"}, field = "endAge", required = true, label = "T/m leeftijd"),
+        @Validate(on = {"save"}, field = "gender", label = "Geslacht")
 
     })
     private Poule poule;

@@ -57,6 +57,7 @@ public class Poule {
     @Enumerated(EnumType.STRING)
     private CompetitionType type;
     
+    private String gender;
     @ManyToOne
     private Vanencompetition vanencompetition;
     
@@ -182,5 +183,14 @@ public class Poule {
         this.participants = participants;
     }
     
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
     //</editor-fold>
+
 }
