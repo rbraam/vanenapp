@@ -1,13 +1,13 @@
 package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Organisation;
+import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Role;
 import com.roybraam.vanenapp.entity.User;
 import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
@@ -53,11 +53,13 @@ public class VanencompetitionActionBean implements ActionBean{
     public void load() {
         user=(User) context.getRequest().getUserPrincipal();
         Organisation o = user.getOrganisation();
+        Date now = new Date();
         if (getUser().checkRole(Role.SUPERADMIN.name())){
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition").getResultList());
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where date >= :d")
+                    .setParameter("d",now).getResultList());
         }else if (o!=null){
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("from Vanencompetition where organisation = :o")
-                    .setParameter("o", o).getResultList());
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("from Vanencompetition where date >= :d and organisation = :o")
+                    .setParameter("d",now).setParameter("o", o).getResultList());
         } 
     }
     @DefaultHandler
@@ -88,6 +90,13 @@ public class VanencompetitionActionBean implements ActionBean{
     public Resolution save() {
         if (!this.vanencompetition.isAllowed(this.user)){
             getContext().getMessages().add(new SimpleError("U heeft geen rechten om een vanencompetitie aan te maken voor deze organisatie"));
+            this.setVanencompetitions(null);
+            return new ForwardResolution(JSP);
+        }
+        Date now =new Date();
+        if (this.getVanencompetition().getDate().compareTo(now)<0){
+            getContext().getMessages().add(new SimpleError("Er kan geen Vanencompetitie in het verleden worden aangemaakt"));
+            this.setVanencompetition(null);
             return new ForwardResolution(JSP);
         }
         if (this.vanencompetition.getDate().compareTo(this.vanencompetition.getSubscriptionEnd()) < 0){
@@ -103,6 +112,20 @@ public class VanencompetitionActionBean implements ActionBean{
     public Resolution delete() {
         if (!this.vanencompetition.isAllowed(this.user)){
             getContext().getMessages().add(new SimpleError("U heeft geen rechten om een vanencompetitie voor deze organisatie te verwijderen"));
+            this.setVanencompetitions(null);
+            return new ForwardResolution(JSP);
+        }
+        boolean delete=true;
+        for (Participant p : this.vanencompetition.getParticipants()){
+            if (p.getPoints()!=null && p.getPoints()>0 ){
+                delete = false;
+            }
+        }
+        if (!delete){
+            getContext().getMessages().add(new SimpleError("U kan de bestaande vanencompetitie niet verwijderen omdat "
+                    + "er voor de deelnemers al punten zijn ingevuld."));
+            this.setVanencompetitions(null);
+            return new ForwardResolution(JSP);
         }
         Stripersist.getEntityManager().remove(vanencompetition);
         Stripersist.getEntityManager().getTransaction().commit();
