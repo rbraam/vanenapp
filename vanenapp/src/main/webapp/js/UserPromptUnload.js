@@ -1,15 +1,27 @@
-var promptUnload=false;
-var promptUnloadMessage="Weet u zeker dat u deze pagina wilt verlaten, mogelijk gaan er gegevens verloren";
-Ext.onReady(function(){
-    Ext.EventManager.addListener(window,'beforeunload',onBeforeUnload,this,{normalized: false});
-});
-function onBeforeUnload(e){
-    if (promptUnload){
-        if (e){
-            e.returnValue=promptUnloadMessage;
-        }if(window.event){
-            window.event.returnValue = promptUnloadMessage;
+/**
+ * 
+ */
+Ext.define("UserPromptUnload",{
+    promptUnload: false,
+    config: {
+        message:"Weet u zeker dat u deze pagina wilt verlaten, mogelijk gaan er gegevens verloren"
+    },
+    constructor: function(config){
+        this.initConfig(config);
+        Ext.EventManager.addListener(window,'beforeunload',this.onBeforeUnload,this,{normalized: false});
+    },
+    onBeforeUnload: function(e){
+        if (this.promptUnload){
+            if (e){
+                e.returnValue=this.message;
+            }if(window.event){
+                window.event.returnValue = this.message;
+            }
+            return this.message;
         }
-        return promptUnloadMessage;
+    },
+    setPromptUnload: function(val){
+        this.promptUnload=val;
     }
-}
+    
+});

@@ -1,6 +1,7 @@
 var list;
 var listControllerKarateka;
 var listControllerParticipant;
+var prompt;
 Ext.onReady(function() {
     listControllerKarateka = Ext.create("KaratekaListController", {
         url: listKaratekaUrl,
@@ -22,6 +23,8 @@ Ext.onReady(function() {
     listControllerParticipant.refresh();
     
     listControllerKarateka.on("loaded", filterKaratekas,this);
+    
+    prompt = Ext.create("UserPromptUnload",{});
 });
 
 function filterKaratekas(){
@@ -37,14 +40,14 @@ function addKarateka(id) {
     listControllerKarateka.update();
     listControllerParticipant.addKarateka(k);
     listControllerParticipant.update();
-    promptUnload=true;
+    prompt.setPromptUnload(true);
 }
 function removeKarateka(id){
     var k = listControllerParticipant.removeKarateka(id);
     listControllerParticipant.update();
     listControllerKarateka.addKarateka(k);
     listControllerKarateka.update();
-    promptUnload=true;
+    prompt.setPromptUnload(true);
 }
 
 function onSubmitForm(){
