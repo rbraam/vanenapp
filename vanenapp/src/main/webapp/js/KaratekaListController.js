@@ -236,6 +236,7 @@ Ext.define("KaratekaListController",{
     addKarateka: function (k){
         var index=this.list.length;
         var id = k.id;
+        var added=false;
         for (var i=0; i < this.list.length; i++){
             //don't add dublicates
             if (k.id==this.list[i].id){
@@ -244,8 +245,13 @@ Ext.define("KaratekaListController",{
             var compare = this.compareKarateka(k, this.list[i]);
             if (compare ==-1){
                 this.list.splice(i,0,k);
+                added=true;
                 break;
             }
+        }
+        
+        if (!added){
+            this.list.push(k);
         }
         //iff added in this session, remove from added list
         if (Ext.Array.contains(this.removed,id)){
@@ -253,8 +259,6 @@ Ext.define("KaratekaListController",{
         }else if (!Ext.Array.contains(this.added,id)){
             this.added.push(id);
         }
-        
-        this.list.push(k);
     },
     /**
      * compare 2 karateka's
