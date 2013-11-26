@@ -51,12 +51,9 @@ function removeKarateka(id){
 }
 
 function onSubmitForm(){
-    var list = listControllerParticipant.getList();
-    var intList=[];
-    for (var i=0; i < list.length; i++){
-        intList.push(list[i].id);
-    }
-    document.getElementById("participants").value = intList.join(",");
+    prompt.setPromptUnload(false);
+    document.getElementById("participantsAdded").value = listControllerParticipant.getAdded().join(",");
+    document.getElementById("participantsRemoved").value = listControllerParticipant.getRemoved().join(",");
     return true;
 }
 function checkEnter(e){

@@ -31,7 +31,8 @@
         staan rechts in het vak.
         <stripes:form beanclass="com.roybraam.vanenapp.stripes.ParticipantActionBean" onsubmit="onSubmitForm()" onkeypress="return checkEnter(event)">
             <!--intput type="hidden" name="participants" id="participants" value=""/-->
-            <stripes:hidden name="participants" id="participants"/>
+            <stripes:hidden name="participantsAdded" id="participantsAdded"/>
+            <stripes:hidden name="participantsRemoved" id="participantsRemoved"/>
             <stripes:hidden name="competitionType"/>
             <div id="karatekaListContainer" class="two-column">
 

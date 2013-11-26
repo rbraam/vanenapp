@@ -7,6 +7,8 @@
 Ext.define("KaratekaListController",{
     extend: "Ext.util.Observable",
     list: null,
+    added: null,
+    removed: null,
     filter: null,
     listContainer: null,
     searchField: null,
@@ -20,6 +22,8 @@ Ext.define("KaratekaListController",{
     constructor: function (conf){
         KaratekaListController.superclass.constructor.call(this,conf);
         this.initConfig(conf);
+        this.added=[];
+        this.removed=[];
         //this.renderTo= Ext.get(this.renderTo);
         var me=this;
         this.searchField= Ext.create('Ext.form.field.Text',{
@@ -60,6 +64,18 @@ Ext.define("KaratekaListController",{
      */
     getList: function(){
         return this.list;
+    },
+    /**
+     * gets the removed ids after init
+     */
+    getRemoved: function(){
+        return this.removed;
+    },
+    /**
+     * Gets the added ids after init
+     */
+    getAdded: function(){
+        return this.added;
     },
     /**
      * Refreshes the list by getting the karateka's from the url
@@ -205,6 +221,13 @@ Ext.define("KaratekaListController",{
                 returnVal=returnVal[0]
             }
         }
+        
+        //if added in this session, remove from added list.
+        if (Ext.Array.contains(this.added,id)){
+            this.added=Ext.Array.remove(this.added,id);
+        }else if (!Ext.Array.contains(this.removed,id)){
+            this.removed.push(id);
+        }
         return returnVal;
     },
     /**
@@ -212,17 +235,25 @@ Ext.define("KaratekaListController",{
      */
     addKarateka: function (k){
         var index=this.list.length;
+        var id = k.id;
         for (var i=0; i < this.list.length; i++){
             //don't add dublicates
             if (k.id==this.list[i].id){
-                return;
+                break;
             }
             var compare = this.compareKarateka(k, this.list[i]);
             if (compare ==-1){
                 this.list.splice(i,0,k);
-                return;
+                break;
             }
         }
+        //iff added in this session, remove from added list
+        if (Ext.Array.contains(this.removed,id)){
+            this.removed=Ext.Array.remove(this.removed,id);
+        }else if (!Ext.Array.contains(this.added,id)){
+            this.added.push(id);
+        }
+        
         this.list.push(k);
     },
     /**

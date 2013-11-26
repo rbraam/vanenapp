@@ -17,6 +17,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +36,9 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
     private static final String JSP = "/WEB-INF/jsp/admin/participant.jsp";
     private static final Integer maxAge=18;
     @Validate
-    private String participants = "";
+    private String participantsAdded = "";
+    @Validate
+    private String participantsRemoved = "";
     private String participantsJson = "";
     
     @Validate(required = true)
@@ -56,19 +59,48 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
             return this.getChooseVanencompetitionResolution();
         }
         EntityManager em = Stripersist.getEntityManager();
+        List<Participant> notRemoved = new ArrayList<Participant>();
+        
+        int oldParticipantLength = this.getVanencompetition().getParticipants().size();
         
         Iterator<Participant> it =this.getVanencompetition().getParticipants().iterator();
-        while(it.hasNext()){
-            Participant p = it.next();
-            if (CompetitionType.valueOf(this.competitionType).equals(p.getType())){
-                it.remove();
+        
+        List<Integer> removedInt = this.getParticipantsList(this.participantsRemoved);
+        List<Integer> addedInt = this.getParticipantsList(this.participantsAdded);
+        if (!removedInt.isEmpty()){
+            while(it.hasNext()){
+                Participant p = it.next();
+                if (CompetitionType.valueOf(this.competitionType).equals(p.getType())){
+                    if (removedInt.contains(p.getKarateka().getId())){
+                        if (p.getPoule()!=null){
+                            notRemoved.add(p);
+                        }else{
+                            it.remove();
+                        }
+                        break;
+                    }                
+                }
             }
         }
-        for (Integer kid : this.getParticipantsList()){
+        for (Integer kid : addedInt){
             Karateka k = em.find(Karateka.class, kid);
             Participant p = new Participant(this.getVanencompetition(),k,CompetitionType.valueOf(this.competitionType));
-            this.getVanencompetition().getParticipants().add(p);
+            if (!this.getVanencompetition().getParticipants().contains(p)){
+                this.getVanencompetition().getParticipants().add(p);
+            }
         }
+        
+        if (this.getVanencompetition().getParticipants().size() != (oldParticipantLength + addedInt.size() - removedInt.size())){
+            this.getContext().getMessages().add(new SimpleError("Niet alle deelnemers konden worden verwijderd/toegevoegd. Controleer de lijst."));
+        }
+        if (!notRemoved.isEmpty()){
+            String message = "De volgende karateka's kunnen niet verwijderd worden omdat deze al in een poule"
+                    + "zijn ingedeeld, verwijder ze eerst uit de poule om ze daarna hier te kunnen verwijderen:<br/> ";
+            for (Participant p : notRemoved){
+                message+=p.toString()+"<br/>";
+            }
+            this.getContext().getMessages().add(new SimpleError(message));
+        }        
         em.persist(this.getVanencompetition());
         em.getTransaction().commit();
         this.createParticipantsJson();
@@ -109,17 +141,9 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
             this.participantsJson = participantsArray.toString();
         }
     }
-    public String getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(String participants) {
-        this.participants = participants;
-    }
-
-    public List<Integer> getParticipantsList() {
+    public List<Integer> getParticipantsList(String participants) {
         List<Integer> result = new ArrayList<Integer>();
-        if (this.participants != null) {
+        if (participants != null) {
             String[] tokens = participants.split(",");
             for (int i = 0; i < tokens.length; i++) {
                 result.add(Integer.parseInt(tokens[i].trim()));
@@ -142,5 +166,21 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
 
     public void setCompetitionType(String competitionType) {
         this.competitionType = competitionType;
+    }
+
+    public String getParticipantsAdded() {
+        return participantsAdded;
+    }
+
+    public void setParticipantsAdded(String participantsAdded) {
+        this.participantsAdded = participantsAdded;
+    }
+
+    public String getParticipantsRemoved() {
+        return participantsRemoved;
+    }
+
+    public void setParticipantsRemoved(String participantsRemoved) {
+        this.participantsRemoved = participantsRemoved;
     }
 }
