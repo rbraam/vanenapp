@@ -19,6 +19,7 @@ import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
@@ -138,7 +139,7 @@ public class ParticipantActionBean extends OrganizeVanencompetitionActionBean {
                     }
                 }
             }
-            this.participantsJson = participantsArray.toString();
+            this.participantsJson = StringEscapeUtils.escapeEcmaScript(participantsArray.toString());
         }
     }
     public List<Integer> getParticipantsList(String participants) {
