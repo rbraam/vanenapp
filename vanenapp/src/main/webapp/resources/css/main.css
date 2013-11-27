@@ -39,6 +39,7 @@ iframe{
     position: static;
     float: left;
     width: 190px;
+    height: 100%;
     min-height: 768px;
     color: white;
     background-color: #186198; 
@@ -50,6 +51,7 @@ iframe{
 #content{
     float: left;
     width: 805px;
+    min-height: 768px;
     height: 100%;
     margin-left: auto; 
     margin-right: auto;
