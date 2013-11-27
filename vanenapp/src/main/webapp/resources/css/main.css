@@ -6,14 +6,19 @@
         Main css file
 */
 body{
-    padding: 0px;
-    margin: 0px;
     font-size: 8pt; 
     color: #000000; 
     background-color: #d4d4d4;
     font-family: arial, sans-serif;
     overflow: auto;
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 
 iframe{
     border: none;
@@ -30,8 +35,10 @@ iframe{
     background-color: #003333;
 }
 #mid{
+    height: auto !important;
+    min-height: 100%; /* ie6 ignores min-height completely */
+    height: 100%;
     width: 1024px;
-    min-height: 768px;
     margin-left: auto;
     margin-right: auto;
 }

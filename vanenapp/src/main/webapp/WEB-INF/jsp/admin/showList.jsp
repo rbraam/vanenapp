@@ -70,7 +70,7 @@
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByWeight"/>?competitionType=Kumite&orderBy=gender'>Deelnemende Karateka's gesorteerd op Gewicht</a><br/>
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAgeWeight"/>?competitionType=Kumite&orderBy=gender'>Deelnemende Karateka's gesorteerd op Leeftijd en Gewicht</a><br/>
         </div>
-
+        <h2>Poules</h2>
         <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listPoules"/>'>Overzicht ingedeelde poules</a><br/>
     </stripes:layout-component>
 
