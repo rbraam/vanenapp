@@ -34,6 +34,8 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     private List resultList = new ArrayList();
     @Validate
     private String competitionType = null;
+    @Validate
+    private String orderBy=null;
     
     @DefaultHandler
     public Resolution view() {
@@ -95,6 +97,13 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
             query+=" and type = :t";
         }
         EntityManager em = Stripersist.getEntityManager();
+        if (this.orderBy!=null){
+            if (orderBy ==null){
+                orderBy=this.orderBy;
+            }else{
+                orderBy=this.orderBy+","+orderBy;
+            }
+        }
         if (orderBy!=null){
             query+=" order by "+orderBy;
         }
@@ -126,5 +135,13 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
         }else{
             this.competitionType = competitionType;
         }
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }
