@@ -71,7 +71,7 @@ public class PointsActionBean implements ActionBean {
     public Resolution showPoints() {
         Date now = new Date();
         if (this.vanencompetition != null && this.vanencompetition.getDate().getTime() <= now.getTime()) {
-            this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
+            this.poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v order by type,gender,startKyu,startAge")
                     .setParameter("v", this.vanencompetition)
                     .getResultList();
             
