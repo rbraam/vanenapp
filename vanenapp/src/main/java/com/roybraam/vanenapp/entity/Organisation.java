@@ -28,6 +28,10 @@ public class Organisation {
     @Id
     private Long id;
     private String name;
+    
+    private String emailAdress;
+    
+    private String phoneNumber;
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public Long getId() {
@@ -44,6 +48,22 @@ public class Organisation {
     
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmailAdress() {
+        return emailAdress;
+    }
+
+    public void setEmailAdress(String emailAdress) {
+        this.emailAdress = emailAdress;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     //</editor-fold>
 }

@@ -30,7 +30,9 @@ public class OrganisationActionBean implements ActionBean {
     
     @Validate(on = {"save"})   
     @ValidateNestedProperties({
-        @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam")
+        @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
+        @Validate(on = {"save"}, field = "phoneNumber", maxlength = 20, label = "Telefoonnummer"),
+        @Validate(on = {"save"}, field = "emailAdress", maxlength = 255, label = "Emailadres")
     })
     private Organisation organisation;
     

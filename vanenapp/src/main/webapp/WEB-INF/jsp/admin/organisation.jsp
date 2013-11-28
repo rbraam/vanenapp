@@ -46,6 +46,14 @@
                                 <td>Naam</td>
                                 <td><stripes:text name="organisation.name"/></td>
                             </tr>
+                            <tr>
+                                <td>Emailadres</td>
+                                <td><stripes:text name="organisation.emailAdress"/></td>
+                            </tr>
+                            <tr>
+                                <td>Telefoonnummer</td>
+                                <td><stripes:text name="organisation.phoneNumber"/></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="submitbuttons">
