@@ -167,6 +167,13 @@ input.error[type="radio"], input.error[type="checkbox"], select.error {
     font-weight: bold;
     width: 150px;
 }
+
+#agendaTable{
+    
+}
+#agendaTable tr td{
+    padding-right: 15px;
+}
 /*Admin list css*/
 .admin-list{
     width: 100%;

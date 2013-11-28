@@ -25,6 +25,21 @@
             rondom dit software pakket.
          
             
+            <h2>Agenda</h2>
+            <table id="agendaTable">
+            <c:forEach items="${actionBean.vanencompetitions}" var="v">
+                <tr>
+                    <td>
+                        <b>
+                            <fmt:formatDate value="${v.date}" pattern="dd-MM-yyyy"/>
+                        </b>
+                    </td>
+                    <td><c:out value="${v.location}"/></td>
+                    <td><c:out value="${v.organisation.name}"/></td>
+                    <td>( Inschrijven tot <fmt:formatDate value="${v.subscriptionEnd}" pattern="dd-MM-yyyy"/> )</td>
+                </tr>
+            </c:forEach>
+            </table>
             
     </stripes:layout-component>
 
