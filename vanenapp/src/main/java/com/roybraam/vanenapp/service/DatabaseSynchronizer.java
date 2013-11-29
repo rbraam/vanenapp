@@ -35,37 +35,41 @@ public class DatabaseSynchronizer implements Servlet {
 
     private ServletConfig sc;
     static {
-        updates.put("init", new ArrayList<File>());
-        updates.put("0", new ArrayList<File>());
-        updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/vanenapp_schema.sql").getFile()));
-        updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/01_init-data.sql").getFile()));
-        
-        updates.put("0.1", new ArrayList<File>());
-        updates.get("0.1").add(new File(DatabaseSynchronizer.class.getResource("/scripts/02_rename-karateka-birthdate.sql").getFile()));
-        
-        updates.put("0.2", new ArrayList<File>());
-        updates.get("0.2").add(new File(DatabaseSynchronizer.class.getResource("/scripts/03_add_to_poule.sql").getFile()));
-        
-        updates.put("0.3", new ArrayList<File>());
-        updates.get("0.3").add(new File(DatabaseSynchronizer.class.getResource("/scripts/04_add_weight_to_poule.sql").getFile()));
-        
-        updates.put("0.5", new ArrayList<File>());
-        updates.get("0.5").add(new File(DatabaseSynchronizer.class.getResource("/scripts/05_add_base_points.sql").getFile()));
-        
-        updates.put("0.6", new ArrayList<File>());
-        updates.get("0.6").add(new File(DatabaseSynchronizer.class.getResource("/scripts/06_add_base_points_kumite.sql").getFile()));
-        
-        updates.put("0.7", new ArrayList<File>());
-        updates.get("0.7").add(new File(DatabaseSynchronizer.class.getResource("/scripts/07_add_member_number.sql").getFile()));
-        
-        updates.put("0.8", new ArrayList<File>());
-        updates.get("0.8").add(new File(DatabaseSynchronizer.class.getResource("/scripts/08_add_poule_gender.sql").getFile()));
-        
-        updates.put("0.9", new ArrayList<File>());
-        updates.get("0.9").add(new File(DatabaseSynchronizer.class.getResource("/scripts/09_add_contactinfo_org.sql").getFile()));
-        
-        updates.put("0.10", new ArrayList<File>());
-        updates.get("0.10").add(new File(DatabaseSynchronizer.class.getResource("/scripts/10_add_email_karateka.sql").getFile()));
+        try{
+            updates.put("init", new ArrayList<File>());
+            updates.put("0", new ArrayList<File>());
+            updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/vanenapp_schema.sql").getFile()));
+            updates.get("0").add(new File(DatabaseSynchronizer.class.getResource("/scripts/01_init-data.sql").getFile()));
+
+            updates.put("0.1", new ArrayList<File>());
+            updates.get("0.1").add(new File(DatabaseSynchronizer.class.getResource("/scripts/02_rename-karateka-birthdate.sql").getFile()));
+
+            updates.put("0.2", new ArrayList<File>());
+            updates.get("0.2").add(new File(DatabaseSynchronizer.class.getResource("/scripts/03_add_to_poule.sql").getFile()));
+
+            updates.put("0.3", new ArrayList<File>());
+            updates.get("0.3").add(new File(DatabaseSynchronizer.class.getResource("/scripts/04_add_weight_to_poule.sql").getFile()));
+
+            updates.put("0.5", new ArrayList<File>());
+            updates.get("0.5").add(new File(DatabaseSynchronizer.class.getResource("/scripts/05_add_base_points.sql").getFile()));
+
+            updates.put("0.6", new ArrayList<File>());
+            updates.get("0.6").add(new File(DatabaseSynchronizer.class.getResource("/scripts/06_add_base_points_kumite.sql").getFile()));
+
+            updates.put("0.7", new ArrayList<File>());
+            updates.get("0.7").add(new File(DatabaseSynchronizer.class.getResource("/scripts/07_add_member_number.sql").getFile()));
+
+            updates.put("0.8", new ArrayList<File>());
+            updates.get("0.8").add(new File(DatabaseSynchronizer.class.getResource("/scripts/08_add_poule_gender.sql").getFile()));
+
+            updates.put("0.9", new ArrayList<File>());
+            updates.get("0.9").add(new File(DatabaseSynchronizer.class.getResource("/scripts/09_add_contactinfo_org.sql").getFile()));
+
+            updates.put("0.10", new ArrayList<File>());
+            updates.get("0.10").add(new File(DatabaseSynchronizer.class.getResource("/scripts/10_add_email_karateka.sql").getFile()));
+        }catch(Exception e){
+            log.error("Error initializing DatabaseSynchronizer",e);
+        }
     }
 
     public void doInit(){

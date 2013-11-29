@@ -60,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td>E-mail adres</td>
-                                <td><stripes:text name="karateka.emailadress"/></td>
+                                <td><stripes:text name="karateka.emailAdress"/></td>
                             </tr>
                             <tr>
                                 <td>Basis punten kata*</td>
