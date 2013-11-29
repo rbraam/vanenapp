@@ -45,7 +45,8 @@ public class KaratekaActionBean implements ActionBean {
         @Validate(on = {"save"}, field = "weight", label = "Gewicht"),
         @Validate(on = {"save"}, field = "basePointsKata", label = "Basis punten kata"),
         @Validate(on = {"save"}, field = "basePointsKumite", label = "Basis punten kumite"),
-        @Validate(on = {"save"}, field = "memberNumber", label = "KBN lidmaatschap nummer")
+        @Validate(on = {"save"}, field = "memberNumber", label = "KBN lidmaatschap nummer"),
+        @Validate(on = {"save"}, field = "emailAdress", label = "E-mail adres")
     })
     private Karateka karateka;
     @Validate(on = {"save"}, required = true, label = "Kyu-graad")
