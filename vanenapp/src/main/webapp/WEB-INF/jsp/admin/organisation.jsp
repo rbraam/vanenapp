@@ -47,7 +47,7 @@
                                 <td><stripes:text name="organisation.name"/></td>
                             </tr>
                             <tr>
-                                <td>Emailadres</td>
+                                <td>E-mail adres</td>
                                 <td><stripes:text name="organisation.emailAdress"/></td>
                             </tr>
                             <tr>
