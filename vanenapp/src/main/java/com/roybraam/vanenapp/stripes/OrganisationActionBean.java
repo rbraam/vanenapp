@@ -12,6 +12,7 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.stripesstuff.stripersist.Stripersist;
@@ -32,7 +33,7 @@ public class OrganisationActionBean implements ActionBean {
     @ValidateNestedProperties({
         @Validate(on = {"save"}, field = "name", required = true, maxlength = 255, label = "Naam"),
         @Validate(on = {"save"}, field = "phoneNumber", maxlength = 20, label = "Telefoonnummer"),
-        @Validate(on = {"save"}, field = "emailAdress", maxlength = 255, label = "E-mail adres")
+        @Validate(on = {"save"}, field = "emailAdress", converter=EmailTypeConverter.class, maxlength = 255, label = "E-mail adres")
     })
     private Organisation organisation;
     
