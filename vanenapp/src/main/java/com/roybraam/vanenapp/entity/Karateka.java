@@ -49,6 +49,7 @@ public class Karateka {
     private Date birthdate;
     private Double weight;
     private String memberNumber;
+    private String emailAdress;
     
     private Integer basePointsKata = new Integer(0);    
     private Integer basePointsKumite = new Integer(0);    
@@ -141,6 +142,14 @@ public class Karateka {
 
     public void setMemberNumber(String memberNumber) {
         this.memberNumber = memberNumber;
+    }
+
+    public String getEmailAdress() {
+        return emailAdress;
+    }
+
+    public void setEmailAdress(String emailAdress) {
+        this.emailAdress = emailAdress;
     }
     //</editor-fold>
     

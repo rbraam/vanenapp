@@ -14,6 +14,7 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -45,7 +46,8 @@ public class KaratekaActionBean implements ActionBean {
         @Validate(on = {"save"}, field = "weight", label = "Gewicht"),
         @Validate(on = {"save"}, field = "basePointsKata", label = "Basis punten kata"),
         @Validate(on = {"save"}, field = "basePointsKumite", label = "Basis punten kumite"),
-        @Validate(on = {"save"}, field = "memberNumber", label = "KBN lidmaatschap nummer")
+        @Validate(on = {"save"}, field = "memberNumber", label = "KBN lidmaatschap nummer"),
+        @Validate(on = {"save"}, field = "emailAdress", converter=EmailTypeConverter.class, label = "E-mail adres")
     })
     private Karateka karateka;
     @Validate(on = {"save"}, required = true, label = "Kyu-graad")

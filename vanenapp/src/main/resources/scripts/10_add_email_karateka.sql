@@ -1,0 +1,1 @@
+ALTER TABLE karateka ADD COLUMN email_adress character varying(255);
