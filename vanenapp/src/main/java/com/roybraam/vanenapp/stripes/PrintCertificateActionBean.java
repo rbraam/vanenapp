@@ -16,7 +16,9 @@ import net.sourceforge.stripes.validation.Validate;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -27,11 +29,14 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map.Entry;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.util.UrlBuilder;
 import net.sourceforge.stripes.validation.SimpleError;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,6 +57,8 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
     private List<Poule> poules = new ArrayList<Poule>();
     @Validate
     private List<Participant> participants = new ArrayList<Participant>();
+    @Validate
+    private boolean qr = false;
     
     private static String[] CATEGORIES = new String[4];
 
@@ -124,6 +131,15 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                     this.addText(stringDate,780,25,8,writer);
                     //start points
                     this.addText("10",470,95,20,writer);
+                    
+                    if (this.getQr()){
+                        String url = createUrl(participant);
+                        BarcodeQRCode qrcode = new BarcodeQRCode(url,20, 20, null);
+                        Image img = qrcode.getImage();
+                        img.setAbsolutePosition(25,25);
+                        doc.add(img);
+                    }
+                    
                     doc.newPage();
                 }
                 doc.close();
@@ -207,6 +223,25 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
         }
         return new AbstractMap.SimpleEntry<Integer, String>(points,category);
     }
+    
+    private String createUrl(Participant p){
+        HttpServletRequest req = this.getContext().getRequest();
+        StringBuffer sb = new StringBuffer();
+        
+        sb.append(req.getScheme());
+        sb.append("://");
+        sb.append(req.getServerName());
+        if (req.getServerPort()!=80){
+            sb.append(":"+req.getServerPort());
+        }
+        sb.append(req.getContextPath());
+        
+        UrlBuilder builder = new UrlBuilder(Locale.ENGLISH, ParticipantPointsActionBean.class, true);
+        builder.addParameter("p", p.getId());
+        builder.addParameter("code",ParticipantPointsActionBean.generateCode(p, this.getContext().getServletContext().getInitParameter("participant-salt")));
+        sb.append(builder.toString());
+        return sb.toString();
+    }
         
     private List<Participant> removeDuplicates(List<Participant> list) {
         List<Participant> newList = new ArrayList<Participant>();
@@ -233,6 +268,14 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
 
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
+    }
+
+    public boolean getQr() {
+        return qr;
+    }
+
+    public void setQr(boolean qr) {
+        this.qr = qr;
     }
 
 }
