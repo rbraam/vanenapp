@@ -26,11 +26,11 @@ import org.apache.commons.logging.LogFactory;
  * @author Roy Braam
  */
 @StrictBinding
-@UrlBinding("/action/participantpoints/{$event}")
-public class ParticipantPointsActionBean implements ActionBean {
+@UrlBinding("/action/karatekapoints/{$event}")
+public class KaratekaPointsActionBean implements ActionBean {
 
-    private static final Log log = LogFactory.getLog(ParticipantPointsActionBean.class);
-
+    private static final Log log = LogFactory.getLog(KaratekaPointsActionBean.class);
+    private static final String JSP = "/WEB-INF/jsp/main/karatekaPoints.jsp";
     private static final String DEFAULT_SALT = "16f26f9d5e09ddac2a8c468d22a2c781";
     
     private ActionBeanContext context;
@@ -40,7 +40,7 @@ public class ParticipantPointsActionBean implements ActionBean {
     private String code;
 
     public Resolution view() throws UnsupportedEncodingException {
-        return new ForwardResolution("");
+        return new ForwardResolution(JSP);
     }
 
     /**
@@ -58,15 +58,6 @@ public class ParticipantPointsActionBean implements ActionBean {
         String hash = Md5Crypt.apr1Crypt(sb.toString(), salt);
 
         return hash;
-    }
-
-    private String getSalt() {
-        String s = this.getContext().getServletContext().getInitParameter("participant-salt");
-        if (s == null) {
-            log.warn("There is no salt configured for hashing the participant code. The insecure, default is used");
-            s= DEFAULT_SALT;
-        }
-        return s;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/setters">

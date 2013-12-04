@@ -114,6 +114,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             if (!participants.isEmpty()) {
                 this.participants = this.removeDuplicates(this.participants);
                 EntityManager em = Stripersist.getEntityManager();
+                String baseUrl = this.getBaseUrl();
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
@@ -133,7 +134,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                     this.addText("10",470,95,20,writer);
                     
                     if (this.getQr()){
-                        String url = createUrl(participant);
+                        String url = createParticipantUrl(participant,baseUrl);
                         BarcodeQRCode qrcode = new BarcodeQRCode(url,20, 20, null);
                         Image img = qrcode.getImage();
                         img.setAbsolutePosition(25,25);
@@ -222,25 +223,6 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             category+=" Kumite";
         }
         return new AbstractMap.SimpleEntry<Integer, String>(points,category);
-    }
-    
-    private String createUrl(Participant p){
-        HttpServletRequest req = this.getContext().getRequest();
-        StringBuffer sb = new StringBuffer();
-        
-        sb.append(req.getScheme());
-        sb.append("://");
-        sb.append(req.getServerName());
-        if (req.getServerPort()!=80){
-            sb.append(":"+req.getServerPort());
-        }
-        sb.append(req.getContextPath());
-        
-        UrlBuilder builder = new UrlBuilder(Locale.ENGLISH, ParticipantPointsActionBean.class, true);
-        builder.addParameter("p", p.getId());
-        builder.addParameter("code",ParticipantPointsActionBean.generateCode(p, this.getContext().getServletContext().getInitParameter("participant-salt")));
-        sb.append(builder.toString());
-        return sb.toString();
     }
         
     private List<Participant> removeDuplicates(List<Participant> list) {

@@ -4,12 +4,15 @@
  */
 package com.roybraam.vanenapp.stripes;
 
+import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Role;
 import com.roybraam.vanenapp.entity.User;
 import com.roybraam.vanenapp.entity.Vanencompetition;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
@@ -19,6 +22,7 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.util.UrlBuilder;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 
@@ -33,6 +37,8 @@ import org.stripesstuff.stripersist.Stripersist;
 @UrlBinding("/action/admin/organizevanencompetition/{$event}")
 public class OrganizeVanencompetitionActionBean implements ActionBean {
     protected static final String CHOOSE_VANENCOMPETITIE_JSP = "/WEB-INF/jsp/admin/choosevanencompetition.jsp";
+    protected static final String PARTICIPANTPOINTS_BASEURL_PARAM = "participantpoints.baseUrl";
+    protected static final String PARTICIPANTPOINTS_SALT_PARAM = "participantpoints.salt";
     private ActionBeanContext context;
     @Session
     private Long vanencompetitionId;
@@ -70,6 +76,54 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
 
     public void setNoVanencompetitionMessage() {
         getContext().getMessages().add(new SimpleError("Er moet eerst een vanencompetitie worden geselecteerd"));
+    }
+    
+    /**
+     * Get the base url of this application.
+     * @return the url for this application. If not set as a contexst param, the url is resolved by using
+     * the requested url.
+     */
+    protected String getBaseUrl(){
+        StringBuilder sb = new StringBuilder();
+        if (this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_BASEURL_PARAM)!=null){
+            sb.append(this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_BASEURL_PARAM));
+        }else{
+            HttpServletRequest req = this.getContext().getRequest();
+            sb.append(req.getScheme());
+            sb.append("://");
+            sb.append(req.getServerName());
+            if (req.getServerPort()!=80){
+                sb.append(":"+req.getServerPort());
+            }
+            sb.append(req.getContextPath());
+        }
+        return sb.toString();
+    }
+    /**
+     * @see #createParticipantUrl(com.roybraam.vanenapp.entity.Participant, java.lang.String) 
+     * @param p
+     * @return 
+     */
+    protected String createParticipantUrl(Participant p){
+        return this.createParticipantUrl(p,this.getBaseUrl());
+    }
+    
+    /**
+     * Create a participant url for the given participant
+     * @param p the participant
+     * @param baseUrl the base url used to build this url. 
+     * @return 
+     */
+    protected String createParticipantUrl(Participant p, String baseUrl){
+        StringBuffer sb = new StringBuffer();
+        if (baseUrl!=null){
+            sb.append(baseUrl);       
+        }
+        UrlBuilder builder = new UrlBuilder(Locale.ENGLISH, KaratekaPointsActionBean.class, false);
+        builder.addParameter("p", p.getId());
+        builder.addParameter("code",KaratekaPointsActionBean.generateCode(p, this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_SALT_PARAM)));
+        sb.append(builder.toString());
+        return sb.toString();
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
