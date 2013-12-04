@@ -25,6 +25,8 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.util.UrlBuilder;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.stripesstuff.plugin.session.Session;
 import org.stripesstuff.stripersist.Stripersist;
@@ -36,6 +38,8 @@ import org.stripesstuff.stripersist.Stripersist;
 @StrictBinding
 @UrlBinding("/action/admin/organizevanencompetition/{$event}")
 public class OrganizeVanencompetitionActionBean implements ActionBean {
+    private static final Log log = LogFactory.getLog(OrganizeVanencompetitionActionBean.class);
+    
     protected static final String CHOOSE_VANENCOMPETITIE_JSP = "/WEB-INF/jsp/admin/choosevanencompetition.jsp";
     protected static final String PARTICIPANTPOINTS_BASEURL_PARAM = "participantpoints.baseUrl";
     protected static final String PARTICIPANTPOINTS_SALT_PARAM = "participantpoints.salt";
@@ -88,6 +92,7 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
         if (this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_BASEURL_PARAM)!=null){
             sb.append(this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_BASEURL_PARAM));
         }else{
+            log.warn("Unable to get context param '"+PARTICIPANTPOINTS_BASEURL_PARAM+"' resolving the url from the request.");
             HttpServletRequest req = this.getContext().getRequest();
             sb.append(req.getScheme());
             sb.append("://");
