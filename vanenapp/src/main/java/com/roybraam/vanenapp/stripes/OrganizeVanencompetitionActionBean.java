@@ -42,7 +42,6 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     
     protected static final String CHOOSE_VANENCOMPETITIE_JSP = "/WEB-INF/jsp/admin/choosevanencompetition.jsp";
     protected static final String PARTICIPANTPOINTS_BASEURL_PARAM = "participantpoints.baseUrl";
-    protected static final String PARTICIPANTPOINTS_SALT_PARAM = "participantpoints.salt";
     private ActionBeanContext context;
     @Session
     private Long vanencompetitionId;
@@ -126,7 +125,7 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
         }
         UrlBuilder builder = new UrlBuilder(Locale.ENGLISH, KaratekaPointsActionBean.class, false);
         builder.addParameter("p", p.getId());
-        builder.addParameter("code",KaratekaPointsActionBean.generateCode(p, this.getContext().getServletContext().getInitParameter(PARTICIPANTPOINTS_SALT_PARAM)));
+        builder.addParameter("code",KaratekaPointsActionBean.generateCode(p, this.getContext()));
         sb.append(builder.toString());
         return sb.toString();
     }

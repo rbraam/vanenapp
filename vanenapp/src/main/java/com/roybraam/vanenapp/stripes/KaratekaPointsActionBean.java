@@ -31,7 +31,9 @@ public class KaratekaPointsActionBean implements ActionBean {
 
     private static final Log log = LogFactory.getLog(KaratekaPointsActionBean.class);
     private static final String JSP = "/WEB-INF/jsp/main/karatekaPoints.jsp";
-    private static final String DEFAULT_SALT = "16f26f9d5e09ddac2a8c468d22a2c781";
+    public static final String DEFAULT_SALT = "16f26f9d5e09ddac2a8c468d22a2c781";
+    
+    protected static final String PARTICIPANTPOINTS_SALT_PARAM = "participantpoints.salt";
     
     private ActionBeanContext context;
     @Validate(required = true)
@@ -40,14 +42,20 @@ public class KaratekaPointsActionBean implements ActionBean {
     private String code;
 
     public Resolution view() throws UnsupportedEncodingException {
+        String checkCode = generateCode(p, this.getContext());
+        if (code==null || !code.equals(checkCode)){
+            throw new SecurityException("Geen toegang. De code is onjuist");
+        }
         return new ForwardResolution(JSP);
     }
 
     /**
      * Generate unique code
      */
-    public static String generateCode(Participant p, String salt) {
+    public static String generateCode(Participant p, ActionBeanContext context) {
+        String salt = context.getServletContext().getInitParameter(PARTICIPANTPOINTS_SALT_PARAM);
         if (salt == null){
+            log.warn("The '"+PARTICIPANTPOINTS_SALT_PARAM+ "' is not configured as context param. Using the insecure, default salt");
             salt = DEFAULT_SALT;
         }
         StringBuffer sb = new StringBuffer();
