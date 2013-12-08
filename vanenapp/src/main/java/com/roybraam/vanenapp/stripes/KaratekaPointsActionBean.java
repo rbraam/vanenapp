@@ -4,22 +4,21 @@
  */
 package com.roybraam.vanenapp.stripes;
 
-import com.itextpdf.text.pdf.qrcode.QRCodeWriter;
+import com.roybraam.vanenapp.entity.CompetitionType;
 import com.roybraam.vanenapp.entity.Participant;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.validation.Validate;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
@@ -40,12 +39,24 @@ public class KaratekaPointsActionBean implements ActionBean {
     private Participant p;
     @Validate(required = true)
     private String code;
-
+    @Validate
+    private List<Participant> participants;
+    
     public Resolution view() throws UnsupportedEncodingException {
         String checkCode = generateCode(p, this.getContext());
         if (code==null || !code.equals(checkCode)){
             throw new SecurityException("Geen toegang. De code is onjuist");
         }
+        CompetitionType ct = p.getType();
+        this.participants = Stripersist.getEntityManager().createQuery("FROM Participant where "
+                + "karateka = :k "
+                + "AND poule is not null "
+                + "AND type = :t "
+                + "AND points is not null")
+                .setParameter("k",p.getKarateka())
+                .setParameter("t",ct)
+                .getResultList();
+        
         return new ForwardResolution(JSP);
     }
 
@@ -91,6 +102,14 @@ public class KaratekaPointsActionBean implements ActionBean {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
     }
 }
     //</editor-fold>
