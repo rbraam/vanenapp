@@ -61,11 +61,11 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
 
     public Resolution listParticipantsSortByAge() {
-        return list("from Participant where vanencompetition= :v","type,karateka.birthdate");
+        return list("from Participant where vanencompetition= :v","type,karateka.birthdate desc");
     }
 
     public Resolution listParticipantsSortByBeltAge() {
-        return list("from Participant where vanencompetition= :v","type,karateka.belt desc,karateka.birthdate");
+        return list("from Participant where vanencompetition= :v","type,karateka.belt desc,karateka.birthdate desc");
     }
     
     public Resolution listParticipantsSortByAgeBelt() {
