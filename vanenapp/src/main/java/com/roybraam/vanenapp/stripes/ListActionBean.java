@@ -5,6 +5,7 @@
 package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.CompetitionType;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,6 +38,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     @Validate
     private String orderBy=null;
     
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @DefaultHandler
     public Resolution view() {
         if (this.getVanencompetition() == null) {
@@ -65,13 +67,17 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     public Resolution listParticipantsSortByBeltAge() {
         return list("from Participant where vanencompetition= :v","type,karateka.belt desc,karateka.birthdate");
     }
+    
+    public Resolution listParticipantsSortByAgeBelt() {
+        return list("from Participant where vanencompetition= :v","type,"+createOrderByAge()+",karateka.belt desc");
+    }
 
     public Resolution listParticipantsSortByWeight() {
         return list("from Participant where vanencompetition= :v","type,karateka.weight");
     }
 
     public Resolution listParticipantsSortByAgeWeight() {
-        return list("from Participant where vanencompetition= :v","type,karateka.birthdate,karateka.weight");
+        return list("from Participant where vanencompetition= :v","type,"+createOrderByAge()+",karateka.weight");
     }
 
     public Resolution listPoules() {
@@ -97,7 +103,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
             query+=" and type = :t";
         }
         EntityManager em = Stripersist.getEntityManager();
-        if (this.orderBy!=null){
+        if (validateOrderBy()){
             if (orderBy ==null){
                 orderBy=this.orderBy;
             }else{
@@ -117,6 +123,12 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
         return new ForwardResolution(LIST_JSP);
     }
 
+    private String createOrderByAge(){
+        if (this.getVanencompetition()==null){
+            return "";
+        }
+        return "date_part('year',age('"+dateFormat.format(this.getVanencompetition().getDate())+"',birthdate))";
+    }
     public List getResultList() {
         return resultList;
     }
@@ -143,5 +155,9 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    private boolean validateOrderBy() {
+        return this.orderBy!=null && this.orderBy.equalsIgnoreCase("gender");
     }
 }
