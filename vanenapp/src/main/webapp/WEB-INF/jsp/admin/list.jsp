@@ -25,12 +25,25 @@
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
         <c:forEach varStatus="stat" items="${actionBean.resultList}" var="l">
             
-            <c:out value="${l}"/>
+            
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
+                <c:out value="${l}"/>
                 <script type="text/javascript">
                     var years=ageCalc.getAge("${l.karateka.birthdate}");
                     document.write("("+years+")");
                 </script>
+            </c:if>
+            <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.KataPoule' || 
+                  l['class'] =='class com.roybraam.vanenapp.entity.KumitePoule'}">
+                <b><c:out value="${l}"/></b><br/>
+                <c:forEach items="${l.participants}" var="p">
+                    <c:out value="${p}"/>
+                    <script type="text/javascript">
+                        var years=ageCalc.getAge("${p.karateka.birthdate}");
+                        document.write("("+years+")");
+                    </script>
+                    <br/>
+                </c:forEach>
             </c:if>
             <br/>
         </c:forEach>        
