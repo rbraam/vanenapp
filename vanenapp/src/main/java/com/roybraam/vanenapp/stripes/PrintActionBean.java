@@ -45,6 +45,8 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
     private LinkedHashMap<Kyu,Integer> validKataPoulesWithKyu = new LinkedHashMap<Kyu,Integer>();
     @Validate
     private String belt = null;
+    @Validate
+    private String competitionType = null;
 
     @DefaultHandler
     public Resolution view() {
@@ -85,15 +87,22 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
     public Resolution printPoules() {
         if (this.poules.isEmpty()) {
             Kyu kyu = null;
+            CompetitionType type =null;
             String q = "FROM Poule where vanencompetition = :v";
             if (this.belt != null) {
                 kyu = Kyu.valueOf(this.belt);
                 q += " and startKyu = :b";
             }
+            if (this.competitionType !=null){
+                type = CompetitionType.valueOf(this.competitionType);
+                q+= " and type = :t";
+            }
             Query query = Stripersist.getEntityManager().createQuery(q);
             query.setParameter("v", getVanencompetition());
             if (kyu != null) {
                 query.setParameter("b", kyu);
+            }if (type!=null){
+                query.setParameter("t",type);
             }
             List<Poule> poules = query.getResultList();
 
@@ -154,5 +163,13 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
     public void setInvalidKumitePoules(List<Poule> invalidKumitePoules) {
         this.invalidKumitePoules = invalidKumitePoules;
     }
-    //</editor-fold>
+    
+    public String getCompetitionType() {
+        return competitionType;
+    }
+
+    public void setCompetitionType(String competitionType) {
+        this.competitionType = competitionType;
+    }
 }
+    //</editor-fold>
