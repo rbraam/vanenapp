@@ -13,15 +13,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Poules</title>
         <link href="${contextPath}/resources/css/printpoule.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
+        <script type="text/javascript" src="${contextPath}/extjs/locale/ext-lang-nl.js"></script>
+        <script type="text/javascript" src="${contextPath}/js/AgeCalculator.js"></script>
     </head>
     <body>
         <script type="text/javascript">
-            function createDate(dateString){
-                var tokens = dateString.split("-");
-                var s= tokens[1]+"/"+tokens[2]+"/"+tokens[0];
-                return new Date(s);
-            }
-            var vanenDate = createDate("${actionBean.vanencompetition.date}");
+            var ageCalc = new AgeCalculator("${actionBean.vanencompetition.date}");
         </script>
         <a href="#" onclick="javascript: window.print()">Print</a><br/>
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
@@ -30,14 +28,7 @@
             <c:out value="${l}"/>
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
                 <script type="text/javascript">
-                    var birthDate = createDate("${l.karateka.birthdate}");
-                    var years = vanenDate.getFullYear() - birthDate.getFullYear();
-            
-                    birthDate.setFullYear(vanenDate.getFullYear());
-                    // If the user's birthday has not occurred yet this year, subtract 1.
-                    if (vanenDate < birthDate){
-                        years--;
-                    }
+                    var years=ageCalc.getAge("${l.karateka.birthdate}");
                     document.write("("+years+")");
                 </script>
             </c:if>
