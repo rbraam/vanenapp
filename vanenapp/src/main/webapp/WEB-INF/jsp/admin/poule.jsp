@@ -22,6 +22,10 @@
             <stripes:messages/>
         </p>
         <h1>Poules vanencompetitie</h1>
+        <script type="text/javascript" src="${contextPath}/js/AgeCalculator.js"></script>
+        <script type="text/javascript">
+            var ageCalc = new AgeCalculator("${actionBean.vanencompetition.date}");
+        </script>
         <div class="choose-vanencompetition">
             ${actionBean.vanencompetition}
             <stripes:link beanclass="com.roybraam.vanenapp.stripes.OrganizeVanencompetitionActionBean">Kies</stripes:link>
@@ -127,7 +131,7 @@
                         <script type="text/javascript">
                             var savedParticipants = [];
                             <c:forEach items="${actionBean.participants}" var="p">
-                            savedParticipants.push(${p.id});
+                                savedParticipants.push(${p.id});
                             </c:forEach>
                                 var pouleId = null;
                             <c:if test="${actionBean.poule !=null}">
@@ -150,7 +154,11 @@
             <b>Niet ingedeelde deelnemers:</b>
             <div>
                 <c:forEach items="${actionBean.participantsWithoutPoule}" var="p">
-                     <c:out value="${p}"/><br/>
+                    <c:out value="${p}"/>
+                    <script type="text/javascript">
+                        var years=ageCalc.getAge("${p.karateka.birthdate}");
+                        document.write("("+years+")");
+                    </script><br/>
                 </c:forEach>
             </div>
         </div>
