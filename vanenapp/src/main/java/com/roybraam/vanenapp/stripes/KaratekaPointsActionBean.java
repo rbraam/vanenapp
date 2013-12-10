@@ -51,8 +51,7 @@ public class KaratekaPointsActionBean implements ActionBean {
         this.participants = Stripersist.getEntityManager().createQuery("FROM Participant where "
                 + "karateka = :k "
                 + "AND poule is not null "
-                + "AND type = :t "
-                + "AND points is not null")
+                + "AND type = :t ")
                 .setParameter("k",p.getKarateka())
                 .setParameter("t",ct)
                 .getResultList();

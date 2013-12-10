@@ -20,8 +20,14 @@
        
         <h2>Punten</h2>
         <c:if test="${not empty actionBean.participants}">
-            <c:out value="${actionBean.participants[0].karateka.basePointsKata}"/>
-            <c:out value="${actionBean.participants[0].karateka.basePointsKumite}"/>
+            <c:choose>
+                <c:when test="${actionBean.participants[0].type == 'KATA'}">
+                    <c:out value="${actionBean.participants[0].karateka.basePointsKata}"/>
+                </c:when>
+                <c:otherwise>                    
+                    <c:out value="${actionBean.participants[0].karateka.basePointsKumite}"/>
+                </c:otherwise>
+            </c:choose>
             <c:forEach items="${actionBean.participants}" var="p">
                 <c:out value="${p.points}"/>
             </c:forEach>
