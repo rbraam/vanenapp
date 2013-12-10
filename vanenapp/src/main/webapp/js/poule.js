@@ -5,7 +5,8 @@ Ext.onReady(function() {
         url: listParticipantUrl,
         renderTo: "candidateContainer",
         checkedCandidates: savedParticipants,
-        poule: pouleId
+        poule: pouleId,
+        ageCalc: ageCalc
     });
     
     Ext.get('startAge').on("change",function(el){

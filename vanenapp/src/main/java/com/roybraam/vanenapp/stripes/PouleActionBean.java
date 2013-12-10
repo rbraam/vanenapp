@@ -207,14 +207,14 @@ public class PouleActionBean extends OrganizeVanencompetitionActionBean{
             endCal.setTime(vanenDate);
             
             startCal.add(Calendar.YEAR, -this.startAge);
-            endCal.add(Calendar.YEAR, -this.endAge);
+            endCal.add(Calendar.YEAR, -(this.endAge+1));
             
             /*Date startDate= new GregorianCalendar(vanenDate.get);
             Date endDate = this.getVanencompetition().getDate();*/
             String queryString="FROM Participant p where p.vanencompetition = :v"
                     + " and (p.poule = :p or p.poule is null)"
                     + " and p.karateka.belt BETWEEN :ek and :sk"
-                    + " and p.karateka.birthdate <= :sd and p.karateka.birthdate >= :ed"
+                    + " and p.karateka.birthdate <= :sd and p.karateka.birthdate > :ed"
                     + " and p.type = :t";
             if (CompetitionType.KUMITE.equals(CompetitionType.valueOf(this.type))){
                 if (this.startWeight!=null){

@@ -161,7 +161,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             e = ex;
             log.error("Fout tijdens printen van Certificaten: ", e);
         }
-        getContext().getMessages().add(new SimpleError("Het is wegens een fout niet mogelijk om de certificaten te printen. Neem contact op met de beheerder. Fout: "+e.getMessage()));
+        getContext().getMessages().add(new SimpleError("Het is wegens een fout niet mogelijk om de certificaten te printen. Neem contact op met de beheerder. Fout: "+e));
         return new ForwardResolution(ERRORJSP);
     }
 
@@ -204,8 +204,8 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
         Integer c =0;
         //if more then factor 700
         if (points >=700){
+            c = new Double(Math.floor(points/700)).intValue();
             points = points%700;
-            c = Math.round(points/700);
         }
         for (Integer p : pointsList){
             if (p!=null){

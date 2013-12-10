@@ -1,15 +1,23 @@
 /**
- * 
+ * A controller to get the candidates filtered by the values in the form.
+ * config params:
+ * url: the url for getting the participants
+ * checkedCandidates: the candidates that need to be checked;
+ * poule: the poule (or null)
+ * renderTo: the id of the container to render the list to
+ * ageCalc: the AgeCalculator to calculate the age (ommit for don't showing the age)
  */
 Ext.define("CandidateController",{
     extend: "Ext.util.Observable",
     list: null,
     listContainer: null,
+    ageCalc: null,
     config: {
         url: null,
         checkedCandidates: null,
         poule: null,
-        renderTo: null
+        renderTo: null,
+        ageCalc: null
     },
     constructor: function (conf){
         CandidateController.superclass.constructor.call(this,conf);
@@ -88,6 +96,10 @@ Ext.define("CandidateController",{
         
         var candidateString =candidate.karateka.surname + ", "+candidate.karateka.name + " "+candidate.karateka.belt+ " " + candidate.karateka.birthdate;
         
+        if (this.ageCalc){
+            var years=this.ageCalc.getAge(candidate.karateka.birthdate);
+            candidateString+= "("+years+")"
+        }
         var checked = this.isCheckedCandidate(candidate);
         
         /*var checkBox = Ext.create('Ext.form.field.Checkbox', {
