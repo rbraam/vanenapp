@@ -22,6 +22,7 @@ import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.roybraam.vanenapp.entity.Category;
 import com.roybraam.vanenapp.entity.CompetitionType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,8 +60,6 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
     private List<Participant> participants = new ArrayList<Participant>();
     @Validate
     private boolean qr = false;
-    
-    private static String[] CATEGORIES = new String[4];
 
     private static BaseFont LUCIDA_FONT;
     
@@ -71,10 +70,6 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             LUCIDA_FONT = null;
             log.error("Error while creating fonts",ex);
         }
-        CATEGORIES[0]="Categorie C";
-        CATEGORIES[1]="Categorie B";
-        CATEGORIES[2]="Categorie A";
-        CATEGORIES[3]="Categorie Super Vaan";
     }
     
     @DefaultHandler
@@ -120,9 +115,15 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                     //name
                     this.addText(participant.getKarateka().getFullName(),400,190,LUCIDA_FONT,32,writer);
                     
-                    Entry<Integer,String> certPoints = calculateCertPoints(participant);
+                    Entry<Integer,Category> certPoints = calculateCertPoints(participant);
                     Integer points = certPoints.getKey();
-                    String category = certPoints.getValue();
+                    String category = certPoints.getValue().getName();
+                    if (CompetitionType.KATA.equals(participant.getType())){
+                        category+=" Kata";
+                    }else{
+                        category+=" Kumite";
+                    }
+                    
                     this.addText(""+points,295,95,20,writer);
                     //category                    
                     this.addText(category,464,440,24,writer);
@@ -187,7 +188,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
      * karateka has.
      * @return The points that can be printed on the certificate
      */
-    private Entry<Integer,String> calculateCertPoints(Participant participant){
+    public static Entry<Integer,Category> calculateCertPoints(Participant participant){
          //points
         List<Integer> pointsList= Stripersist.getEntityManager()
                 .createQuery("select points from Participant where points is not null AND karateka = :k order by vanencompetition.date")
@@ -216,13 +217,8 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                 }
             }
         }
-        String category = this.CATEGORIES[c];
-        if (CompetitionType.KATA.equals(participant.getType())){
-            category+=" Kata";
-        }else{
-            category+=" Kumite";
-        }
-        return new AbstractMap.SimpleEntry<Integer, String>(points,category);
+        Category category = Category.values()[c];        
+        return new AbstractMap.SimpleEntry<Integer, Category>(points,category);
     }
         
     private List<Participant> removeDuplicates(List<Participant> list) {

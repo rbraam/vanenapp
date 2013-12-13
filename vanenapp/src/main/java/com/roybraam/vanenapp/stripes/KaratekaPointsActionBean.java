@@ -4,10 +4,12 @@
  */
 package com.roybraam.vanenapp.stripes;
 
-import com.roybraam.vanenapp.entity.CompetitionType;
+import com.roybraam.vanenapp.entity.Category;
+import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Participant;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -18,7 +20,6 @@ import net.sourceforge.stripes.validation.Validate;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
@@ -41,20 +42,27 @@ public class KaratekaPointsActionBean implements ActionBean {
     private String code;
     @Validate
     private List<Participant> participants;
+    @Validate
+    private Karateka karateka;
+    
+    @Validate
+    private Integer points;
+    
+    @Validate
+    private Integer category;
     
     public Resolution view() throws UnsupportedEncodingException {
         String checkCode = generateCode(p, this.getContext());
         if (code==null || !code.equals(checkCode)){
             throw new SecurityException("Geen toegang. De code is onjuist");
         }
-        CompetitionType ct = p.getType();
-        this.participants = Stripersist.getEntityManager().createQuery("FROM Participant where "
-                + "karateka = :k "
-                + "AND poule is not null "
-                + "AND type = :t ")
-                .setParameter("k",p.getKarateka())
-                .setParameter("t",ct)
-                .getResultList();
+        
+        Map.Entry<Integer,Category> points = PrintCertificateActionBean.calculateCertPoints(p);
+        
+        this.karateka = p.getKarateka();
+        
+        this.points = points.getKey();
+        this.category = points.getValue().getId();
         
         return new ForwardResolution(JSP);
     }
@@ -109,6 +117,30 @@ public class KaratekaPointsActionBean implements ActionBean {
 
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
+    public Karateka getKarateka() {
+        return karateka;
+    }
+
+    public void setKarateka(Karateka karateka) {
+        this.karateka = karateka;
     }
 }
     //</editor-fold>
