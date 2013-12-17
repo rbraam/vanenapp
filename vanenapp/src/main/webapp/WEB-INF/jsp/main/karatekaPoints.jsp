@@ -11,7 +11,7 @@
 
     <stripes:layout-component name="body">
         <div class="karateka-points-name">
-            
+            <c:out value="${actionBean.karateka.fullName}"/>
         </div>
         <div class="karateka-points">
             <c:out value="${actionBean.points}"/>
