@@ -35,7 +35,7 @@
         </div>
         Een karateka heeft recht op minimaal 50 punten en maximaal 90 punten per competitie dag.
         <div>
-            <stripes:form beanclass="com.roybraam.vanenapp.stripes.PointsActionBean">
+            <stripes:form id="pointsForm" beanclass="com.roybraam.vanenapp.stripes.PointsActionBean">
                 <stripes:hidden name="vanencompetition" value="$actionBean.vanencompetition.id"/>
                 <c:forEach items="${actionBean.poules}" var="poule">
                     <h3><c:out value="${poule}"/></h3>
@@ -46,7 +46,7 @@
                                 <tr>
                                     <td><c:out value="${p.karateka}"/></td>
                                     <td>
-                                        <stripes:text name="points[${p.id}]" size="1"/>
+                                        <stripes:text name="points[${p.id}]" size="1" onchange="inputChanged()"/>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -59,6 +59,15 @@
                 </div>
             </stripes:form>
         </div>
-        
+        <script src="${contextPath}/js/UserPromptUnload.js"></script>
+        <script type="text/javascript">
+            var prompt;
+            Ext.onReady(function() {
+                prompt = Ext.create("UserPromptUnload",{});
+            });
+            function inputChanged(){
+                prompt.setPromptUnload(true);
+            }
+        </script>
     </stripes:layout-component>
 </stripes:layout-render>
