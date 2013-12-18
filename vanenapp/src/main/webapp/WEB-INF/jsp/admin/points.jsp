@@ -68,6 +68,10 @@
             function inputChanged(){
                 prompt.setPromptUnload(true);
             }
+            function onSubmitForm(){
+                prompt.setPromptUnload(false);
+                return true;
+            }
         </script>
     </stripes:layout-component>
 </stripes:layout-render>
