@@ -41,8 +41,6 @@ public class KaratekaPointsActionBean implements ActionBean {
     @Validate(required = true)
     private String code;
     @Validate
-    private List<Participant> participants;
-    @Validate
     private Karateka karateka;
     
     @Validate
@@ -109,14 +107,6 @@ public class KaratekaPointsActionBean implements ActionBean {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<Participant> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
     }
 
     public Integer getPoints() {

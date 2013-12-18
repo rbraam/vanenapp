@@ -316,7 +316,7 @@ candidate-checkbox{
 
 /*Karateka points*/
 .karateka-points{
-    font-size: 100pt;
+    font-size: 80pt;
     color: dodgerblue;
     font-weight: bold;
     margin-left: auto;
@@ -339,4 +339,9 @@ candidate-checkbox{
 }
 .badges div{
     float: left;
+}
+.karateka-points-name{
+    font-family: Verdena, Geneva, sans-serif;
+    font-size: 70pt;
+    text-align: center;
 }
