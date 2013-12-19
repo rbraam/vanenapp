@@ -26,8 +26,8 @@
             
         </head>
         <body>
-            <div id="mid">
-                <div id="content">
+            <div id="mid" style="width: 800px;">
+                <div id="content" style="width: 100%;">
                     <stripes:layout-component name="body"/>
                 </div>
             </div>
