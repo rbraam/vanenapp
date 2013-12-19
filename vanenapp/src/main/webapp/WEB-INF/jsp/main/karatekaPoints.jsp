@@ -11,20 +11,18 @@
 
     <stripes:layout-component name="body">
         <c:set var="catValues" value="<%=com.roybraam.vanenapp.entity.Category.values()%>"/>
-        <div class="karateka-points-vanen">
-             <c:out value="${actionBean.p.vanencompetition}"/>
-        </div>
         <div class="karateka-points-name">
             <c:out value="${actionBean.karateka.fullName}"/>
         </div>
         <div class="karateka-points-label">
-            Behaalde punten:
+            Behaalde punten 
+             <c:out value="${actionBean.p.vanencompetition}"/>:
         </div>
         <div class="karateka-points" style="font-size: 60pt;">
             <c:out value="${actionBean.p.points}"/>
         </div>
         <div class="karateka-points-label">
-            Nieuw totaal:
+            Huidig totaal:
         </div>
         <div class="karateka-points">
             <c:out value="${actionBean.points}"/>
@@ -43,7 +41,9 @@
                     <c:set var="badgeClass" value="badge"/>                        
                 </c:if>
                 <div class="${badgeClass}">
-                    <img src="${contextPath}/resources/images/award_category_${c.id}.png"/>
+                    <img src="${contextPath}/resources/images/award_category_${c.id}.png" 
+                         alt="${c.name}" 
+                         title="${c.name}"/>
                 </div>
             </c:forEach>
         </div>
