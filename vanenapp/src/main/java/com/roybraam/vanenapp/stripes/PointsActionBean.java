@@ -38,7 +38,7 @@ public class PointsActionBean implements ActionBean {
     private static final Log log = LogFactory.getLog(PointsActionBean.class);
     private String JSP = "/WEB-INF/jsp/admin/points.jsp";
     private String VANEN_JSP = "/WEB-INF/jsp/admin/selectVanencompetition.jsp";
-    private static Integer MIN_POINTS = 50;
+    private static Integer MIN_POINTS = 0;
     private static Integer MAX_POINTS = 90;
     
     private ActionBeanContext context;
