@@ -2,6 +2,7 @@ package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Kyu;
+import com.roybraam.vanenapp.entity.Participant;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
@@ -88,6 +89,7 @@ public class KaratekaActionBean implements ActionBean {
                 }
             }
             if (remove){
+                int count = em.createQuery("Delete FROM Participant where karateka = :k").setParameter("k", this.karateka).executeUpdate();                
                 em.remove(karateka);
                 getContext().getMessages().add(new SimpleMessage("Karateka is verwijderd"));
             }else{
