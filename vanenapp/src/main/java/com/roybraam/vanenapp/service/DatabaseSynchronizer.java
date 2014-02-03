@@ -67,6 +67,9 @@ public class DatabaseSynchronizer implements Servlet {
 
             updates.put("0.10", new ArrayList<File>());
             updates.get("0.10").add(new File(DatabaseSynchronizer.class.getResource("/scripts/10_add_email_karateka.sql").getFile()));
+            
+            updates.put("0.11", new ArrayList<File>());
+            updates.get("0.11").add(new File(DatabaseSynchronizer.class.getResource("/scripts/11_add_club_karateka.sql").getFile()));
         }catch(Exception e){
             log.error("Error initializing DatabaseSynchronizer",e);
         }

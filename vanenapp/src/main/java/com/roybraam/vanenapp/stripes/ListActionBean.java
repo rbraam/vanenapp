@@ -35,8 +35,12 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     private List resultList = new ArrayList();
     @Validate
     private String competitionType = null;
-    @Validate
+    @Validate(mask = "gender")
     private String orderBy=null;
+    @Validate
+    private Integer ageMin=null;
+    @Validate
+    private Integer ageMax=null;
     
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @DefaultHandler
@@ -69,7 +73,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
     
     public Resolution listParticipantsSortByAgeBelt() {
-        return list("from Participant where vanencompetition= :v","type,"+createOrderByAge()+",karateka.belt desc");
+        return list("from Participant where vanencompetition= :v","type,"+createAgePart()+",karateka.belt desc");
     }
 
     public Resolution listParticipantsSortByWeight() {
@@ -77,7 +81,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     }
 
     public Resolution listParticipantsSortByAgeWeight() {
-        return list("from Participant where vanencompetition= :v","type,"+createOrderByAge()+",karateka.weight");
+        return list("from Participant where vanencompetition= :v","type,"+createAgePart()+",karateka.weight");
     }
 
     public Resolution listPoules() {
@@ -102,6 +106,9 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
                 CompetitionType.KUMITE.equals(ct)){
             query+=" and type = :t";
         }
+        if (ageMax!=null && ageMin!=null){
+            query+=" and ("+createAgePart()+ " <= :ageMax and "+createAgePart()+ " >= :ageMin)";
+        }
         EntityManager em = Stripersist.getEntityManager();
         if (validateOrderBy()){
             if (orderBy ==null){
@@ -118,29 +125,34 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
                 CompetitionType.KUMITE.equals(ct)){
             q.setParameter("t", ct);
         }
+        if (ageMax!=null && ageMin!=null){
+            q.setParameter("ageMax", ageMax);
+            q.setParameter("ageMin", ageMin);
+        }
         q.setParameter("v", this.getVanencompetition()).getResultList();
         this.resultList = q.getResultList();
         return new ForwardResolution(LIST_JSP);
     }
 
-    private String createOrderByAge(){
+    private String createAgePart(){
         if (this.getVanencompetition()==null){
             return "";
         }
         return "date_part('year',age('"+dateFormat.format(this.getVanencompetition().getDate())+"',birthdate))";
     }
+    //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public List getResultList() {
         return resultList;
     }
-
+    
     public void setResultList(List resultList) {
         this.resultList = resultList;
     }
-
+    
     public String getCompetitionType() {
         return competitionType;
     }
-
+    
     public void setCompetitionType(String competitionType) {
         if (competitionType!=null){
             this.competitionType = competitionType.toUpperCase();
@@ -148,16 +160,33 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
             this.competitionType = competitionType;
         }
     }
-
+    
     public String getOrderBy() {
         return orderBy;
     }
-
+    
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
-
+    
     private boolean validateOrderBy() {
         return this.orderBy!=null && this.orderBy.equalsIgnoreCase("gender");
     }
+    
+    public Integer getAgeMin() {
+        return ageMin;
+    }
+    
+    public void setAgeMin(Integer ageMin) {
+        this.ageMin = ageMin;
+    }
+    
+    public Integer getAgeMax() {
+        return ageMax;
+    }
+    
+    public void setAgeMax(Integer ageMax) {
+        this.ageMax = ageMax;
+    }
 }
+//</editor-fold>

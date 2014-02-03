@@ -133,15 +133,20 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                     this.addText(stringDate,780,25,8,writer);
                     //start points
                     this.addText("10",470,95,20,writer);
-                    
-                    if (this.getQr()){
-                        String url = createParticipantUrl(participant,baseUrl);
-                        BarcodeQRCode qrcode = new BarcodeQRCode(url,20, 20, null);
-                        Image img = qrcode.getImage();
-                        img.setAbsolutePosition(25,25);
-                        doc.add(img);
+
+                    if (participant.getPoints() != null && participant.getPoints() >= 10) {
+                        int newPoints = points + participant.getPoints();
+                        this.addText("" + (participant.getPoints() - 10), 345, 52, 20, writer);
+                        this.addText("" + newPoints, 610, 52, 20, writer);
                     }
                     
+                    if (this.getQr()) {
+                        String url = createParticipantUrl(participant, baseUrl);
+                        BarcodeQRCode qrcode = new BarcodeQRCode(url, 20, 20, null);
+                        Image img = qrcode.getImage();
+                        img.setAbsolutePosition(25, 25);
+                        doc.add(img);
+                    }
                     doc.newPage();
                 }
                 doc.close();
@@ -191,8 +196,11 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
     public static Entry<Integer,Category> calculateCertPoints(Participant participant){
          //points
         List<Integer> pointsList= Stripersist.getEntityManager()
-                .createQuery("select points from Participant where points is not null AND karateka = :k order by vanencompetition.date")
-                .setParameter("k",participant.getKarateka()).getResultList();
+                .createQuery("select points from Participant where points is not null AND karateka = :k AND type = :t AND vanencompetition.date < :d order by vanencompetition.date")
+                .setParameter("k",participant.getKarateka())
+                .setParameter("t",participant.getType())
+                .setParameter("d",participant.getVanencompetition().getDate())
+                .getResultList();
         Integer points = 0;
         if (CompetitionType.KATA.equals(participant.getType()) &&
                 participant.getKarateka().getBasePointsKata()!=null){

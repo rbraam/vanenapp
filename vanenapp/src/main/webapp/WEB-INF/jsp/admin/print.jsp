@@ -33,7 +33,7 @@
             <c:forEach items="${actionBean.validKataPoulesWithKyu}" var="b">
                 <c:choose>
                     <c:when test="${b.value > 0}">
-                        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?belt=${b.key}'> <c:out value="${b.key.description}"/> (<c:out value="${b.value}"/> poule(s))</a><br/>
+                        <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.PrintActionBean" event="printPoules"/>?belt=${b.key}&competitionType=KATA'> <c:out value="${b.key.description}"/> (<c:out value="${b.value}"/> poule(s))</a><br/>
                     </c:when>
                     <c:otherwise>
                         Er zijn geen poules voor <c:out value="${b.key.description}"/><br/>

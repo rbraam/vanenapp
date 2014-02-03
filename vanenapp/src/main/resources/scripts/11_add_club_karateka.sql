@@ -1,0 +1,1 @@
+ALTER TABLE karateka ADD COLUMN club character varying(255);
