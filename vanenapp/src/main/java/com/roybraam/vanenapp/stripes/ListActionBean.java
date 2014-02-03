@@ -35,7 +35,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     private List resultList = new ArrayList();
     @Validate
     private String competitionType = null;
-    @Validate
+    @Validate(mask = "gender")
     private String orderBy=null;
     @Validate
     private Integer ageMin=null;
