@@ -77,6 +77,7 @@ public class Poule {
         this.type = p.getType();
         this.vanencompetition = p.getVanencompetition();
         this.participants = p.getParticipants();
+        this.gender = p.getGender();
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
