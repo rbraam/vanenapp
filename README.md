@@ -4,6 +4,7 @@ VanenApp
 Applicatie for organizing Vanencompetitions.
 
 Set JDBC resource in webcontainer configuration. for example:
+```xml
 <Resource
 	name="jdbc/vanenapp"
 	auth="Container"
@@ -17,6 +18,7 @@ Set JDBC resource in webcontainer configuration. for example:
 	timeBetweenEvictionRunsMillis="30000"
 	minEvictableIdleTimeMillis="5000"
 />
+```
 
 Add participantpoints.baseUrl and participantpoints.salt in context.xml or other xml at:
 CATALINA_BASE/conf/
