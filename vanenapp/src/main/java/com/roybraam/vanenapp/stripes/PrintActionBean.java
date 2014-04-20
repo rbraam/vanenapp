@@ -61,7 +61,7 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
             getContext().getMessages().add(new SimpleMessage("Er zijn nog " + participantsNotInPoule.size() + " karateka's die niet zijn ingedeeld!"));
         }
 
-        List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v")
+        List<Poule> poules = Stripersist.getEntityManager().createQuery("FROM Poule where vanencompetition = :v order by type,startKyu,startAge")
                 .setParameter("v", getVanencompetition())
                 .getResultList();
 
