@@ -63,6 +63,10 @@
                                 <td><stripes:text name="karateka.emailAdress"/></td>
                             </tr>
                             <tr>
+                                <td>Clubnaam</td>
+                                <td><stripes:text name="karateka.club"/></td>
+                            </tr>
+                            <tr>
                                 <td>Basis punten kata*</td>
                                 <td><stripes:text name="karateka.basePointsKata"/></td>
                             </tr>

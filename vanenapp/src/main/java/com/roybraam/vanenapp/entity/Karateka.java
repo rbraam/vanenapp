@@ -50,6 +50,7 @@ public class Karateka {
     private Double weight;
     private String memberNumber;
     private String emailAdress;
+    private String club;
     
     private Integer basePointsKata = new Integer(0);    
     private Integer basePointsKumite = new Integer(0);    
@@ -151,6 +152,14 @@ public class Karateka {
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
     }
+
+    public String getClub() {
+        return club;
+    }
+
+    public void setClub(String club) {
+        this.club = club;
+    }
     //</editor-fold>
     
     public String toString(){
@@ -185,4 +194,5 @@ public class Karateka {
         result+=" "+this.getSurname();
         return result;
     }
+
 }
