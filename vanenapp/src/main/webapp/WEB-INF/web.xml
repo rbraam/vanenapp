@@ -41,7 +41,7 @@
         </init-param-->        
         <init-param>
             <param-name>LocalePicker.Locales</param-name>
-            <param-value>nl_NL</param-value>
+            <param-value>nl_NL:UTF-8</param-value>
         </init-param>
         <init-param>
             <param-name>LocalizationBundleFactory.ErrorMessageBundle</param-name>
@@ -61,7 +61,7 @@
         </init-param>
         <init-param>
             <param-name>validate</param-name>
-            <param-value>false</param-value>
+            <param-value>false</param-value>/va
         </init-param>
     </filter>
     <!-- map all requests to the SecurityFilter, control what it does with configuration settings -->
