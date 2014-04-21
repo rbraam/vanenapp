@@ -113,11 +113,11 @@ public class Karateka {
         this.birthdate = birthdate;
     }
     
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
     
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
     
