@@ -85,6 +85,9 @@
                     <div class="submitbuttons">
                         <stripes:submit name="save" value="Opslaan"/>
                         <stripes:submit name="cancel" value="Annuleren"/>
+                        <c:if test="${not empty actionBean.user.id}">
+                            <stripes:submit name="delete" value="Verwijder"/>
+                        </c:if>
                     </div>
                 </c:when>
                 <c:otherwise>
