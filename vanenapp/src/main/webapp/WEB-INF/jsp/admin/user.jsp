@@ -61,6 +61,10 @@
                                 <td><stripes:password name="password"/></td>
                             </tr>
                             <tr>
+                                <td>Herhaal wachtwoord</td>
+                                <td><stripes:password name="passwordRepeat"/></td>
+                            </tr>
+                            <tr>
                                 <td>Organisatie</td>
                                 <td>
                                     <stripes:select name="user.organisation">

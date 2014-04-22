@@ -17,6 +17,7 @@ import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.stripesstuff.stripersist.Stripersist;
@@ -44,6 +45,8 @@ public class UserActionBean implements ActionBean {
     private Set<String> roles;
     @Validate
     private String password;
+    @Validate
+    private String passwordRepeat;
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
@@ -66,7 +69,12 @@ public class UserActionBean implements ActionBean {
             user.setRoles(null);
         }
         if (this.password!=null && !"".equals(this.password.trim())){
-            user.setPassword(password);
+            if (this.password.equals(this.passwordRepeat)) {
+                user.setPassword(password);
+            }else{
+                getContext().getMessages().add(new SimpleError("Gebruiker is niet opgeslagen, de ingevulde wachtwoorden zijn niet het zelfde."));
+                return new ForwardResolution(JSP);
+            }
         }
         Stripersist.getEntityManager().persist(user);
         Stripersist.getEntityManager().getTransaction().commit();
@@ -167,6 +175,14 @@ public class UserActionBean implements ActionBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordRepeat() {
+        return passwordRepeat;
+    }
+
+    public void setPasswordRepeat(String passwordRepeat) {
+        this.passwordRepeat = passwordRepeat;
     }
     //</editor-fold>
 
