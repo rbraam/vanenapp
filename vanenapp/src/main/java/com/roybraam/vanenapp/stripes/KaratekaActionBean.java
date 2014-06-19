@@ -62,7 +62,7 @@ public class KaratekaActionBean implements ActionBean {
     }
 
     public Resolution edit() {
-        if (karateka != null) {
+        if (karateka != null && karateka.getBelt()!=null) {
             this.belt = karateka.getBelt().name();
         }
         return new ForwardResolution(EDITJSP);
