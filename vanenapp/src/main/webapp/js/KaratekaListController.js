@@ -137,8 +137,8 @@ Ext.define("KaratekaListController",{
         var tokens = this.filter.split(" ");
         for (var i=0; i < tokens.length; i++){
             var q = tokens[i].toLowerCase();
-            if (k.name.toLowerCase().indexOf(q)===-1 &&
-                k.surname.toLowerCase().indexOf(q)===-1){
+            if ((k.name === null || k.name.toLowerCase().indexOf(q)===-1) &&
+				(k.surname === null || k.surname.toLowerCase().indexOf(q)===-1)){
                 if (k.insert===null || k.insert.toLowerCase().indexOf(q)===-1){
                     return false;
                 }
