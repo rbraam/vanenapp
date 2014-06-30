@@ -46,7 +46,7 @@
                                 <tr>
                                     <td><c:out value="${p.karateka}"/></td>
                                     <td>
-                                        <stripes:text name="points[${p.id}]" size="1" onchange="inputChanged()"/>
+                                        <stripes:text name="points[${p.id}]" size="5" onchange="inputChanged()"/>
                                     </td>
                                 </tr>
                             </c:forEach>
