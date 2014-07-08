@@ -15,6 +15,12 @@
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
+	<scm>
+		<url>https://github.com/rbraam/vanenapp</url>
+		<connection>scm:git:git://github.com/rbraam/vanenapp.git</connection>
+		<developerConnection>scm:git:git@github.com:rbraam/vanenapp.git</developerConnection>
+	</scm>
+
     <dependencies>
         <!-- Stripes -->
         <dependency>
@@ -126,6 +132,14 @@
     </repositories>
     
     <build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -201,6 +215,34 @@
                     </execution>
                 </executions> 
             </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
+				<configuration>
+					<serverId>kbn-vps</serverId>
+					<fromFile>${project.build.directory}/${project.build.finalName}.war</fromFile>
+					<toFile>vanenapp.war</toFile>
+					<url>scp://149.210.135.105/var/lib/tomcat7/webapps</url>
+				</configuration>
+				<executions>
+					<execution>
+						<id>upload-war-to-server</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>upload-single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
