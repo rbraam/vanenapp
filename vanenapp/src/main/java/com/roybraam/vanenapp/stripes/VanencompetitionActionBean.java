@@ -55,10 +55,10 @@ public class VanencompetitionActionBean implements ActionBean{
         Organisation o = user.getOrganisation();
         Date now = new Date();
         if (getUser().checkRole(Role.SUPERADMIN.name())){
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where date >= :d")
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where date >= :d ORDER BY date")
                     .setParameter("d",now).getResultList());
         }else if (o!=null){
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("from Vanencompetition where date >= :d and organisation = :o")
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where date >= :d and organisation = :o ORDER BY date")
                     .setParameter("d",now).setParameter("o", o).getResultList());
         } 
     }

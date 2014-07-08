@@ -30,7 +30,7 @@ public class IndexActionBean implements ActionBean{
     @DefaultHandler
     public Resolution view() {
         Date now = new Date();
-        this.vanencompetitions=Stripersist.getEntityManager().createQuery("FROM Vanencompetition where date >= :n").setParameter("n", now).getResultList();
+        this.vanencompetitions=Stripersist.getEntityManager().createQuery("FROM Vanencompetition where date >= :n ORDER BY date").setParameter("n", now).getResultList();
         return new ForwardResolution(JSP);
     }
     

@@ -69,9 +69,9 @@ public class OrganizeVanencompetitionActionBean implements ActionBean {
     public Resolution getChooseVanencompetitionResolution() {
         this.forward=this.getClass().getCanonicalName();
         if (user.checkRole(Role.SUPERADMIN.name())) {
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("FROM Vanencompetition").getResultList());
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("FROM Vanencompetition ORDER BY date").getResultList());
         } else if (user.getOrganisation() != null) {
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where organisation = :o").setParameter("o", user.getOrganisation()).getResultList());
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery("From Vanencompetition where organisation = :o ORDER BY date").setParameter("o", user.getOrganisation()).getResultList());
         }
         return new ForwardResolution(CHOOSE_VANENCOMPETITIE_JSP);
 

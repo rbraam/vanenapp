@@ -55,7 +55,7 @@ public class PointsActionBean implements ActionBean {
     public Resolution unspecified() {
         User user = (User) context.getRequest().getUserPrincipal();
         Organisation o = user.getOrganisation();
-        String query = "FROM Vanencompetition where date <= :now";
+        String query = "FROM Vanencompetition where date <= :now ORDER BY date";
         Date now = new Date();
         if (user.checkRole(Role.SUPERADMIN.name())) {
             setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery(query)
