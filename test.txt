@@ -1,5 +1,0 @@
-LICENSE
-README.md
-repo
-test.txt
-vanenapp
