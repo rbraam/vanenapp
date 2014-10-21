@@ -55,13 +55,14 @@ public class PointsActionBean implements ActionBean {
     public Resolution unspecified() {
         User user = (User) context.getRequest().getUserPrincipal();
         Organisation o = user.getOrganisation();
-        String query = "FROM Vanencompetition where date <= :now ORDER BY date";
+        String query = "FROM Vanencompetition where date <= :now";
+        String orderQuery = " ORDER BY date";
         Date now = new Date();
         if (user.checkRole(Role.SUPERADMIN.name())) {
-            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery(query)
+            setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery(query+orderQuery)
                     .setParameter("now", now).getResultList());
         } else if (o != null) {
-            query += " and organisation = :o";
+            query += " and organisation = :o"+orderQuery;
             setVanencompetitions((List<Vanencompetition>) Stripersist.getEntityManager().createQuery(query)
                     .setParameter("now", now).setParameter("o", o).getResultList());
         }
