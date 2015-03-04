@@ -30,7 +30,9 @@ public enum Kyu{
     KYU_4(4,"4e Kyu", "Blauw"),
     KYU_3(5,"3e Kyu", "Bruin"),
     KYU_2(6,"2e Kyu", "Bruin"),
-    KYU_1(7,"1e Kyu", "Bruin");
+    KYU_1(7,"1e Kyu", "Bruin"),
+    DAN_1(8,"1e Dan", "Zwart");
+    
     
     private int id;
     private String description;

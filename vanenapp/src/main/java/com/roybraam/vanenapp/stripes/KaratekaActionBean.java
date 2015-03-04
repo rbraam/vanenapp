@@ -2,10 +2,12 @@ package com.roybraam.vanenapp.stripes;
 
 import com.roybraam.vanenapp.entity.Karateka;
 import com.roybraam.vanenapp.entity.Kyu;
-import com.roybraam.vanenapp.entity.Participant;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+
+import com.roybraam.vanenapp.entity.Role;
+import com.roybraam.vanenapp.entity.User;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -78,6 +80,7 @@ public class KaratekaActionBean implements ActionBean {
 
     public Resolution delete() {
         if (this.karateka != null) {
+            User user = (User) context.getRequest().getUserPrincipal();
             EntityManager em = Stripersist.getEntityManager();
             Boolean remove=true;
             if ((this.karateka.getBasePointsKata()!=null && this.karateka.getBasePointsKata()> 0) ||
@@ -90,7 +93,7 @@ public class KaratekaActionBean implements ActionBean {
                     remove = false;
                 }
             }
-            if (remove){
+            if (remove || user.checkRole(Role.SUPERADMIN.name()) ){
                 int count = em.createQuery("Delete FROM Participant where karateka = :k").setParameter("k", this.karateka).executeUpdate();                
                 em.remove(karateka);
                 getContext().getMessages().add(new SimpleMessage("Karateka is verwijderd"));
