@@ -88,16 +88,17 @@ public class PrintActionBean extends OrganizeVanencompetitionActionBean {
         if (this.poules.isEmpty()) {
             Kyu kyu = null;
             CompetitionType type =null;
-            String q = "FROM Poule where vanencompetition = :v";
+            StringBuffer q = new StringBuffer("FROM Poule where vanencompetition = :v");
             if (this.belt != null) {
                 kyu = Kyu.valueOf(this.belt);
-                q += " and startKyu = :b";
+                q.append(" and startKyu = :b");
             }
             if (this.competitionType !=null){
                 type = CompetitionType.valueOf(this.competitionType);
-                q+= " and type = :t";
+                q.append(" and type = :t");
             }
-            Query query = Stripersist.getEntityManager().createQuery(q);
+            q.append(" order by type, startKyu DESC, startAge");
+            Query query = Stripersist.getEntityManager().createQuery(q.toString());
             query.setParameter("v", getVanencompetition());
             if (kyu != null) {
                 query.setParameter("b", kyu);
