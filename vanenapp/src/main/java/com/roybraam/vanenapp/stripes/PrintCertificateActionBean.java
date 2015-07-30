@@ -7,8 +7,11 @@ package com.roybraam.vanenapp.stripes;
 import com.roybraam.vanenapp.entity.Participant;
 import com.roybraam.vanenapp.entity.Poule;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.roybraam.vanenapp.entity.util.ParticipantComperator;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StrictBinding;
 import net.sourceforge.stripes.action.UrlBinding;
@@ -80,7 +83,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
         }
         
         EntityManager em = Stripersist.getEntityManager();
-        this.poules = em.createQuery("FROM Poule where vanencompetition = :v").setParameter("v",this.getVanencompetition()).getResultList();
+        this.poules = em.createQuery("FROM Poule where vanencompetition = :v order by type, startKyu DESC, startAge").setParameter("v",this.getVanencompetition()).getResultList();
         this.participants = em.createQuery("FROM Participant where vanencompetition = :v and poule = null")
                 .setParameter("v",this.getVanencompetition()).getResultList();
         
@@ -108,6 +111,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             doc.open();
             if (!participants.isEmpty()) {
                 this.participants = this.removeDuplicates(this.participants);
+                Collections.sort(this.participants, new ParticipantComperator());
                 EntityManager em = Stripersist.getEntityManager();
                 String baseUrl = this.getBaseUrl();
                 for (Participant participant : participants) {
