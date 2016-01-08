@@ -45,6 +45,26 @@ public class ParticipantComperator implements java.util.Comparator<Participant> 
             return 1;
         }
         compare =  p1.getPoule().getStartAge().compareTo(p2.getPoule().getStartAge());
+        if (compare != 0){
+            return compare;
+        }
+
+        if (p1.getPoule().getEndKyu() == null){
+            return -1;
+        }
+        compare = p1.getPoule().getEndKyu().compareTo(p2.getPoule().getEndKyu());
+        if (compare != 0){
+            return compare;
+        }
+
+        if (p1.getPoule().getEndAge() == null){
+            return -1;
+        }
+        compare = p1.getPoule().getEndAge().compareTo(p2.getPoule().getEndAge());
+        if (compare != 0){
+            return compare;
+        }
+
         return compare;
     }
 }

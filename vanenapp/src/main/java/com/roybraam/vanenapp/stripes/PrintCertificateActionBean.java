@@ -99,6 +99,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
             }
         } else if (this.getVanencompetition()!=null) {
             this.participants.addAll(this.getVanencompetition().getParticipants());
+
         }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
