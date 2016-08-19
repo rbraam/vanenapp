@@ -3,7 +3,7 @@ node {
    stage 'Checkout'
 
    // Get some code from a GitHub repository
-   git url: 'git@github.com:rbraam/vanenapp.git'
+   git url: 'https://github.com/rbraam/vanenapp.git'
 
    // Get the maven tool.
    def mvnHome = tool 'Maven 3.2.5'
