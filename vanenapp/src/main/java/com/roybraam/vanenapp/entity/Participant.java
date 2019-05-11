@@ -23,11 +23,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- *
  * @author Roy Braam
  */
 @Entity
-public class Participant implements Comparable{
+public class Participant implements Comparable {
     @Id
     private Long id;
     @ManyToOne
@@ -39,29 +38,30 @@ public class Participant implements Comparable{
     private Integer points;
     @Enumerated(EnumType.STRING)
     private CompetitionType type;
-    
-    public Participant(){
+
+    public Participant() {
     }
 
     public Participant(Vanencompetition vanencompetition, Karateka k, CompetitionType type) {
         this.karateka = k;
-        this.vanencompetition=vanencompetition;
-        this.type=type;
+        this.vanencompetition = vanencompetition;
+        this.type = type;
     }
-    
-    public String toString(){
-        String s= this.karateka.toString();
-        if (this.getType()!=null){
-            s+=" ("+this.getType().name()+")";
+
+    public String toString() {
+        String s = this.karateka.toString();
+        if (this.getType() == null || this.getType() == CompetitionType.KATA) {
+            return this.karateka.toStringWithoutWeight();
+        } else {
+            return this.karateka.toString();
         }
-        return s;
     }
-    
+
     @Override
     public int compareTo(Object o) {
-        Participant p = (Participant)o;
+        Participant p = (Participant) o;
         int result = this.getKarateka().getSurname().compareTo(p.getKarateka().getSurname());
-        if (result!=0){
+        if (result != 0) {
             return result;
         }
         result = this.getKarateka().getName().compareTo(p.getKarateka().getName());
@@ -72,42 +72,43 @@ public class Participant implements Comparable{
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public Karateka getKarateka() {
         return karateka;
     }
-    
+
     public void setKarateka(Karateka karateka) {
         this.karateka = karateka;
     }
-    
+
     public Vanencompetition getVanencompetition() {
         return vanencompetition;
     }
-    
+
     public void setVanencompetition(Vanencompetition vanencompetition) {
         this.vanencompetition = vanencompetition;
     }
-    
+
     public Poule getPoule() {
         return poule;
     }
-    
+
     public void setPoule(Poule poule) {
         this.poule = poule;
     }
-    
+
     public Integer getPoints() {
         return points;
     }
-    
+
     public void setPoints(Integer points) {
         this.points = points;
     }
+
     public CompetitionType getType() {
         return type;
     }
@@ -116,4 +117,4 @@ public class Participant implements Comparable{
         this.type = type;
     }
 }
-    //</editor-fold>
+//</editor-fold>

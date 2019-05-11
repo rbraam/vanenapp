@@ -118,7 +118,7 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                 for (Participant participant : participants) {
                     //A4		 595x842
                     //name
-                    this.addText(participant.getKarateka().getFullName(),400,190,LUCIDA_FONT,32,writer);
+                    this.addText(participant.getKarateka().getFullName(),400,150,LUCIDA_FONT,32,writer);
                     
                     Entry<Integer,Category> certPoints = calculateCertPoints(participant);
                     Integer points = certPoints.getKey();
@@ -129,15 +129,15 @@ public class PrintCertificateActionBean extends OrganizeVanencompetitionActionBe
                         category+=" Kumite";
                     }
                     
-                    this.addText(""+points,295,95,20,writer);
+                    this.addText(""+points,305,85,20,writer);
                     //category                    
-                    this.addText(category,464,440,24,writer);
+                    this.addText(category,464,400,24,writer);
                     //date
                     Date date = participant.getVanencompetition().getDate();
                     String stringDate=sdf.format(date);
                     this.addText(stringDate,780,25,8,writer);
                     //start points
-                    this.addText("10",470,95,20,writer);
+                    this.addText("10",480,85,20,writer);
 
                     if (participant.getPoints() != null && participant.getPoints() >= 10) {
                         int newPoints = points + participant.getPoints();
