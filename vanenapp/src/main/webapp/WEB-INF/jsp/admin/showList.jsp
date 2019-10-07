@@ -36,6 +36,7 @@
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAge"/>'>Deelnemende Karateka's gesorteerd op Leeftijd</a><br/>
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByBeltAge"/>'>Deelnemende Karateka's gesorteerd op Band en Leeftijd</a><br/>  
             <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsSortByAgeBelt"/>'>Deelnemende Karateka's gesorteerd op Leeftijd en Band</a><br/>
+            <a href='<stripes:url beanclass="com.roybraam.vanenapp.stripes.ListActionBean" event="listParticipantsWitMemberNumber"/>'>Deelnemende Karateka's met KBN nummer</a><br/>
         </div>
         <div>
             <h2>Kata</h2>

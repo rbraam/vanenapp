@@ -1,4 +1,5 @@
-<%-- 
+
+<%--
     Document   : list
     Created on : Sep 9, 2013, 7:14:52 AM
     Author     : Roy Braam
@@ -27,7 +28,13 @@
             
             
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
+                <c:if test="${actionbean.withClub}">
+                    <c:out value="${l.karateka.club}"/>
+                </c:if>
                 <c:out value="${l}"/>
+                <c:if test="${actionbean.withMemberNumber}">
+                    <c:out value="${l.karateka.memberNumber}"/>
+                </c:if>
                 <script type="text/javascript">
                     var years=ageCalc.getAge("${l.karateka.birthdate}");
                     document.write("("+years+")");

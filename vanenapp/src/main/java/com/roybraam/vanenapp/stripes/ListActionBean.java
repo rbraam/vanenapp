@@ -34,6 +34,10 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     @Validate
     private List resultList = new ArrayList();
     @Validate
+    private Boolean withMemberNumber = false;
+    @Validate
+    private Boolean withClub = false;
+    @Validate
     private String competitionType = null;
     @Validate(mask = "gender")
     private String orderBy=null;
@@ -58,6 +62,12 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
 
     public Resolution listParticipants() {
         return list("from Participant where vanencompetition= :v","type,karateka.surname,karateka.name");
+    }
+
+    public Resolution listParticipantsWitMemberNumber() {
+        this.setWithMemberNumber(Boolean.TRUE);
+        this.setWithClub(Boolean.TRUE);
+        return list("from Participant where vanencompetition= :v","karateka.club,karateka.surname,karateka.name");
     }
 
     public Resolution listParticipantsSortByBelt() {
@@ -148,7 +158,23 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     public void setResultList(List resultList) {
         this.resultList = resultList;
     }
-    
+
+    public Boolean getWithMemberNumber() {
+        return withMemberNumber;
+    }
+
+    public void setWithMemberNumber(Boolean withMemberNumber) {
+        this.withMemberNumber = withMemberNumber;
+    }
+
+    public Boolean getWithClub() {
+        return withClub;
+    }
+
+    public void setWithClub(Boolean withClub) {
+        this.withClub = withClub;
+    }
+
     public String getCompetitionType() {
         return competitionType;
     }
