@@ -22,9 +22,11 @@
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
         <c:forEach varStatus="stat" items="${actionBean.resultList}" var="l">
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
-                <c:out value="${l.karateka.club}"/>
-                <c:out value="${l}"/>
-                <c:out value="${l.karateka.memberNumber}"/>
+                <c:out value="${l.karateka.surname}"/>,
+                <c:out value="${l.karateka.name}"/>
+                <c:out value="${l.karateka.insert}"/>
+                <b><c:out value="${l.karateka.memberNumber}"/></b>
+                (<c:out value="${l.karateka.club}"/>)
             </c:if>
             <br/>
         </c:forEach>        
