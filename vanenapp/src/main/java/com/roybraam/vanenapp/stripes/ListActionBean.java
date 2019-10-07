@@ -31,12 +31,13 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     private static final Log log = LogFactory.getLog(ListActionBean.class);
     private String JSP = "/WEB-INF/jsp/admin/showList.jsp";
     private String LIST_JSP = "/WEB-INF/jsp/admin/list.jsp";
+    private String KBN_LIST_JSP = "/WEB-INF/jsp/admin/kbnList.jsp";
     @Validate
     private List resultList = new ArrayList();
     @Validate
-    private Boolean withMemberNumber = false;
+    private boolean withMemberNumber = false;
     @Validate
-    private Boolean withClub = false;
+    private boolean withClub = false;
     @Validate
     private String competitionType = null;
     @Validate(mask = "gender")
@@ -64,10 +65,8 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
         return list("from Participant where vanencompetition= :v","type,karateka.surname,karateka.name");
     }
 
-    public Resolution listParticipantsWitMemberNumber() {
-        this.setWithMemberNumber(Boolean.TRUE);
-        this.setWithClub(Boolean.TRUE);
-        return list("from Participant where vanencompetition= :v","karateka.club,karateka.surname,karateka.name");
+    public Resolution listParticipantsWithMemberNumber() {
+        return list("from Participant where vanencompetition= :v","karateka.club,karateka.surname,karateka.name", KBN_LIST_JSP);
     }
 
     public Resolution listParticipantsSortByBelt() {
@@ -97,13 +96,19 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
     public Resolution listPoules() {
         return list("from Poule where vanencompetition = :v","type,startKyu");
     }
-    /**
-     * Execute query and return in the result list of the resolution
-     * @param query the from - where statement
-     * @param orderBy comma seperated list of columns for order by part
-     * @return Resolution, the result list is filled.
-     */
-    private Resolution list(String query,String orderBy) {
+
+
+    private Resolution list(String query, String orderBy) {
+        return this.list(query, orderBy, LIST_JSP);
+    }
+
+        /**
+         * Execute query and return in the result list of the resolution
+         * @param query the from - where statement
+         * @param orderBy comma seperated list of columns for order by part
+         * @return Resolution, the result list is filled.
+         */
+    private Resolution list(String query,String orderBy, String forwardJsp) {
         if (this.getVanencompetition() == null) {
             setNoVanencompetitionMessage();
             return this.getChooseVanencompetitionResolution();
@@ -141,7 +146,7 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
         }
         q.setParameter("v", this.getVanencompetition()).getResultList();
         this.resultList = q.getResultList();
-        return new ForwardResolution(LIST_JSP);
+        return new ForwardResolution(forwardJsp);
     }
 
     private String createAgePart(){
@@ -163,15 +168,15 @@ public class ListActionBean extends OrganizeVanencompetitionActionBean {
         return withMemberNumber;
     }
 
-    public void setWithMemberNumber(Boolean withMemberNumber) {
+    public void setWithMemberNumber(boolean withMemberNumber) {
         this.withMemberNumber = withMemberNumber;
     }
 
-    public Boolean getWithClub() {
+    public boolean getWithClub() {
         return withClub;
     }
 
-    public void setWithClub(Boolean withClub) {
+    public void setWithClub(boolean withClub) {
         this.withClub = withClub;
     }
 

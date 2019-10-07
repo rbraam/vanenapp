@@ -25,12 +25,7 @@
         <a href="#" onclick="javascript: window.print()">Print</a><br/>
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
         <c:forEach varStatus="stat" items="${actionBean.resultList}" var="l">
-            
-            
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
-                <c:if test="${actionbean.withClub}">
-                    <c:out value="${l.karateka.club}"/>
-                </c:if>
                 <c:out value="${l}"/>
                 <c:if test="${actionbean.withMemberNumber}">
                     <c:out value="${l.karateka.memberNumber}"/>
