@@ -16,19 +16,35 @@
         <link href="${contextPath}/resources/css/printpoule.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="${contextPath}/extjs/ext-all.js"></script>
         <script type="text/javascript" src="${contextPath}/extjs/locale/ext-lang-nl.js"></script>
+        <style>
+            thead {
+                font-weight: bold;
+            }
+            table, th, td {
+                border: 0;
+            }
+        </style>
     </head>
     <body>
         <a href="#" onclick="javascript: window.print()">Print</a><br/>
         <h1><c:out value="${actionBean.vanencompetition}"/></h1>
+        <table>
+            <thead>
+                <td>Naam</td>
+                <td>KBN lidmaatschap</td>
+                <td>Sportschool</td>
+            </thead>
+            <tbody>
         <c:forEach varStatus="stat" items="${actionBean.resultList}" var="l">
+            <tr>
             <c:if test="${l['class'] =='class com.roybraam.vanenapp.entity.Participant'}">
-                <c:out value="${l.karateka.surname}"/>,
-                <c:out value="${l.karateka.name}"/>
-                <c:out value="${l.karateka.insert}"/>
-                <b><c:out value="${l.karateka.memberNumber}"/></b>
-                (<c:out value="${l.karateka.club}"/>)
+                <td><c:out value="${l.karateka.surname}"/>, <c:out value="${l.karateka.name}"/> <c:out value="${l.karateka.insert}"/></td>
+                <td><c:out value="${l.karateka.memberNumber}"/></td>
+                <td><c:out value="${l.karateka.club}"/></td>
             </c:if>
-            <br/>
-        </c:forEach>        
+            </tr>
+        </c:forEach>
+            </tbody>
+        </table>
     </body>
 </html>
